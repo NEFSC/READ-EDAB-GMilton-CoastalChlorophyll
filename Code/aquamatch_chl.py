@@ -13,16 +13,13 @@ warnings.filterwarnings('ignore', category=pd.errors.SettingWithCopyWarning)
 warnings.filterwarnings('ignore', category=FutureWarning)
 import geopandas as gpd
 
-
 # start
 aqua_match1 = pd.read_excel(r'C:\Users\gianna.milton\Documents\Python\one off cruises\AquaMatch_chl.xlsx') #read in datafile
 
-#to remove inland data, since only coastal data is needed, use shapefile from U.S. regional Fishery Managment Councils 
-#link to shapefile: http://arcgis.com/home/item.html?id=84cbbc49011b49e1b959a7b6a7a0d339
-shp = gpd.read_file('20210609_fishery_management_council_regions.shp')
-gdf = gpd.GeoDataFrame(aqua_match1, geometry=gpd.points_from_xy(aqua_match1.lon, aqua_match1.lat), crs="EPSG:4269")
-gdf = gdf.to_crs(shp.crs)
-aqua_match1 = gpd.clip(gdf,shp)
+shp1 = gpd.read_file(r'C:\Users\gianna.milton\Documents\Python\Shapefiles\combined_coastline.shp')
+gdf1 = gpd.GeoDataFrame(aqua_match1, geometry=gpd.points_from_xy(aqua_match1.lon, aqua_match1.lat), crs="EPSG:4269")
+gdf1 = gdf1.to_crs(shp1.crs)
+aqua_match1 = gpd.clip(gdf1,shp1)
 
 #reduce dataframe to only needed columns for easier manipulation and rename columns to match seabass file structure
 aqua_match1=aqua_match1[[ 'OrganizationIdentifier','field_flag','tier', 'harmonized_utc', 'harmonized_discrete_depth_value',  'harmonized_value', 'lat','lon']]
@@ -110,5 +107,4 @@ aqua_match1['investigators']= 'Brousil, Matthew R'
 aqua_match1['url']='https://doi.org/10.6073/pasta/2f750544112e5408928dd9a61e6ace30'
 aqua_match1['datetime'] = aqua_match1['datetime'].dt.tz_localize(None) 
 
-aqua_match1.to_excel('aquamatch_chl_qc.xlsx', index = False)
-
+aqua_match1.to_excel('aquamatch_chl_na.xlsx', index = False) #north america
