@@ -57,9 +57,6 @@ def get_folder_names(folder_path):
     if os.path.isdir(item_path):
       folder_names.append(item)
   return folder_names
-
-path_to_folder = 'west_coast\requested_files_1\requested_files' #NOTE: there are usually multiple requested_files, this is where you would manually loop thru them
-all_folders = get_folder_names(path_to_folder)
 #there can be thousands of columns to append in some of these .sb files. so create a selected_columns variable that will only append the needed columns to include 
 selected_columns =['lat','lon','year','month','day','hour','minute','second','time','date','datetime', 'chl','Allo', 'alpha-beta-car', 'anth', 'asta', 'bchl_a',
                    'beta-beta-car', 'beta-epi-car', 'beta-psi-car', 'but-fuco', 'cantha', 'chl_a', 'chl_a_allom', 'chl_a_prime','chl_b', 'chl_c', 'chl_c1', 
@@ -68,6 +65,10 @@ selected_columns =['lat','lon','year','month','day','hour','minute','second','ti
                    'lyco', 'me-chlide_a','me-chlide_b', 'mg_dvp', 'monado', 'mv_chl_a', 'mv_chl_b', 'neo', 'p-457', 'perid', 'phide_a', 'phide_b', 'phide_c',
                    'phytin_a','phytin_b', 'phytin_c',' phytyl-chl_c', 'pras', 'pyrophide_a', 'pyrophytin_a', 'pyrophytin_b', 'pyrophytin_c', 'siphn', 'siphx', 
                    'tot_chl_a', 'tot_chl_b', 'tot_chl_c', 'vauch', 'viola', 'zea','depth','station']
+
+#alaska1,2. Eastcoast1,2,3. Gom, hawaii,, west coast1,2
+path_to_folder = r'C:\Users\gianna.milton\Documents\Python\SeaBass\data\SB_products\west_coast\requested_files_2\requested_files' #NOTE: there are usually multiple requested_files, this is where you would manually loop thru them
+all_folders = get_folder_names(path_to_folder)
 
 for folders in range(len(all_folders)): #for each affiliation folder in all_folders
     f_list1 =   path_to_folder +'\\'+str(all_folders[folders]) #create path to that specific folder 
@@ -217,6 +218,8 @@ east_coast = pd.concat([east1,east2,east3])
 east_coast=east_coast[['datetime', 'lat', 'lon', 'chl', 'station', 'affiliations', 'investigators', 'contact', 'experiment', 'cruise', 'data_type',
         'water_depth', 'measurement_depth', 'water_depth ', 'depth', 'identifier_product_doi', 'instrument_name', 'instrument', 'time_flag', 
         'coord_flag',  'hplc_lab', 'chl_a', 'sequence_number','sample','data_file_name','HPLC']]
+east_coast = east_coast[east_coast['experiment'] != 'GulfOfMaine'] #remove this experiment since it's mislabled and should be chl_stimf
+
 
 #alaska
 alas1= pd.concat(dfs_to_concat, ignore_index=True)
@@ -247,11 +250,11 @@ west_coast=west_coast[['datetime', 'station', 'depth', 'lat', 'lon', 'identifier
         'chl', 'hplc_lab', 'data_file_name','HPLC']]
 
 
-shp = gpd.read_file(r'C:\Users\gianna.milton\Documents\Python\Shapefiles\Hawaii_Caribbean\20210609_fishery_management_council_regions.shp')
+shp = gpd.read_file(r'C:\Users\gianna.milton\Documents\Python\Shapefiles\combined_coastline.shp')
 gdf = gpd.GeoDataFrame(west_coast, geometry=gpd.points_from_xy(west_coast.lon, west_coast.lat), crs="EPSG:4269")
 gdf = gdf.to_crs(shp.crs)
 west_coast = gpd.sjoin(gdf, shp, how="inner", predicate="within")
-columns_to_drop = ['geometry','index_right', 'Shape__Are', 'Shape__Len','FishRegion']
+columns_to_drop = ['geometry', 'index_right', 'merge_id']
 west_coast = west_coast.drop(columns=columns_to_drop)
 west_coast= west_coast.reset_index(drop=True)
 
@@ -286,12 +289,7 @@ haw.to_excel('raw_haw_SB.xlsx', index = False)
 
 #westcoast
 #west coast dataframe is too large to save as single, need to seperate into 2
-df_parts = np.array_split(west_coast, 2)
-df1 = df_parts[0]
-df2 = df_parts[1]
-df1.to_excel('raw_west_SB1.xlsx', index = False)
-df2.to_excel('raw_west_SB2.xlsx', index = False)
-
+west_coast.to_excel('raw_west_SB.xlsx', index = False)
 
 
 
@@ -339,9 +337,9 @@ west = df.copy()
 
 #once all datasets loaded in, need to take out any repeats. put all dataframes into single dataframe and take out dubplicates 
 all_data = pd.concat([alas,east, gom,hawaii,west], axis=0) 
-all_data = all_data.drop_duplicates()
+all_data = all_data.drop_duplicates()#265715->253719
 
-all_data.to_excel('allchl_SB_tripFLAGS.xlsx', index = False) #sb data with HPLC and Triplicate flags, without any repeats
+all_data.to_excel('SB_chl_na.xlsx', index = False) #sb data with HPLC and Triplicate flags, without any repeats
 
 
 
