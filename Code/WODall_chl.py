@@ -25,6 +25,11 @@ https://www.ncei.noaa.gov/access/world-ocean-database/wod-codes.html for specifi
 import pandas
 import pandas as pd
 import warnings
+import matplotlib.pyplot as plt
+import cartopy
+import cartopy.feature as cfeature
+from cartopy.mpl.gridliner import LONGITUDE_FORMATTER, LATITUDE_FORMATTER
+import geopandas as gpd
 warnings.filterwarnings('ignore', category=pd.errors.SettingWithCopyWarning)
 warnings.filterwarnings('ignore', category=FutureWarning)
 import geopandas as gpd
@@ -141,18 +146,8 @@ wod_1['triplicate'] = 1 #assume bad unless otherwise said
 wod_1.loc[wod_1['freq_uniq'] == 3, 'triplicate'] = 0 #if there was a unique datetime, lat, and lon that happened 3 times, triplicate
 wod_1.loc[(wod_1['freq_uniq'] == 1) &(wod_1['freq_hour'] == 3), 'triplicate'] =0 #if 1 unique datetime and 3 unique date_hours, assume triplicate
 
-#since only US data is needed, use shapefile from U.S. regional Fishery Managment Councils 
-#link to shapefile: http://arcgis.com/home/item.html?id=84cbbc49011b49e1b959a7b6a7a0d339
-shp = gpd.read_file('20210609_fishery_management_council_regions.shp')
-gdf = gpd.GeoDataFrame(wod_1, geometry=gpd.points_from_xy(wod_1.lon, wod_1.lat), crs="EPSG:4269")
-gdf = gdf.to_crs(shp.crs)
-wod_1 = gpd.sjoin(gdf, shp, how="inner", predicate="within")
-columns_to_drop = ['geometry','index_right', 'Shape__Are', 'Shape__Len','FishRegion'] #drop shapefile related columns
-wod_1 = wod_1.drop(columns=columns_to_drop)
-wod_1= wod_1.reset_index(drop=True)
-
 #second raw dataset
-wod_2 = wod_df('ocldb1761586645.2754592.OSD.xlsx')
+wod_2 = wod_df(r'C:\Users\gianna.milton\Documents\Python\WOD\WOD_round2_raw\ocldb1761586645.2754592.OSD.xlsx')
 wod_2=wod_2[wod_2['Project'] != '33'] #take out CalCOFI since appended elsewhere
 wod_2=wod_2[wod_2['Project'] != '301'] #take out HOTS since appended elsewhere
 wod_2=wod_2.rename(columns={'Depth (m)':'depth','Longitude':'lon','Latitude':'lat','Chlorophyll (ug/l)':'chl'})
@@ -183,17 +178,9 @@ wod_2['triplicate'] = 1 #assume bad unless otherwise said
 wod_2.loc[wod_2['freq_uniq'] == 3, 'triplicate'] = 0 #if there was a unique datetime, lat, and lon that happened 3 times, triplicate
 wod_2.loc[(wod_2['freq_uniq'] == 1) &(wod_2['freq_hour'] == 3), 'triplicate'] = 0 #if 1 unique datetime recorded and only 3 for datehour, assume triplicate 
 
-shp = gpd.read_file('20210609_fishery_management_council_regions.shp')
-gdf = gpd.GeoDataFrame(wod_2, geometry=gpd.points_from_xy(wod_2.lon, wod_2.lat), crs="EPSG:4269")
-gdf = gdf.to_crs(shp.crs)
-wod_2 = gpd.sjoin(gdf, shp, how="inner", predicate="within")
-columns_to_drop = ['geometry','index_right', 'Shape__Are', 'Shape__Len','FishRegion']
-wod_2 = wod_2.drop(columns=columns_to_drop)
-wod_2= wod_2.reset_index(drop=True)
-
 #don't run ocldb1761586645.2754592.PFL.xlsx since it's only invivo 
 
-wod_3 = wod_df('ocldb1761586645.2754592.CTD.xlsx')
+wod_3 = wod_df(r'C:\Users\gianna.milton\Documents\Python\WOD\WOD_round2_raw\ocldb1761586645.2754592.CTD.xlsx')
 wod_3=wod_3[wod_3['Project'] != '301'] #take out HOTS 
 wod_3=wod_3[wod_3['Project'] != '637'] #take out ECOMON since running it later
 
@@ -219,15 +206,6 @@ wod_3 = pd.merge(wod_3, counts_df, on=['CAST','depth','date_hour','lat','lon'], 
 wod_3['triplicate'] = 1 #assume bad unless otherwise said
 wod_3.loc[wod_3['freq_uniq'] == 3, 'triplicate'] = 0 
 wod_3.loc[(wod_3['freq_uniq'] == 1) &(wod_3['freq_hour'] == 3), 'triplicate'] =0 
-
-shp = gpd.read_file('20210609_fishery_management_council_regions.shp')
-gdf = gpd.GeoDataFrame(wod_3, geometry=gpd.points_from_xy(wod_3.lon, wod_3.lat), crs="EPSG:4269")
-gdf = gdf.to_crs(shp.crs)
-wod_3 = gpd.sjoin(gdf, shp, how="inner", predicate="within")
-columns_to_drop = ['geometry','index_right', 'Shape__Are', 'Shape__Len','FishRegion']
-wod_3 = wod_3.drop(columns=columns_to_drop)
-wod_3= wod_3.reset_index(drop=True)
-
 
 #WOD_4
 wod_4 = wod_df(r'C:\Users\gianna.milton\Documents\Python\WOD\WOD_round2_raw\ocldb1761586645.2754592.CTD2.xlsx')
@@ -255,16 +233,8 @@ wod_4['triplicate'] = 1 #assume bad unless otherwise said
 wod_4.loc[wod_4['freq_uniq'] == 3, 'triplicate'] = 0 
 wod_4.loc[(wod_4['freq_uniq'] == 1) &(wod_4['freq_hour'] == 3), 'triplicate'] = 0 
 
-shp = gpd.read_file('20210609_fishery_management_council_regions.shp')
-gdf = gpd.GeoDataFrame(wod_4, geometry=gpd.points_from_xy(wod_4.lon, wod_4.lat), crs="EPSG:4269")
-gdf = gdf.to_crs(shp.crs)
-wod_4 = gpd.sjoin(gdf, shp, how="inner", predicate="within")
-columns_to_drop = ['geometry','index_right', 'Shape__Are', 'Shape__Len','FishRegion']
-wod_4 = wod_4.drop(columns=columns_to_drop)
-wod_4= wod_4.reset_index(drop=True)
-
 #ECOMON
-wod_ecomon = wod_df('ocldb1761249916.1960703.CTD.xlsx')
+wod_ecomon = wod_df(r'C:\Users\gianna.milton\Documents\Python\WOD\ocldb1761249916.1960703.CTD.csv\ocldb1761249916.1960703.CTD.xlsx')
 wod_ecomon['HPLC']=1 
 wod_ecomon=wod_ecomon.rename(columns={'Depth (m)':'depth','Longitude':'lon','Latitude':'lat','Chlorophyll (ug/l)':'chl'})
 wod_ecomon=wod_ecomon.loc[wod_ecomon['depth']<=150].reset_index(drop=True) 
@@ -285,13 +255,6 @@ wod_ecomon['triplicate'] = 1
 wod_ecomon.loc[wod_ecomon['freq_uniq'] == 3, 'triplicate'] = 0 
 wod_ecomon.loc[(wod_ecomon['freq_uniq'] == 1) &(wod_ecomon['freq_hour'] == 3), 'triplicate'] = 0
 
-shp = gpd.read_file('20210609_fishery_management_council_regions.shp')
-gdf = gpd.GeoDataFrame(wod_ecomon, geometry=gpd.points_from_xy(wod_ecomon.lon, wod_ecomon.lat), crs="EPSG:4269")
-gdf = gdf.to_crs(shp.crs)
-wod_ecomon = gpd.sjoin(gdf, shp, how="inner", predicate="within")
-columns_to_drop = ['geometry','index_right', 'Shape__Are', 'Shape__Len','FishRegion']
-wod_ecomon = wod_ecomon.drop(columns=columns_to_drop)
-wod_ecomon= wod_ecomon.reset_index(drop=True)
 #concatinate into 1 dataframe
 dfs = [wod_1,wod_2,wod_3,wod_4,wod_ecomon]
 wod_all = pd.concat(dfs)
@@ -299,6 +262,30 @@ wod_all=wod_all[['datetime', 'lat', 'lon', 'chl', 'depth', 'CAST','Originators C
        'Investigator', 'HPLC', 'triplicate']]
 wod_all = wod_all.rename(columns={'Originators Cruise ID':'cruise','Project':'experiment','Institute':'affiliations','Investigator':'investigators'})
 
+shp = gpd.read_file(r'C:\Users\gianna.milton\Documents\Python\Shapefiles\combined_coastline.shp')
+gdf = gpd.GeoDataFrame(wod_all, geometry=gpd.points_from_xy(wod_all.lon, wod_all.lat), crs="EPSG:4269")
+gdf = gdf.to_crs(shp.crs)
+wod_all = gpd.sjoin(gdf, shp, how="inner", predicate="within")
+columns_to_drop = ['geometry', 'index_right', 'merge_id']
+wod_all = wod_all.drop(columns=columns_to_drop)
+wod_all= wod_all.reset_index(drop=True)
+
+fig=plt.figure(figsize=(12, 12))
+axs1=fig.add_subplot(1,1,1,projection= cartopy.crs.PlateCarree())
+axs1.add_feature(cfeature.LAND)
+axs1.add_feature(cfeature.OCEAN)
+axs1.add_feature(cfeature.BORDERS)
+im=axs1.scatter(wod_all.lon,wod_all.lat,s=10)
+gl=axs1.gridlines(linewidth=0.2,color='grey',alpha=0.5,linestyle='-',
+                draw_labels=True, x_inline= False,y_inline=False)
+gl.xformatter=LONGITUDE_FORMATTER
+gl.yformatter=LATITUDE_FORMATTER
+gl.top_labels = False    # Disable top labels
+gl.right_labels = False  # Disable right labels
+axs1.set_xlim(-180,-65)
+cb=fig.colorbar(im,ax=axs1,orientation='horizontal')
+
+
 #save as xlsx 
-wod_all.to_excel('wod_chl_qc.xlsx', index = False)
+wod_all.to_excel('wod_chl_na.xlsx', index = False)
 
