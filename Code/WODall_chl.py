@@ -43,6 +43,7 @@ def wod_df(excel_file):
     return: dataframe with unique columns for each variable/ metadata 
     '''
     WOD_raw = pd.read_excel(excel_file, header=None) #load in that excel file 
+    WOD_raw[0] = WOD_raw[0].str.lower() #since there are some inconsistancies with column cases, put everything as lower case
     #identify cast_blocks (rows between '#' and 'END OF VARIABLES SECTION')
     cast_blocks = []
     start_idx = None #to track the start of the index
@@ -50,12 +51,12 @@ def wod_df(excel_file):
     #first, identify and record the index positions of the cast blocks, i.e. the start and end of each cast
     for idx, row in WOD_raw.iterrows(): #for every row
         first_cell = str(row[0]) if pd.notna(row[0]) else "" #the first cell of the row (as long as it exists)
-        if first_cell.startswith("#") and "END OF VARIABLES SECTION" not in first_cell: #if it's the start of the cast and NOT the end
+        if first_cell.startswith("#") and "end of variables section" not in first_cell: #if it's the start of the cast and NOT the end
             if start_idx is not None:
                 cast_blocks.append((start_idx, idx)) #if the first cell is #, record the start indx
             start_idx = idx #start of the new cast
         
-        elif "END OF VARIABLES SECTION" in first_cell: #if it's the end of a cast, record the index
+        elif "end of variables section" in first_cell: #if it's the end of a cast, record the index
             if start_idx is not None:
                 cast_blocks.append((start_idx, idx)) #append this index as the end
                 start_idx = None
@@ -72,10 +73,10 @@ def wod_df(excel_file):
             row_values = row.dropna().astype(str).tolist() #convert to string
             if not row_values: #skip all empty rows 
                 continue
-            if "VARIABLES" in row_values[0]: #if the start of the varibale section, turn to true
+            if "variables" in row_values[0]: #if the start of the varibale section, turn to true
                 variable_data_started = True
                 continue
-            if "END OF VARIABLES SECTION" in row_values[0]: #if at the end, break and go back to for loop
+            if "end of variables section" in row_values[0]: #if at the end, break and go back to for loop
                 break
     
     
@@ -84,33 +85,36 @@ def wod_df(excel_file):
                 if len(row_values) > 1: #if we are in the metadata section
                     value = row_values[1].strip() #take from column 2
                     metadata[key] = value #save as metadata
+                    #metadata.columns.str.lower()
+
             else: #if in variable row
                 try:
                     if row_values[0].isdigit() and len(row_values) >= 6: 
                         depth = float(row_values[1]) #append depth
                         chl = float(row_values[4]) # append chlorophyll
                         variable_data.append((depth, chl))
+                        #variable_data.columns.str.lower()
                 except:
                     continue
     
         #append metadata and variables
         for depth, chl in variable_data: #for this row of variables, rename, then append to the dataframe
             row = metadata.copy()
-            row["Depth (m)"] = depth
-            row["Chlorophyll (ug/l)"] = chl
+            row["depth (m)"] = depth
+            row["chlorophyll (ug/l)"] = chl
             all_data.append(row)
-    
+   
     df = pd.DataFrame(all_data)
     #create datetime
-    df["datetime"] = pd.to_datetime(df[["Year", "Month", "Day"]]) + df["Time"].apply(lambda t: timedelta(hours=float(t)) if pd.notnull(t) else pd.NaT)
+    df["datetime"] = pd.to_datetime(df[["year", "month", "day"]]) + df["time"].apply(lambda t: timedelta(hours=float(t)) if pd.notnull(t) else pd.NaT)
     return df
 
 #run first raw dataset
 wod_1 = wod_df(r'C:\Users\gianna.milton\Documents\Python\WOD\ocldb1748619702.620293.OSD.csv\ocldb1748619702.620293.OSD.xlsx')
-wod_1=wod_1[wod_1['Project'] != '33'] #take out CalCOFI values since appended elsewhere
-wod_1=wod_1[wod_1['Project'] != '301'] #take out HOTS values since appended elsewhere
+wod_1=wod_1[wod_1['project'] != '33'] #take out CalCOFI values since appended elsewhere
+wod_1=wod_1[wod_1['project'] != '301'] #take out HOTS values since appended elsewhere
 
-wod_1=wod_1.rename(columns={'Depth (m)':'depth','Longitude':'lon','Latitude':'lat','Chlorophyll (ug/l)':'chl'})
+wod_1=wod_1.rename(columns={'depth (m)':'depth','longitude':'lon','latitude':'lat','chlorophyll (ug/l)':'chl'})
 #for this project, only want top 150 meters
 wod_1=wod_1.loc[wod_1['depth']<=150].reset_index(drop=True) 
 wod_1.lon= wod_1.lon.astype(float)
@@ -127,20 +131,20 @@ wod_1.chl=wod_1.chl.astype(float)
 
 #Begin flagging
 wod_1['HPLC']=1 #assume all points are not hplc
-wod_1.loc[wod_1['Project'] == '412', 'HPLC'] = 0 
-wod_1.loc[wod_1['Project'] == '311', 'HPLC'] = 0
-wod_1=wod_1[[ 'datetime','lat', 'lon','chl','depth','CAST','Originators Cruise ID', 'Project','Institute','Instrument', 'Investigator', 'HPLC']]
+wod_1.loc[wod_1['project'] == '412', 'HPLC'] = 0 
+wod_1.loc[wod_1['project'] == '311', 'HPLC'] = 0
+wod_1=wod_1[[ 'datetime','lat', 'lon','chl','depth','cast','originators cruise id', 'project','institute','instrument', 'investigator', 'HPLC','accession number']]
 
 # triplicate flag
-counts_series = wod_1[['CAST','depth','datetime','lat','lon']].value_counts() #count how many unique cast,depth, datetime, lat, and lons there are
+counts_series = wod_1[['cast','depth','datetime','lat','lon']].value_counts() #count how many unique cast,depth, datetime, lat, and lons there are
 counts_df = counts_series.reset_index(name='freq_uniq')
-wod_1 = pd.merge(wod_1, counts_df, on=['CAST','depth','datetime','lat','lon'], how='left') #add frequency column to original dataframe
+wod_1 = pd.merge(wod_1, counts_df, on=['cast','depth','datetime','lat','lon'], how='left') #add frequency column to original dataframe
 
 #sometimes, triplicate specific times are recorded (ex: 3:00, 3:05, 3:10 ), so also check for unique datehour entries
 wod_1['date_hour'] = wod_1['datetime'].dt.strftime('%Y-%m-%d %H')
-counts_series = wod_1[['CAST','depth','date_hour','lat','lon']].value_counts() #count how many unique datehour, lat, and lons there are
+counts_series = wod_1[['cast','depth','date_hour','lat','lon']].value_counts() #count how many unique datehour, lat, and lons there are
 counts_df = counts_series.reset_index(name='freq_hour')
-wod_1 = pd.merge(wod_1, counts_df, on=['CAST','depth','date_hour','lat','lon'], how='left') #add frequency column to original dataframe
+wod_1 = pd.merge(wod_1, counts_df, on=['cast','depth','date_hour','lat','lon'], how='left') #add frequency column to original dataframe
 
 wod_1['triplicate'] = 1 #assume bad unless otherwise said
 wod_1.loc[wod_1['freq_uniq'] == 3, 'triplicate'] = 0 #if there was a unique datetime, lat, and lon that happened 3 times, triplicate
@@ -148,9 +152,9 @@ wod_1.loc[(wod_1['freq_uniq'] == 1) &(wod_1['freq_hour'] == 3), 'triplicate'] =0
 
 #second raw dataset
 wod_2 = wod_df(r'C:\Users\gianna.milton\Documents\Python\WOD\WOD_round2_raw\ocldb1761586645.2754592.OSD.xlsx')
-wod_2=wod_2[wod_2['Project'] != '33'] #take out CalCOFI since appended elsewhere
-wod_2=wod_2[wod_2['Project'] != '301'] #take out HOTS since appended elsewhere
-wod_2=wod_2.rename(columns={'Depth (m)':'depth','Longitude':'lon','Latitude':'lat','Chlorophyll (ug/l)':'chl'})
+wod_2=wod_2[wod_2['project'] != '33'] #take out CalCOFI since appended elsewhere
+wod_2=wod_2[wod_2['project'] != '301'] #take out HOTS since appended elsewhere
+wod_2=wod_2.rename(columns={'depth (m)':'depth','longitude':'lon','latitude':'lat','chlorophyll (ug/l)':'chl'})
 wod_2=wod_2.loc[wod_2['depth']<=150].reset_index(drop=True) 
 wod_2.lon= wod_2.lon.astype(float)
 wod_2.lat= wod_2.lat.astype(float)
@@ -162,17 +166,17 @@ wod_2.chl=wod_2.chl.astype(float)
 # 412 ->MMS/NORTHEAST GULF OF MEXICO PHYS OCEANOGRAPHIC PROGRAM (NEGOM) https://digital.library.unt.edu/ark:/67531/metadc955363/m2/1/high_res_d/3084.pdf yes HPLC
 #Begin flagging
 wod_2['HPLC']=1 #assume all points are not hplc
-wod_2.loc[wod_2['Project'] == '412', 'HPLC'] = 0
-wod_2=wod_2[[ 'datetime','lat', 'lon','chl','depth','CAST','Originators Cruise ID', 'Project','Institute','Instrument', 'Investigator', 'HPLC']]
+wod_2.loc[wod_2['project'] == '412', 'HPLC'] = 0
+wod_2=wod_2[[ 'datetime','lat', 'lon','chl','depth','cast','originators cruise id', 'project','institute','instrument', 'investigator', 'HPLC','accession number']]
 
 #triplicate flag
-counts_series = wod_2[['CAST','depth','datetime','lat','lon']].value_counts() 
+counts_series = wod_2[['cast','depth','datetime','lat','lon']].value_counts() 
 counts_df = counts_series.reset_index(name='freq_uniq')
-wod_2 = pd.merge(wod_2, counts_df, on=['CAST','depth','datetime','lat','lon'], how='left') 
+wod_2 = pd.merge(wod_2, counts_df, on=['cast','depth','datetime','lat','lon'], how='left') 
 wod_2['date_hour'] = wod_2['datetime'].dt.strftime('%Y-%m-%d %H')
-counts_series = wod_2[['CAST','depth','date_hour','lat','lon']].value_counts() 
+counts_series = wod_2[['cast','depth','date_hour','lat','lon']].value_counts() 
 counts_df = counts_series.reset_index(name='freq_hour')
-wod_2 = pd.merge(wod_2, counts_df, on=['CAST','depth','date_hour','lat','lon'], how='left') 
+wod_2 = pd.merge(wod_2, counts_df, on=['cast','depth','date_hour','lat','lon'], how='left') 
 
 wod_2['triplicate'] = 1 #assume bad unless otherwise said
 wod_2.loc[wod_2['freq_uniq'] == 3, 'triplicate'] = 0 #if there was a unique datetime, lat, and lon that happened 3 times, triplicate
@@ -181,27 +185,27 @@ wod_2.loc[(wod_2['freq_uniq'] == 1) &(wod_2['freq_hour'] == 3), 'triplicate'] = 
 #don't run ocldb1761586645.2754592.PFL.xlsx since it's only invivo 
 
 wod_3 = wod_df(r'C:\Users\gianna.milton\Documents\Python\WOD\WOD_round2_raw\ocldb1761586645.2754592.CTD.xlsx')
-wod_3=wod_3[wod_3['Project'] != '301'] #take out HOTS 
-wod_3=wod_3[wod_3['Project'] != '637'] #take out ECOMON since running it later
+wod_3=wod_3[wod_3['project'] != '301'] #take out HOTS 
+wod_3=wod_3[wod_3['project'] != '637'] #take out ECOMON since running it later
 
 #121 ->SOUTHEAST AREA MONITORING AND ASSESSMENT PROGRAM (SEAMAP) https://www.gsmfc.org/seamap-gomrs, no hplc
 #597 ->HYPOXIA STUDIES IN THE NORTHERN GULF OF MEXICO, no hplc 
 wod_3['HPLC']=1
 
-wod_3=wod_3.rename(columns={'Depth (m)':'depth','Longitude':'lon','Latitude':'lat','Chlorophyll (ug/l)':'chl'})
+wod_3=wod_3.rename(columns={'depth (m)':'depth','longitude':'lon','latitude':'lat','chlorophyll (ug/l)':'chl'})
 wod_3=wod_3.loc[wod_3['depth']<=150].reset_index(drop=True) 
 wod_3.lon= wod_3.lon.astype(float)
 wod_3.lat= wod_3.lat.astype(float)
 wod_3.chl=wod_3.chl.astype(float)
 
-wod_3=wod_3[[ 'datetime','lat', 'lon','chl','depth','CAST','Originators Cruise ID', 'Project','Institute','Instrument', 'Investigator', 'HPLC']]
-counts_series = wod_3[['CAST','depth','datetime','lat','lon']].value_counts()
+wod_3=wod_3[[ 'datetime','lat', 'lon','chl','depth','cast','originators cruise id', 'project','institute','instrument', 'investigator', 'HPLC','accession number']]
+counts_series = wod_3[['cast','depth','datetime','lat','lon']].value_counts()
 counts_df = counts_series.reset_index(name='freq_uniq')
-wod_3 = pd.merge(wod_3, counts_df, on=['CAST','depth','datetime','lat','lon'], how='left') 
+wod_3 = pd.merge(wod_3, counts_df, on=['cast','depth','datetime','lat','lon'], how='left') 
 wod_3['date_hour'] = wod_3['datetime'].dt.strftime('%Y-%m-%d %H')
-counts_series = wod_3[['CAST','depth','date_hour','lat','lon']].value_counts() 
+counts_series = wod_3[['cast','depth','date_hour','lat','lon']].value_counts() 
 counts_df = counts_series.reset_index(name='freq_hour')
-wod_3 = pd.merge(wod_3, counts_df, on=['CAST','depth','date_hour','lat','lon'], how='left')
+wod_3 = pd.merge(wod_3, counts_df, on=['cast','depth','date_hour','lat','lon'], how='left')
 
 wod_3['triplicate'] = 1 #assume bad unless otherwise said
 wod_3.loc[wod_3['freq_uniq'] == 3, 'triplicate'] = 0 
@@ -209,25 +213,25 @@ wod_3.loc[(wod_3['freq_uniq'] == 1) &(wod_3['freq_hour'] == 3), 'triplicate'] =0
 
 #WOD_4
 wod_4 = wod_df(r'C:\Users\gianna.milton\Documents\Python\WOD\WOD_round2_raw\ocldb1761586645.2754592.CTD2.xlsx')
-wod_4=wod_4[wod_4['Project'] != '637'] #take out ECOMON
+wod_4=wod_4[wod_4['project'] != '637'] #take out ECOMON
 
 #same projects as last file, so no HPLC
 wod_4['HPLC']=1 #no hplc here i think
 
-wod_4=wod_4.rename(columns={'Depth (m)':'depth','Longitude':'lon','Latitude':'lat','Chlorophyll (ug/l)':'chl'})
+wod_4=wod_4.rename(columns={'depth (m)':'depth','longitude':'lon','latitude':'lat','chlorophyll (ug/l)':'chl'})
 wod_4=wod_4.loc[wod_4['depth']<=150].reset_index(drop=True) 
 wod_4.lon= wod_4.lon.astype(float)
 wod_4.lat= wod_4.lat.astype(float)
 wod_4.chl=wod_4.chl.astype(float)
 
-wod_4=wod_4[[ 'datetime','lat', 'lon','chl','depth','CAST','Originators Cruise ID', 'Project','Institute','Instrument', 'Investigator', 'HPLC']]
-counts_series = wod_4[['CAST','depth','datetime','lat','lon']].value_counts()
+wod_4=wod_4[[ 'datetime','lat', 'lon','chl','depth','cast','originators cruise id', 'project','institute','instrument', 'investigator', 'HPLC','accession number']]
+counts_series = wod_4[['cast','depth','datetime','lat','lon']].value_counts()
 counts_df = counts_series.reset_index(name='freq_uniq')
-wod_4 = pd.merge(wod_4, counts_df, on=['CAST','depth','datetime','lat','lon'], how='left')
+wod_4 = pd.merge(wod_4, counts_df, on=['cast','depth','datetime','lat','lon'], how='left')
 wod_4['date_hour'] = wod_4['datetime'].dt.strftime('%Y-%m-%d %H')
-counts_series = wod_4[['CAST','depth','date_hour','lat','lon']].value_counts() 
+counts_series = wod_4[['cast','depth','date_hour','lat','lon']].value_counts() 
 counts_df = counts_series.reset_index(name='freq_hour')
-wod_4 = pd.merge(wod_4, counts_df, on=['CAST','depth','date_hour','lat','lon'], how='left')
+wod_4 = pd.merge(wod_4, counts_df, on=['cast','depth','date_hour','lat','lon'], how='left')
 
 wod_4['triplicate'] = 1 #assume bad unless otherwise said
 wod_4.loc[wod_4['freq_uniq'] == 3, 'triplicate'] = 0 
@@ -236,20 +240,20 @@ wod_4.loc[(wod_4['freq_uniq'] == 1) &(wod_4['freq_hour'] == 3), 'triplicate'] = 
 #ECOMON
 wod_ecomon = wod_df(r'C:\Users\gianna.milton\Documents\Python\WOD\ocldb1761249916.1960703.CTD.csv\ocldb1761249916.1960703.CTD.xlsx')
 wod_ecomon['HPLC']=1 
-wod_ecomon=wod_ecomon.rename(columns={'Depth (m)':'depth','Longitude':'lon','Latitude':'lat','Chlorophyll (ug/l)':'chl'})
+wod_ecomon=wod_ecomon.rename(columns={'depth (m)':'depth','longitude':'lon','latitude':'lat','chlorophyll (ug/l)':'chl'})
 wod_ecomon=wod_ecomon.loc[wod_ecomon['depth']<=150].reset_index(drop=True) 
 wod_ecomon.lon= wod_ecomon.lon.astype(float)
 wod_ecomon.lat= wod_ecomon.lat.astype(float)
 wod_ecomon.chl=wod_ecomon.chl.astype(float)
 
-wod_ecomon=wod_ecomon[[ 'datetime','lat', 'lon','chl','depth','CAST','Originators Cruise ID', 'Project','Institute', 'HPLC']]
-counts_series = wod_ecomon[['CAST','depth','datetime','lat','lon']].value_counts()
+wod_ecomon=wod_ecomon[[ 'datetime','lat', 'lon','chl','depth','cast','originators cruise id', 'project','institute', 'HPLC','accession number']]
+counts_series = wod_ecomon[['cast','depth','datetime','lat','lon']].value_counts()
 counts_df = counts_series.reset_index(name='freq_uniq')
-wod_ecomon = pd.merge(wod_ecomon, counts_df, on=['CAST','depth','datetime','lat','lon'], how='left')
+wod_ecomon = pd.merge(wod_ecomon, counts_df, on=['cast','depth','datetime','lat','lon'], how='left')
 wod_ecomon['date_hour'] = wod_ecomon['datetime'].dt.strftime('%Y-%m-%d %H')
-counts_series = wod_ecomon[['CAST','depth','date_hour','lat','lon']].value_counts() 
+counts_series = wod_ecomon[['cast','depth','date_hour','lat','lon']].value_counts() 
 counts_df = counts_series.reset_index(name='freq_hour')
-wod_ecomon = pd.merge(wod_ecomon, counts_df, on=['CAST','depth','date_hour','lat','lon'], how='left')
+wod_ecomon = pd.merge(wod_ecomon, counts_df, on=['cast','depth','date_hour','lat','lon'], how='left')
 
 wod_ecomon['triplicate'] = 1 
 wod_ecomon.loc[wod_ecomon['freq_uniq'] == 3, 'triplicate'] = 0 
@@ -258,9 +262,9 @@ wod_ecomon.loc[(wod_ecomon['freq_uniq'] == 1) &(wod_ecomon['freq_hour'] == 3), '
 #concatinate into 1 dataframe
 dfs = [wod_1,wod_2,wod_3,wod_4,wod_ecomon]
 wod_all = pd.concat(dfs)
-wod_all=wod_all[['datetime', 'lat', 'lon', 'chl', 'depth', 'CAST','Originators Cruise ID', 'Project', 'Institute', 'Instrument',
-       'Investigator', 'HPLC', 'triplicate']]
-wod_all = wod_all.rename(columns={'Originators Cruise ID':'cruise','Project':'experiment','Institute':'affiliations','Investigator':'investigators'})
+wod_all=wod_all[['datetime', 'lat', 'lon', 'chl', 'depth', 'cast','originators cruise id', 'project', 'institute', 'instrument',
+       'investigator', 'HPLC', 'triplicate','accession number']]
+wod_all = wod_all.rename(columns={'originators cruise id':'cruise','project':'experiment','institute':'affiliations','investigator':'investigators'})
 
 shp = gpd.read_file(r'C:\Users\gianna.milton\Documents\Python\Shapefiles\combined_coastline.shp')
 gdf = gpd.GeoDataFrame(wod_all, geometry=gpd.points_from_xy(wod_all.lon, wod_all.lat), crs="EPSG:4269")
