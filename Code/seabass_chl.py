@@ -28,6 +28,8 @@ warnings.filterwarnings('ignore', category=pd.errors.SettingWithCopyWarning)
 warnings.filterwarnings('ignore', category=FutureWarning)
 warnings.filterwarnings('ignore', category=DeprecationWarning)
 warnings.filterwarnings('ignore', category=RuntimeWarning)
+from SeaBass_flags2 import sb_flags #looser flags
+
 
 '''
 Since seabass organizes their raw data in a unique way, this data concatination section is also unique.
@@ -339,6 +341,11 @@ west = df.copy()
 all_data = pd.concat([alas,east, gom,hawaii,west], axis=0) 
 all_data = all_data.drop_duplicates()#265715->253719
 
+#add data type flag
+#For this dataset, we want to avoid in vivo chl as much as possible. Since sometimes seabass data is mislabled or miscategorized, run the dataset thru a flagging system that helps detect if the chl is from fluorescence  
+#all_data = pd.read_excel('SB_chl_na.xlsx')
+#for these flags, 1 is bad, 0 is good, 2 is indeterminate 
+all_data1 = sb_flags(all_data)
 all_data.to_excel('SB_chl_na.xlsx', index = False) #sb data with HPLC and Triplicate flags, without any repeats
 
 
