@@ -94,6 +94,9 @@ for idx2 in range(len(reg_names)): #for each reg_name
             globals()[reg_names[idx2]][dataset_id]['Dataset ID'] = dataset_id #add a column for dataset id
             globals()[reg_names[idx2]][dataset_id]['source'] = 'IOOS' #add source column
             globals()[reg_names[idx2]][dataset_id]['Institution'] = row['Institution'] #add institude column
+            globals()[reg_names[idx2]][dataset_id]['url'] = row['Background Info'] #add link to sensor website
+            globals()[reg_names[idx2]][dataset_id]['experiment'] = row['Title'] #add project to dataset
+
             time.sleep(1)  # small delay to avoid hammering the server
         except Exception as ex:
             print(f"Failed to load {dataset_id}: {ex}") #if no chlorophyll in the dataset, this allows it to skip those
@@ -118,7 +121,7 @@ for idx2 in range(len(reg_names)):
         df=df[(df['depth']>=-10) & (df['depth']<=10)] #only within top 10 meters
         df['date'] = df['datetime'].dt.date
         df = df.drop(columns='datetime')
-        df=df.groupby(['date','Dataset ID','source','Institution']).mean() #groupby date and take average
+        df=df.groupby(['date','Dataset ID','source','Institution','url','experiment']).mean() #groupby date and take average
         globals()[reg_names[idx2]][dsid] = df.reset_index()
 
 #turn the dictionary of dataframes into 1 single dataframe with all values concatinated 
@@ -130,7 +133,7 @@ dataframes_ak = pd.concat(dataframes_ak.values(), ignore_index=True)
 
 dfs=[dataframes_east,dataframes_west,dataframes_gulf,dataframes_haw,dataframes_ak]
 ioos_chl = pd.concat(dfs).reset_index(drop=True) #concatinate them all together 
-ioos_chl=ioos_chl[['date', 'lat', 'lon', 'chl', 'depth','source','Dataset ID','Institution']]
+ioos_chl=ioos_chl[['date', 'lat', 'lon', 'chl', 'depth','source','Dataset ID','Institution','url', 'experiment']]
 ioos_chl['date'] = pd.to_datetime(ioos_chl['date'])
 ioos_chl = ioos_chl.loc[ioos_chl['date'] > '2000-01-01'] #only want dates post 2000 for this algorithm 
 #remove any negative chl values
