@@ -286,10 +286,6 @@ west_coast.to_excel('raw_west_SB_rrs.xlsx', index = False)
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #step 2. now that all the raw sb files are concatinated and seperated, load them all in and create single dataframe
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-#when it's time to concat, remove all nanometer wavelengths i.e. anything with 350.1, 350.2, ect 
-#also take out repeats
-#figure out best way to just have single depth value
-#take out any days before 2000
 
 east = pd.read_excel('raw_east_SB_rrs.xlsx') 
 west = pd.read_excel('raw_west_SB_rrs.xlsx') 
@@ -306,66 +302,13 @@ rrs_all = rrs_all[dec_mask]
 rrs_all['datetime'] = pd.to_datetime(rrs_all['datetime']) #ensure datetime is in correct format
 rrs_all = rrs_all[rrs_all['datetime'] >= '2000-01-01'] #only want data from 2000 on for this algorithm
 
-test=rrs_all[rrs_all["depth"].isnull()]
+#add in measurment depth where depth is nan 
+rrs_all['depth'] = np.where((rrs_all['depth'].isna()) & (rrs_all['measurement_depth']!=-999), rrs_all['measurement_depth'], rrs_all['depth'])
+rrs_all['depth'] = np.where((rrs_all['depth'].isna()) & (rrs_all['data_type']=='above_water'), 0, rrs_all['depth']) #if the data type is above water, make depth = 0
 
+rrs_all = rrs_all.drop_duplicates()#558401 ->534939
 
-
-
-
-
-
-
-
-
-
-
-
-#first, load in raw xlsx files one at a time and conduct qa/qc. repeat the steps below until all raw files are saved 
-df = pd.read_excel('raw_west_SB.xlsx') 
- 
-
-#if depth is na and the data_type is flow_thru or mooring, replace depth with measurment depth or water_depth from metadata
-df['depth'] = np.where((df['depth'].isna()) & (df['data_type']=='flow_thru'), df['measurement_depth'], df['depth'])
-df['depth'] = np.where((df['depth'].isna()) & (df['data_type']=='mooring'), df['water_depth'], df['depth'])
-
-#FLAG for triplicates 
-counts_series = df[['datetime','lat','lon']].value_counts() #count how many unique datetime, lat, and lons there are
-counts_df = counts_series.reset_index(name='freq_uniq')
-df = pd.merge(df, counts_df, on=['datetime','lat','lon'], how='left') #add frequency column to original dataframe
-df['date_hour'] = df['datetime'].dt.strftime('%Y-%m-%d %H')#some places have 3 different times close to gether but that's bc of recording each time for triplicate (3:00, 3:05, 3:10 )
-counts_series = df[['date_hour','lat','lon']].value_counts() #count how many unique datehour, lat, and lons there are
-counts_df = counts_series.reset_index(name='freq_hour')
-df = pd.merge(df, counts_df, on=['date_hour','lat','lon'], how='left') #add frequency column to original dataframe
-
-df['triplicate'] = 1 #assume bad unless otherwise said
-df.loc[df['freq_uniq'] == 3, 'triplicate'] = 0 #if there was a unique datetime, lat, and lon that happened 3 times, triplicate
-df.loc[(df['freq_uniq'] == 1) &(df['freq_hour'] == 3), 'triplicate'] = 0 #if 1 unique datetime recorded and only 3 for datehour, assume triplicate 
-
-#take out depths below 150m for this algorithm 
-df['depth'] = pd.to_numeric(df['depth'], errors='coerce')
-df = df[df['depth'] <=150].reset_index(drop=True)
-
-#save the same columns for all files
-df=df[['datetime', 'lat', 'lon', 'chl', 'chl_a','depth','experiment', 'data_type','station', 'affiliations','investigators', 'contact',
-           'cruise', 'identifier_product_doi', 'time_flag','coord_flag', 'data_file_name', 'HPLC', 'triplicate']]
-
-#save the df, then repeat for however many raw xlsx files you have 
-east = df.copy()
-alas = df.copy()
-gom = df.copy()
-hawaii=df.copy()
-west = df.copy()
-
-#once all datasets loaded in, need to take out any repeats. put all dataframes into single dataframe and take out dubplicates 
-all_data = pd.concat([alas,east, gom,hawaii,west], axis=0) 
-all_data = all_data.drop_duplicates()#265715->253719
-
-#add data type flag
-#For this dataset, we want to avoid in vivo chl as much as possible. Since sometimes seabass data is mislabled or miscategorized, run the dataset thru a flagging system that helps detect if the chl is from fluorescence  
-#all_data = pd.read_excel('SB_chl_na.xlsx')
-#for these flags, 1 is bad, 0 is good, 2 is indeterminate 
-all_data1 = sb_flags(all_data)
-all_data1.to_excel('SB_chl_na.xlsx', index = False) #sb data with HPLC and Triplicate flags, without any repeats
+rrs_all.to_excel('SB_rrs_na.xlsx', index = False) #sb reflectence data, without any repeats
 
 
 
