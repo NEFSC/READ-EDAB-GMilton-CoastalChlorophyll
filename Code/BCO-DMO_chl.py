@@ -136,7 +136,7 @@ dfs1=[da1,da2,da3,da5,da6,da7,da8] #concatinate all errdap data together
 bco1=pd.concat(dfs1).reset_index(drop=True)
 
 #ECOHAB data next. note: these are manually downloaded from bco-dmo website 
-rise1 = pd.read_excel('BCO-DMO\ProfilePP.xlsx')
+rise1 = pd.read_excel(r'BCO-DMO\ProfilePP.xlsx')
 rise1['Time'] = [f"{int(t):06d}" for t in rise1['Time']]  #leading 0s removed from time, so pad with 0s until 6 integers long
 rise1['Date'] = rise1['Date'].astype(str)
 #for month, day, year, hour, min, second, pull out the specific values from Date and Time and create datetime
@@ -170,7 +170,7 @@ rise1.loc[(rise1['freq_uniq'] == 1) &(rise1['freq_hour'] == 3), 'triplicate'] = 
 rise1=rise1[['datetime', 'lat', 'lon', 'depth', 'Cruise', 'Station', 'chl','project', 'affiliation','source', 'contact', 'url', 'HPLC',  'triplicate']]
 
 
-rise2 = pd.read_excel('BCO-DMO\SurfacePP.xlsx')
+rise2 = pd.read_excel(r'BCO-DMO\SurfacePP.xlsx')
 rise2['Time'] = [f"{int(t):06d}" for t in rise2['Time']]
 rise2['Date'] = rise2['Date'].astype(str)
 rise2['month'] = [int(t[4:6]) for t in rise2['Date']]
@@ -193,7 +193,7 @@ rise2['triplicate'] = 1 #not triplicate
 
 
 #next cruise
-rise3 = pd.read_excel('BCO-DMO\AllBottle.xlsx')
+rise3 = pd.read_excel(r'BCO-DMO\AllBottle.xlsx')
 rise3['Time'] = [f"{int(t):06d}" for t in rise3['Time']]
 rise3['Date'] = rise3['Date'].astype(str)
 rise3['month'] = [int(t[4:6]) for t in rise3['Date']]
@@ -224,7 +224,7 @@ rise3.loc[(rise3['freq_uniq'] == 1) &(rise3['freq_hour'] == 3), 'triplicate'] = 
 rise3=rise3[['datetime', 'lat', 'lon', 'depth', 'Cruise', 'Station', 'chl','project', 'affiliation','source', 'contact', 'url', 'HPLC',  'triplicate']]
 
 #MERHAB
-MERHAB = pd.read_excel('BCO-DMO\Bottle_Data.xlsx')
+MERHAB = pd.read_excel(r'BCO-DMO\Bottle_Data.xlsx')
 MERHAB['time'] = [f"{int(t):04d}" for t in MERHAB['time']]
 MERHAB['date'] = MERHAB['date'].astype(str)
 MERHAB['month'] = [int(t[4:6]) for t in MERHAB['date']]
@@ -266,7 +266,7 @@ counts_series = nerissa[['depth','datetime','lat','lon']].value_counts() #count 
 nerissa['triplicate'] = 1 #triplicate NO 
 
 #ECOHAB-PNW 1
-ECOHAB1 = pd.read_excel('BCO-DMO\AllBottle1.xlsx')
+ECOHAB1 = pd.read_excel(r'BCO-DMO\AllBottle1.xlsx')
 ECOHAB1 = ECOHAB1[['Cruise', 'Station', 'date', 'Event', 'Source', 'depth', 'depthID', 'lon', 'lat', 'Chl_a', 'bottle']]
 ECOHAB1 = ECOHAB1[ECOHAB1['Chl_a'] != 'nd']
 
@@ -338,7 +338,7 @@ bco_all['chl'] = pd.to_numeric(bco_all['chl'], errors='coerce')
 bco_all['depth'] = pd.to_numeric(bco_all['depth'], errors='coerce')
 #for algorithm development, only subset top 150 m
 bco_all=bco_all.loc[bco_all['depth']<=150].reset_index(drop=True) 
-bco_all=bco_all.rename(columns={'Cruise':'cruise','Station':'station','affiliation':'affiliations','contact':'investigators','project':'experiment'})
+bco_all2=bco_all.rename(columns={'Cruise':'cruise','Station':'station','affiliation':'affiliations','contact':'investigators','project':'experiment'})
 
 #bco_all.to_excel('bco_dmo_chl_qc.xlsx', index = False)
 
