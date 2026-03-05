@@ -43,7 +43,6 @@ def wod_df(excel_file):
     return: dataframe with unique columns for each variable/ metadata 
     '''
     WOD_raw = pd.read_excel(excel_file, header=None) #load in that excel file 
-    WOD_raw[0] = WOD_raw[0].str.lower() #since there are some inconsistancies with column cases, put everything as lower case
     #identify cast_blocks (rows between '#' and 'END OF VARIABLES SECTION')
     cast_blocks = []
     start_idx = None #to track the start of the index
@@ -51,12 +50,12 @@ def wod_df(excel_file):
     #first, identify and record the index positions of the cast blocks, i.e. the start and end of each cast
     for idx, row in WOD_raw.iterrows(): #for every row
         first_cell = str(row[0]) if pd.notna(row[0]) else "" #the first cell of the row (as long as it exists)
-        if first_cell.startswith("#") and "end of variables section" not in first_cell: #if it's the start of the cast and NOT the end
+        if first_cell.startswith("#") and "END OF VARIABLES SECTION" not in first_cell: #if it's the start of the cast and NOT the end
             if start_idx is not None:
                 cast_blocks.append((start_idx, idx)) #if the first cell is #, record the start indx
             start_idx = idx #start of the new cast
         
-        elif "end of variables section" in first_cell: #if it's the end of a cast, record the index
+        elif "END OF VARIABLES SECTION" in first_cell: #if it's the end of a cast, record the index
             if start_idx is not None:
                 cast_blocks.append((start_idx, idx)) #append this index as the end
                 start_idx = None
@@ -73,10 +72,10 @@ def wod_df(excel_file):
             row_values = row.dropna().astype(str).tolist() #convert to string
             if not row_values: #skip all empty rows 
                 continue
-            if "variables" in row_values[0]: #if the start of the varibale section, turn to true
+            if "VARIABLES" in row_values[0]: #if the start of the varibale section, turn to true
                 variable_data_started = True
                 continue
-            if "end of variables section" in row_values[0]: #if at the end, break and go back to for loop
+            if "END OF VARIABLES SECTION" in row_values[0]: #if at the end, break and go back to for loop
                 break
     
     
@@ -100,17 +99,18 @@ def wod_df(excel_file):
         #append metadata and variables
         for depth, chl in variable_data: #for this row of variables, rename, then append to the dataframe
             row = metadata.copy()
-            row["depth (m)"] = depth
-            row["chlorophyll (ug/l)"] = chl
+            row["Depth (m)"] = depth
+            row["Chlorophyll (ug/l)"] = chl
             all_data.append(row)
    
     df = pd.DataFrame(all_data)
     #create datetime
-    df["datetime"] = pd.to_datetime(df[["year", "month", "day"]]) + df["time"].apply(lambda t: timedelta(hours=float(t)) if pd.notnull(t) else pd.NaT)
+    df["datetime"] = pd.to_datetime(df[["Year", "Month", "Day"]]) + df["Time"].apply(lambda t: timedelta(hours=float(t)) if pd.notnull(t) else pd.NaT)
     return df
 
 #run first raw dataset
 wod_1 = wod_df(r'C:\Users\gianna.milton\Documents\Python\WOD\ocldb1748619702.620293.OSD.csv\ocldb1748619702.620293.OSD.xlsx')
+wod_1.columns = wod_1.columns.str.lower()
 wod_1=wod_1[wod_1['project'] != '33'] #take out CalCOFI values since appended elsewhere
 wod_1=wod_1[wod_1['project'] != '301'] #take out HOTS values since appended elsewhere
 
@@ -134,6 +134,7 @@ wod_1['HPLC']=1 #assume all points are not hplc
 wod_1.loc[wod_1['project'] == '412', 'HPLC'] = 0 
 wod_1.loc[wod_1['project'] == '311', 'HPLC'] = 0
 wod_1=wod_1[[ 'datetime','lat', 'lon','chl','depth','cast','originators cruise id', 'project','institute','instrument', 'investigator', 'HPLC','accession number']]
+wod_1 = wod_1.loc[:, ~wod_1.columns.duplicated()]
 
 # triplicate flag
 counts_series = wod_1[['cast','depth','datetime','lat','lon']].value_counts() #count how many unique cast,depth, datetime, lat, and lons there are
@@ -152,6 +153,7 @@ wod_1.loc[(wod_1['freq_uniq'] == 1) &(wod_1['freq_hour'] == 3), 'triplicate'] =0
 
 #second raw dataset
 wod_2 = wod_df(r'C:\Users\gianna.milton\Documents\Python\WOD\WOD_round2_raw\ocldb1761586645.2754592.OSD.xlsx')
+wod_2.columns = wod_2.columns.str.lower()
 wod_2=wod_2[wod_2['project'] != '33'] #take out CalCOFI since appended elsewhere
 wod_2=wod_2[wod_2['project'] != '301'] #take out HOTS since appended elsewhere
 wod_2=wod_2.rename(columns={'depth (m)':'depth','longitude':'lon','latitude':'lat','chlorophyll (ug/l)':'chl'})
@@ -168,6 +170,7 @@ wod_2.chl=wod_2.chl.astype(float)
 wod_2['HPLC']=1 #assume all points are not hplc
 wod_2.loc[wod_2['project'] == '412', 'HPLC'] = 0
 wod_2=wod_2[[ 'datetime','lat', 'lon','chl','depth','cast','originators cruise id', 'project','institute','instrument', 'investigator', 'HPLC','accession number']]
+wod_2 = wod_2.loc[:, ~wod_2.columns.duplicated()]
 
 #triplicate flag
 counts_series = wod_2[['cast','depth','datetime','lat','lon']].value_counts() 
@@ -185,6 +188,7 @@ wod_2.loc[(wod_2['freq_uniq'] == 1) &(wod_2['freq_hour'] == 3), 'triplicate'] = 
 #don't run ocldb1761586645.2754592.PFL.xlsx since it's only invivo 
 
 wod_3 = wod_df(r'C:\Users\gianna.milton\Documents\Python\WOD\WOD_round2_raw\ocldb1761586645.2754592.CTD.xlsx')
+wod_3.columns = wod_3.columns.str.lower()
 wod_3=wod_3[wod_3['project'] != '301'] #take out HOTS 
 wod_3=wod_3[wod_3['project'] != '637'] #take out ECOMON since running it later
 
@@ -213,6 +217,8 @@ wod_3.loc[(wod_3['freq_uniq'] == 1) &(wod_3['freq_hour'] == 3), 'triplicate'] =0
 
 #WOD_4
 wod_4 = wod_df(r'C:\Users\gianna.milton\Documents\Python\WOD\WOD_round2_raw\ocldb1761586645.2754592.CTD2.xlsx')
+wod_4.columns = wod_4.columns.str.lower()
+
 wod_4=wod_4[wod_4['project'] != '637'] #take out ECOMON
 
 #same projects as last file, so no HPLC
@@ -239,6 +245,8 @@ wod_4.loc[(wod_4['freq_uniq'] == 1) &(wod_4['freq_hour'] == 3), 'triplicate'] = 
 
 #ECOMON
 wod_ecomon = wod_df(r'C:\Users\gianna.milton\Documents\Python\WOD\ocldb1761249916.1960703.CTD.csv\ocldb1761249916.1960703.CTD.xlsx')
+wod_ecomon.columns = wod_ecomon.columns.str.lower()
+
 wod_ecomon['HPLC']=1 
 wod_ecomon=wod_ecomon.rename(columns={'depth (m)':'depth','longitude':'lon','latitude':'lat','chlorophyll (ug/l)':'chl'})
 wod_ecomon=wod_ecomon.loc[wod_ecomon['depth']<=150].reset_index(drop=True) 
@@ -262,9 +270,27 @@ wod_ecomon.loc[(wod_ecomon['freq_uniq'] == 1) &(wod_ecomon['freq_hour'] == 3), '
 #concatinate into 1 dataframe
 dfs = [wod_1,wod_2,wod_3,wod_4,wod_ecomon]
 wod_all = pd.concat(dfs)
-wod_all=wod_all[['datetime', 'lat', 'lon', 'chl', 'depth', 'cast','originators cruise id', 'project', 'institute', 'instrument',
-       'investigator', 'HPLC', 'triplicate','accession number']]
+
 wod_all = wod_all.rename(columns={'originators cruise id':'cruise','project':'experiment','institute':'affiliations','investigator':'investigators'})
+
+#want to remove super high resolution data points (if the change in depth is too fine scale)
+
+wod_all['d_flag'] = 0 #initialize depth flag, 0=good, 1=bad (less than 5m), 2=flag
+wod_all['decision'] = 2 #ultimate decision flag inidcating whether to keep or toss data point (0=good, 1=bad,2=flag)
+
+depth_diff =abs(wod_all.depth.diff())#calculate absolute change in depth
+wod_all.loc[wod_all[depth_diff<1].index,'d_flag']=1 #if the change in depth is less than 1 meter, flag
+wod_all.loc[wod_all[depth_diff==0].index,'d_flag']=2 #if the change in depth doesn't move, set as 2, diff_time and num_s will take care of it
+
+
+#add decicion flags
+wod_all.decision[(wod_all['d_flag'] ==0)] = 0 
+wod_all.decision[(wod_all['d_flag'] ==1)] = 1 
+wod_all.decision[(wod_all['d_flag'] ==2)] = 2 
+wod_all=wod_all[wod_all['decision']!=1]
+
+wod_all=wod_all[['datetime', 'lat', 'lon', 'chl', 'depth', 'cast','cruise', 'experiment', 'affiliations', 'instrument',
+       'investigators', 'HPLC', 'triplicate','accession number']]
 
 shp = gpd.read_file(r'C:\Users\gianna.milton\Documents\Python\Shapefiles\combined_coastline.shp')
 gdf = gpd.GeoDataFrame(wod_all, geometry=gpd.points_from_xy(wod_all.lon, wod_all.lat), crs="EPSG:4269")
@@ -286,10 +312,9 @@ gl.xformatter=LONGITUDE_FORMATTER
 gl.yformatter=LATITUDE_FORMATTER
 gl.top_labels = False    # Disable top labels
 gl.right_labels = False  # Disable right labels
-axs1.set_xlim(-180,-65)
 cb=fig.colorbar(im,ax=axs1,orientation='horizontal')
 
 
 #save as xlsx 
-wod_all.to_excel('wod_chl_na.xlsx', index = False)
+#wod_all.to_excel('wod_chl_na.xlsx', index = False)
 
