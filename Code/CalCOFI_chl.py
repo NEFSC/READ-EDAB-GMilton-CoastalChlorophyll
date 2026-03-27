@@ -12,11 +12,11 @@ warnings.filterwarnings('ignore', category=pd.errors.SettingWithCopyWarning)
 warnings.filterwarnings('ignore', category=FutureWarning)
 
 #load in bottle data from CalCOFI website
-Calcofi_btl = pd.read_excel('CalCOFI_Database_194903-202105_csv_16October2023\194903-202105_Bottle.xlsx')#chl files
+Calcofi_btl = pd.read_excel(r'C:\Users\gianna.milton\Documents\Python\CalCOFI_BEUTI\CalCOFI_Database_194903-202105_csv_16October2023\CalCOFI_Database_194903-202105_csv_16October2023\CalCOFI_Database_194903-202105_csv_16October2023\194903-202105_Bottle.xlsx')#chl files
 Calcofi_btl = Calcofi_btl[['Cst_Cnt','Sta_ID', 'Depthm',  'ChlorA', 'Chlqua','R_Depth']] #reduce to only needed columns
 
 #since bottle data has no datetime, lat, or lon, need to load in CalCOFI meta data and match up to bottle data
-Calcofi_cast = pd.read_excel('CalCOFI_Database_194903-202105_csv_16October2023\194903-202105_Cast.xlsx')
+Calcofi_cast = pd.read_excel(r'C:\Users\gianna.milton\Documents\Python\CalCOFI_BEUTI\CalCOFI_Database_194903-202105_csv_16October2023\CalCOFI_Database_194903-202105_csv_16October2023\CalCOFI_Database_194903-202105_csv_16October2023\194903-202105_Cast.xlsx')
 Calcofi_cast = Calcofi_cast[['Cst_Cnt', 'Cruise', 'Sta_ID', 'Sta_Code', 'Date', 'Time', 'Lat_Dec', 'Lon_Dec', 'Data_Type']]
 
 #create datetime column
@@ -55,17 +55,8 @@ Calcofi_btl['triplicate'] = 1
 Calcofi_btl=Calcofi_btl.rename(columns={'Cst_Cnt':'cast', 'Sta_ID':'station','ChlorA':'chl','Depthm':'depth'})
 Calcofi_btl = Calcofi_btl[['datetime','lat', 'lon','chl', 'cast', 'station', 'depth','HPLC', 'triplicate']]
 
-#there are some repeat CalCOFI data on SeaBASS, so remove repeated data 
-sb_all = pd.read_excel('allchl_SB_tripFLAGS.xlsx')#load in seabass file
-sb_all =  sb_all[sb_all['experiment'] == 'CALCOFI'] #only keep points that are CalCOFI
-sb_all = sb_all[['datetime', 'lat', 'lon','depth']] #reduce to datetime, lat, lon, and depth for  matching
-
-#merge the two dataframes on similar columns
-calcofi_nSB = Calcofi_btl.merge(sb_all[['datetime', 'lat', 'lon','depth']], on=['datetime', 'lat', 'lon','depth'], how='left', indicator=True) #all calcofi data with seabass indicator
-calcofi_nSB =  calcofi_nSB[calcofi_nSB['_merge'] != 'both'] #remove rows where _merge has both
-
-calcofi_nSB['identifier_product_doi'] = 'https://calcofi.org'
-calcofi_nSB['source'] = 'CalCOFI'
-calcofi_nSB=calcofi_nSB[['datetime', 'lat', 'lon', 'chl', 'depth','cast', 'station', 'HPLC','triplicate', 'identifier_product_doi', 'source']]
-calcofi_nSB.to_excel('calcofi_chl_qc.xlsx', index = False)
+Calcofi_btl['identifier_product_doi'] = 'https://calcofi.org'
+Calcofi_btl['source'] = 'CalCOFI'
+Calcofi_btl=Calcofi_btl[['datetime', 'lat', 'lon', 'chl', 'depth','cast', 'station', 'HPLC','triplicate', 'identifier_product_doi', 'source']]
+Calcofi_btl.to_excel('calcofi_chl_qc.xlsx', index = False)
 

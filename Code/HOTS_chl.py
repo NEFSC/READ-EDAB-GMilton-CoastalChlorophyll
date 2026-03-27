@@ -22,6 +22,7 @@ bottle: Jan 01 2000 -Dec 3 2023
 """
 import pandas
 import pandas as pd
+import numpy as np
 import os
 import warnings
 warnings.filterwarnings('ignore', category=pd.errors.SettingWithCopyWarning)
@@ -50,7 +51,7 @@ def get_files(dir):
                 file_list.append(os.path.join(root, file)) #if file ends in .nc, append to list 
     return file_list
 
-f_list1 =  'folderto\bottle_data' #folder holding ONLY the bottle data downloaded from HOTS 
+f_list1 =  r'C:\Users\gianna.milton\Documents\Python\Hot dogs\bottle_data' #folder holding ONLY the bottle data downloaded from HOTS 
 f_list = get_files(f_list1) #list of all .nc files from folder
 
 for file in f_list:
@@ -195,10 +196,12 @@ hots=hots.loc[hots['depth']<=150].reset_index(drop=True) #reduce to upper 150 me
 
 hots=hots[['datetime', 'lat', 'lon','depth', 'chl', 'chl_a', 'station', 'HPLC', 'triplicate']]
 hots['experiment']='HOTS'
-hots['source']='HOT-DOGS'
+hots['source']='HOTS'
 hots['investigators']= 'Angelicque E. White'
 hots['affiliations']="University of Hawai'i at Mānoa"
 hots['url']='https://hahana.soest.hawaii.edu/hot/hot-dogs/interface.html'
+hots.replace(-9, np.nan, inplace=True)
+hots = hots.dropna(subset=['chl', 'chl_a'], how='all')
 
 hots.to_excel('hots_chl_qc.xlsx', index = False)
 
