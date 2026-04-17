@@ -5,6 +5,7 @@ ioos_chl
 load in IOOS data by region and orgainize it, including HPLC and triplicate flags 
 @author: gianna.milton
 """
+import numpy as np
 import pandas as pd
 from erddapy import ERDDAP
 import time
@@ -115,6 +116,39 @@ for idx2 in range(len(reg_names)):
 
         globals()[reg_names[idx2]][dsid] = df  #update the dict
 
+#create time and depth flags
+for idx2 in range(len(reg_names)): #for every region's dataframe
+    for dsid, df in globals()[reg_names[idx2]].items(): #for every dataframe in the region   
+        df = df.sort_values(by='datetime')
+        df['t_flag']=0 #initialize temporal resolution flag, 0=good, 1= bad (less than 1hour),2=flag (time is 0 i.e repeated)
+        df['diff_time'] = 0 #column to populate with datatypes as values for organization
+        df['d_flag'] = 0 #initialize depth flag, 0=good, 1=bad (less than 5m), 2=flag
+        df['decision'] = 2 #ultimate decision flag inidcating whether to keep or toss data point (0=good, 1=bad,2=flag)
+        
+        df['diff_time']= df['datetime'].diff()      
+        df.t_flag=np.where(df['diff_time']< pd.to_timedelta('10 minutes'), 1, df.t_flag) #if delta t is less than 1 hour, flag as bad
+        df.t_flag=np.where(df['diff_time']== pd.to_timedelta(0), 2, df.t_flag) #if 0, then just a repeat so not necessarily bad       
+        if 'depth' in df.columns: #find average change in depth
+            depth_diff =abs(df.depth.diff())#calculate absolute change in depth
+            df.loc[df[depth_diff<1].index,'d_flag']=1 #if the change in depth is not large enough
+            df.loc[df[depth_diff==0].index,'d_flag']=2 #if the change in depth doesn't move, set as 2, diff_time 
+        else:
+            avg_z_res = None
+            
+        df.decision[(df['t_flag'] ==0) & (df['d_flag']==0)] = 0 #if both good, then good
+        df.decision[(df['t_flag'] ==0) & (df['d_flag']==1)] = 1 #if everything else is good but the depth is too short, flag as nad
+        df.decision[(df['t_flag'] ==0) & (df['d_flag']==2)] = 0 #if everything else is good and depth repeats, good
+        df.decision[(df['t_flag'] ==1) & (df['d_flag']==0)] = 1 #IF TIME IS EVER BAD then the whole thing is bad
+        df.decision[(df['t_flag'] ==1) & (df['d_flag']==1)] = 1
+        df.decision[(df['t_flag'] ==1) & (df['d_flag']==2)] = 1
+        df.decision[(df['t_flag'] ==2) & (df['d_flag']==0)] = 0
+        df.decision[(df['t_flag'] ==2) & (df['d_flag']==1)] = 1
+        df.decision[(df['t_flag'] ==2) & (df['d_flag']==2)] = 1
+            
+        globals()[reg_names[idx2]][dsid] = df  #update the dict
+
+
+
 #reduced to 1 day average withing top 10 meters 
 for idx2 in range(len(reg_names)):    
     for dsid, df in globals()[reg_names[idx2]].items(): 
@@ -125,15 +159,18 @@ for idx2 in range(len(reg_names)):
         globals()[reg_names[idx2]][dsid] = df.reset_index()
 
 #turn the dictionary of dataframes into 1 single dataframe with all values concatinated 
-dataframes_east = pd.concat(dataframes_east.values(), ignore_index=True)
-dataframes_west = pd.concat(dataframes_west.values(), ignore_index=True)
-dataframes_gulf = pd.concat(dataframes_gulf.values(), ignore_index=True)
-dataframes_haw = pd.concat(dataframes_haw.values(), ignore_index=True)
-dataframes_ak = pd.concat(dataframes_ak.values(), ignore_index=True)
+dataframes_east2 = pd.concat(dataframes_east.values(), ignore_index=True)
+dataframes_west2 = pd.concat(dataframes_west.values(), ignore_index=True)
+dataframes_gulf2 = pd.concat(dataframes_gulf.values(), ignore_index=True)
+dataframes_haw2 = pd.concat(dataframes_haw.values(), ignore_index=True)
+dataframes_ak2 = pd.concat(dataframes_ak.values(), ignore_index=True)
 
-dfs=[dataframes_east,dataframes_west,dataframes_gulf,dataframes_haw,dataframes_ak]
+dfs=[dataframes_east2,dataframes_west2,dataframes_gulf2,dataframes_haw2,dataframes_ak2]
 ioos_chl = pd.concat(dfs).reset_index(drop=True) #concatinate them all together 
-ioos_chl=ioos_chl[['date', 'lat', 'lon', 'chl', 'depth','source','Dataset ID','Institution','url', 'experiment']]
+
+ioos_chl=ioos_chl[['date', 'lat', 'lon', 'chl', 'depth','source','Dataset ID','Institution','url', 'experiment','t_flag', 'diff_time','d_flag', 'decision']]
+ioos_chl.loc[ioos_chl['decision'] != 0, 'decision'] = 1 #because we took the average, as long as the decision != 0, make 1 
+
 ioos_chl['date'] = pd.to_datetime(ioos_chl['date'])
 ioos_chl = ioos_chl.loc[ioos_chl['date'] > '2000-01-01'] #only want dates post 2000 for this algorithm 
 #remove any negative chl values
@@ -153,7 +190,7 @@ ioos_chl2.loc[ioos_chl2['Dataset ID'] == 'pivers-island-coastal-observa', ['lat'
 ioos_chl2.loc[ioos_chl2['Dataset ID'] == 'mlml_monterey', ['lat', 'lon']] = [36.60513, -121.88935]
 
 
-ioos_chl2.to_excel('ioos_chl_qc.xlsx', index = False)
+ioos_chl2.to_excel('ioos_chl_qc2.xlsx', index = False)
 
 
 

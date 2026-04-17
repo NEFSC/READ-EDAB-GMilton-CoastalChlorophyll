@@ -22,6 +22,7 @@ https://www.ncei.noaa.gov/access/world-ocean-database/wod-codes.html for specifi
 
 @author: gianna.milton
 """
+import numpy as np
 import pandas
 import pandas as pd
 import warnings
@@ -34,6 +35,15 @@ warnings.filterwarnings('ignore', category=pd.errors.SettingWithCopyWarning)
 warnings.filterwarnings('ignore', category=FutureWarning)
 import geopandas as gpd
 from datetime import timedelta
+
+def measure(lat1, lon1, lat2, lon2): #function to convert lat/lon to km
+    R = 6378.137 #Radius of earth in KM
+    dLat = lat2 * np.pi / 180 - lat1 * np.pi / 180
+    dLon = lon2 * np.pi / 180 - lon1 * np.pi / 180
+    a = np.sin(dLat/2) * np.sin(dLat/2) +np.cos(lat1 * np.pi/ 180) * np.cos(lat2 * np.pi / 180) *np.sin(dLon/2) * np.sin(dLon/2)
+    c = 2 * np.arctan2(np.sqrt(a), np.sqrt(1-a))
+    d = R * c;
+    return d * 1000 #; // meters
 
 #start def loop for reading and organizing raw WOD files
 def wod_df(excel_file):
@@ -275,22 +285,39 @@ wod_all = wod_all.rename(columns={'originators cruise id':'cruise','project':'ex
 
 #want to remove super high resolution data points (if the change in depth is too fine scale)
 
+#This dataset doesn't have as much info as seabass does. So we can do a  change in datetime, and a change in depth. 
+
+############################################################################################################################################
+wod_all['t_flag']=0 #initialize temporal resolution flag, 0=good, 1= bad (less than 1hour),2=flag (time is 0 i.e repeated)
+wod_all['diff_time'] = 0 #column to populate with datatypes as values for organization
 wod_all['d_flag'] = 0 #initialize depth flag, 0=good, 1=bad (less than 5m), 2=flag
 wod_all['decision'] = 2 #ultimate decision flag inidcating whether to keep or toss data point (0=good, 1=bad,2=flag)
 
+# time 
+wod_all['diff_time']= wod_all['datetime'].diff()
+wod_all.t_flag=np.where(wod_all['diff_time']< pd.to_timedelta('10 minutes'), 1, wod_all.t_flag) #if delta t is less than 1 hour, flag as bad
+wod_all.t_flag=np.where(wod_all['diff_time']== pd.to_timedelta(0), 2, wod_all.t_flag) #if 0, then just a repeat so not necessarily bad
+
+#depth
+
 depth_diff =abs(wod_all.depth.diff())#calculate absolute change in depth
-wod_all.loc[wod_all[depth_diff<1].index,'d_flag']=1 #if the change in depth is less than 1 meter, flag
+wod_all.loc[wod_all[depth_diff<1].index,'d_flag']=1 #if the change in depth is not large enough
 wod_all.loc[wod_all[depth_diff==0].index,'d_flag']=2 #if the change in depth doesn't move, set as 2, diff_time and num_s will take care of it
 
-
-#add decicion flags
-wod_all.decision[(wod_all['d_flag'] ==0)] = 0 
-wod_all.decision[(wod_all['d_flag'] ==1)] = 1 
-wod_all.decision[(wod_all['d_flag'] ==2)] = 2 
-wod_all=wod_all[wod_all['decision']!=1]
+wod_all.decision[(wod_all['t_flag'] ==0) & (wod_all['d_flag']==0)] = 0 #if both good, then good
+wod_all.decision[(wod_all['t_flag'] ==0) & (wod_all['d_flag']==1)] = 1 #if everything else is good but the depth is too short, flag as nad
+wod_all.decision[(wod_all['t_flag'] ==0) & (wod_all['d_flag']==2)] = 0 #if everything else is good and depth repeats, good
+wod_all.decision[(wod_all['t_flag'] ==1) & (wod_all['d_flag']==0)] = 1 #IF TIME IS EVER BAD then the whole thing is bad
+wod_all.decision[(wod_all['t_flag'] ==1) & (wod_all['d_flag']==1)] = 1
+wod_all.decision[(wod_all['t_flag'] ==1) & (wod_all['d_flag']==2)] = 1
+wod_all.decision[(wod_all['t_flag'] ==2) & (wod_all['d_flag']==0)] = 0
+wod_all.decision[(wod_all['t_flag'] ==2) & (wod_all['d_flag']==1)] = 1
+wod_all.decision[(wod_all['t_flag'] ==2) & (wod_all['d_flag']==2)] = 1
+#remove depth flagged data sinve it's the most idicative in vivo flag
+wod_all=wod_all[wod_all['d_flag']!=1]
 
 wod_all=wod_all[['datetime', 'lat', 'lon', 'chl', 'depth', 'cast','cruise', 'experiment', 'affiliations', 'instrument',
-       'investigators', 'HPLC', 'triplicate','accession number']]
+       'investigators', 'HPLC', 'triplicate','accession number', 'decision']]
 
 shp = gpd.read_file(r'C:\Users\gianna.milton\Documents\Python\Shapefiles\combined_coastline.shp')
 gdf = gpd.GeoDataFrame(wod_all, geometry=gpd.points_from_xy(wod_all.lon, wod_all.lat), crs="EPSG:4269")
@@ -316,5 +343,5 @@ cb=fig.colorbar(im,ax=axs1,orientation='horizontal')
 
 
 #save as xlsx 
-#wod_all.to_excel('wod_chl_na.xlsx', index = False)
+wod_all.to_excel('wod_chl_na.xlsx', index = False)
 
