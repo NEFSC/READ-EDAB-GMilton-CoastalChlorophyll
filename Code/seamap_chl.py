@@ -41,15 +41,13 @@ seamap_df3 = seamap_df3.dropna(subset=['chl'], how='all')
 
 seamap_df3.rename(columns={"CRUISEID": "cruise", "P_STA_NO": "station", "date": "datetime", "Chl-a_µg/L": "chl_a"}, inplace=True)
 
-
 seamap_df3['source'] = 'SEAMAP'
-seamap_df3['url'] = 'https://seamapdata.gsmfc.org/seamap.download.php'
+seamap_df3['DOI_url'] = 'https://seamapdata.gsmfc.org/seamap.download.php'
 seamap_df3['experiment'] = 'SEAMAP'
-seamap_df3['contact'] = 'Jeff Rester'
-seamap_df3['affiliation'] = 'GSMFC'
+seamap_df3['investigators'] = 'Jeff Rester'
+seamap_df3['affiliations'] = 'GSMFC'
 
 seamap_df3['HPLC'] = 1
-
 counts_series = seamap_df3[['depth','datetime','lat','lon']].value_counts() #count how many unique cast,depth, datetime, lat, and lons there are
 seamap_df3['triplicate'] = 1 #based on inpsecting counts_series, no triplicates
 
@@ -61,6 +59,7 @@ seamap_df3 = gpd.sjoin(gdf, shp, how="inner", predicate="within")
 columns_to_drop = ['geometry', 'index_right', 'merge_id', 'STATIONID', 'level','water_depth','secchi_depth']
 seamap_df3 = seamap_df3.drop(columns=columns_to_drop)
 seamap_df3= seamap_df3.reset_index(drop=True)
+seamap_df3 = seamap_df3[seamap_df3['datetime'] > '2000-01-01']
 
 seamap_df3.to_excel('seamap_chl.xlsx')
 
