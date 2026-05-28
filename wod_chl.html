@@ -583,63 +583,6 @@ document.write(`
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="nn">~\AppData\Local\Temp\ipykernel_19324\847449178.py</span> in <span class="ni">?</span><span class="nt">()</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">wod_1</span> <span class="o">=</span> <span class="n">wod_df</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;C:\Users\gianna.milton\Documents\Python\WOD\ocldb1748619702.620293.OSD.csv\ocldb1748619702.620293.OSD.xlsx&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">wod_1</span><span class="o">=</span><span class="n">wod_1</span><span class="p">[</span><span class="n">wod_1</span><span class="p">[</span><span class="s1">&#39;project&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;33&#39;</span><span class="p">]</span> <span class="c1">#take out CalCOFI values</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">wod_1</span><span class="o">=</span><span class="n">wod_1</span><span class="p">[</span><span class="n">wod_1</span><span class="p">[</span><span class="s1">&#39;project&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;301&#39;</span><span class="p">]</span> <span class="c1">#take out HOTS values</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> 
-
-<span class="nn">~\AppData\Local\Temp\ipykernel_19324\798576877.py</span> in <span class="ni">?</span><span class="nt">(excel_file)</span>
-<span class="g g-Whitespace">     </span><span class="mi">27</span> 
-<span class="g g-Whitespace">     </span><span class="mi">28</span>     <span class="c1">#now that we have the indeces to distinguish each cast block, process the casts individually</span>
-<span class="g g-Whitespace">     </span><span class="mi">29</span>     <span class="n">all_data</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="g g-Whitespace">     </span><span class="mi">30</span>     <span class="k">for</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="ow">in</span> <span class="n">cast_blocks</span><span class="p">:</span> <span class="c1">#for each pair of index vales in cast_block</span>
-<span class="ne">---&gt; </span><span class="mi">31</span>         <span class="n">cruise_df</span> <span class="o">=</span> <span class="n">WOD_raw</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1">#loacte those indexes of that block and make a dataframe</span>
-<span class="g g-Whitespace">     </span><span class="mi">32</span>         <span class="n">metadata</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="g g-Whitespace">     </span><span class="mi">33</span>         <span class="n">variable_data_started</span> <span class="o">=</span> <span class="kc">False</span> <span class="c1">#flag to indicate if inside the VARIABLES section</span>
-<span class="g g-Whitespace">     </span><span class="mi">34</span>         <span class="n">variable_data</span> <span class="o">=</span> <span class="p">[]</span>
-
-<span class="nn">~\AppData\Local\anaconda3\Lib\site-packages\pandas\core\indexing.py</span> in <span class="ni">?</span><span class="nt">(self, key)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1187</span>             <span class="n">axis</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">axis</span> <span class="ow">or</span> <span class="mi">0</span>
-<span class="g g-Whitespace">   </span><span class="mi">1188</span> 
-<span class="g g-Whitespace">   </span><span class="mi">1189</span>             <span class="n">maybe_callable</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">apply_if_callable</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1190</span>             <span class="n">maybe_callable</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_deprecated_callable_usage</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">maybe_callable</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">1191</span>             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getitem_axis</span><span class="p">(</span><span class="n">maybe_callable</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)</span>
-
-<span class="nn">~\AppData\Local\anaconda3\Lib\site-packages\pandas\core\indexing.py</span> in <span class="ni">?</span><span class="nt">(self, key, axis)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1725</span>                 <span class="s2">&quot;Consider using .loc for automatic alignment.&quot;</span>
-<span class="g g-Whitespace">   </span><span class="mi">1726</span>             <span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1727</span> 
-<span class="g g-Whitespace">   </span><span class="mi">1728</span>         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
-<span class="ne">-&gt; </span><span class="mi">1729</span>             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_slice_axis</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1730</span> 
-<span class="g g-Whitespace">   </span><span class="mi">1731</span>         <span class="k">if</span> <span class="n">is_iterator</span><span class="p">(</span><span class="n">key</span><span class="p">):</span>
-<span class="g g-Whitespace">   </span><span class="mi">1732</span>             <span class="n">key</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-
-<span class="nn">~\AppData\Local\anaconda3\Lib\site-packages\pandas\core\indexing.py</span> in <span class="ni">?</span><span class="nt">(self, slice_obj, axis)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1761</span>             <span class="k">return</span> <span class="n">obj</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">deep</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1762</span> 
-<span class="g g-Whitespace">   </span><span class="mi">1763</span>         <span class="n">labels</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">_get_axis</span><span class="p">(</span><span class="n">axis</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1764</span>         <span class="n">labels</span><span class="o">.</span><span class="n">_validate_positional_slice</span><span class="p">(</span><span class="n">slice_obj</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">1765</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">_slice</span><span class="p">(</span><span class="n">slice_obj</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)</span>
-
-<span class="nn">~\AppData\Local\anaconda3\Lib\site-packages\pandas\core\generic.py</span> in <span class="ni">?</span><span class="nt">(self, slobj, axis)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4365</span>         <span class="n">Slicing</span> <span class="k">with</span> <span class="n">this</span> <span class="n">method</span> <span class="ow">is</span> <span class="o">*</span><span class="n">always</span><span class="o">*</span> <span class="n">positional</span><span class="o">.</span>
-<span class="g g-Whitespace">   </span><span class="mi">4366</span>         <span class="s2">&quot;&quot;&quot;</span>
-<span class="g g-Whitespace">   </span><span class="mi">4367</span><span class="s2">         assert isinstance(slobj, slice), type(slobj)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4368</span><span class="s2">         axis = self._get_block_manager_axis(axis)</span>
-<span class="ne">-&gt; </span><span class="mi">4369</span><span class="s2">         new_mgr = self._mgr.get_slice(slobj, axis=axis)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4370</span><span class="s2">         result = self._constructor_from_mgr(new_mgr, axes=new_mgr.axes)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4371</span><span class="s2">         result = result.__finalize__(self)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4372</span><span class="s2"> </span>
-
-<span class="ne">KeyboardInterrupt</span>: 
-</pre></div>
-</div>
-</div>
 </div>
 <section id="hplc-flags">
 <h3>HPLC flags<a class="headerlink" href="#hplc-flags" title="Link to this heading">#</a></h3>
