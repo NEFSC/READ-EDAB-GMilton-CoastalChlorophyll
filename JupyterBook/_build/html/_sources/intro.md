@@ -6,6 +6,6 @@ In this book, the steps taken to gather and process raw chlorophyll, cdom, and R
 
 Please check out the github for all code used and links to the paper: [Coastal Chlorophyll Github](https://github.com/GMilton2/coastal-chlorophyll)
 
-### Table of Contents
+### Table of Contents:
 ```{tableofcontents}
 ```
