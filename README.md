@@ -1,5 +1,5 @@
 # Coastal Chlorophyll
-This repository is used to store code and jupysterbook explaining methods used for collecting and organizing in-situ North American coastal chlorophyll datasets for Coastal Chlorophyll project. 
+This repository is used to store code and jupysterbook explaining methods used for collecting and organizing in-situ North American coastal chlorophyll datasets for the Coastal Chlorophyll project paper. 
 
 ## Description
 Satellites and other algorithms have a difficult time accuratly detecting chlorophyll in coastal regions due to optically complex waters. In situ data can be used as ground truth and to train models to better detect chlorophyll. This repository includes Python Spyder and Jupyter notebook codes for organizing chlorophyll data from a wide range of publically avaoiable databases. Additionally, this holds the Jupyterbook descibing methods used for data accumulation. 
