@@ -1,0 +1,33 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: intro
+chapters:
+- file: chl_data
+  sections:
+      - file: seabass_chl
+      - file: calcofi_chl
+      - file: HOTS_chl
+      - file: seamap_chl
+      - file: ioos_chl
+      - file: cioos_chl
+      - file: wod_chl
+      - file: bcodmo_chl
+      - file: aquamatch_chl
+      - file: Pan-Arctic_chl
+      - file: globec_chl
+      - file: gloria_chl
+      - file: final_concatination_chl
+- file: Reflectance_data
+  sections:
+      - file: seabass_rrs 
+      - file: gloria_rrs
+      - file: final_concatination_rrs
+- file: cdom_data
+  sections:
+      - file: seabass_cdom
+      - file: ioos_cdom
+      - file: bcodmo_cdom
+      - file: final_concatination_cdom
+- file: final_dataset

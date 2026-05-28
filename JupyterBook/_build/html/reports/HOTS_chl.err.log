@@ -1,0 +1,42 @@
+Traceback (most recent call last):
+  File "C:\Users\gianna.milton\AppData\Local\anaconda3\Lib\site-packages\jupyter_cache\executors\utils.py", line 58, in single_nb_execution
+    executenb(
+  File "C:\Users\gianna.milton\AppData\Local\anaconda3\Lib\site-packages\nbclient\client.py", line 1305, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gianna.milton\AppData\Local\anaconda3\Lib\site-packages\jupyter_core\utils\__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gianna.milton\AppData\Local\anaconda3\Lib\asyncio\base_events.py", line 687, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\gianna.milton\AppData\Local\anaconda3\Lib\site-packages\nbclient\client.py", line 705, in async_execute
+    await self.async_execute_cell(
+  File "C:\Users\gianna.milton\AppData\Local\anaconda3\Lib\site-packages\nbclient\client.py", line 1058, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "C:\Users\gianna.milton\AppData\Local\anaconda3\Lib\site-packages\nbclient\client.py", line 914, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+ppro=pd.DataFrame()
+file2read = netcdf.NetCDFFile('hd192096.nc','r')
+varrs = file2read.variables #variables
+del varrs["dataDesc"]
+for vars in varrs:
+    ppro[vars]=pd.DataFrame(varrs[vars][:].byteswap().newbyteorder(), columns =['0'])
+ppro['stime'] = [f"{int(t):04d}" for t in ppro['stime']] #start time
+ppro['etime'] = [f"{int(t):04d}" for t in ppro['etime']] #end time  
+ppro['date'] = [f"{int(t):06d}" for t in ppro['date']]  #date
+------------------
+
+
+[1;31m---------------------------------------------------------------------------[0m
+[1;31mNameError[0m                                 Traceback (most recent call last)
+Cell [1;32mIn[5], line 2[0m
+[0;32m      1[0m ppro[38;5;241m=[39mpd[38;5;241m.[39mDataFrame()
+[1;32m----> 2[0m file2read [38;5;241m=[39m netcdf[38;5;241m.[39mNetCDFFile([38;5;124m'[39m[38;5;124mhd192096.nc[39m[38;5;124m'[39m,[38;5;124m'[39m[38;5;124mr[39m[38;5;124m'[39m)
+[0;32m      3[0m varrs [38;5;241m=[39m file2read[38;5;241m.[39mvariables [38;5;66;03m#variables[39;00m
+[0;32m      4[0m [38;5;28;01mdel[39;00m varrs[[38;5;124m"[39m[38;5;124mdataDesc[39m[38;5;124m"[39m]
+
+[1;31mNameError[0m: name 'netcdf' is not defined
+

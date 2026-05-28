@@ -1,0 +1,45 @@
+Traceback (most recent call last):
+  File "C:\Users\gianna.milton\AppData\Local\anaconda3\Lib\site-packages\jupyter_cache\executors\utils.py", line 58, in single_nb_execution
+    executenb(
+  File "C:\Users\gianna.milton\AppData\Local\anaconda3\Lib\site-packages\nbclient\client.py", line 1305, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gianna.milton\AppData\Local\anaconda3\Lib\site-packages\jupyter_core\utils\__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gianna.milton\AppData\Local\anaconda3\Lib\asyncio\base_events.py", line 687, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\gianna.milton\AppData\Local\anaconda3\Lib\site-packages\nbclient\client.py", line 705, in async_execute
+    await self.async_execute_cell(
+  File "C:\Users\gianna.milton\AppData\Local\anaconda3\Lib\site-packages\nbclient\client.py", line 1058, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "C:\Users\gianna.milton\AppData\Local\anaconda3\Lib\site-packages\nbclient\client.py", line 914, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+url='https://data.cioospacific.ca/erddap/tabledap/IYS_NISKIN_chl_phaeo.nc?cruise%2Cstation%2Ctime%2Clatitude%2Clongitude%2Cdepth%2Cchlorophyll_a&time%3E=2019-03-07T00%3A00%3A00Z&time%3C=2019-03-14T15%3A59%3A00Z'
+url = requests.get(url, verify=False).content
+da = xr.open_dataset(url)
+da1= da.to_dataframe() #so even though they do have a chla_calib, it looks like it's empty 
+da1 = da1.rename(columns={'time': 'datetime','latitude':'lat','longitude':'lon','chlorophyll_a':'chl'}) 
+da1['experiment'] = da.project 
+da1['investigators']=da.publisher 
+da1['affiliations']=da.institution
+da1['DOI_url']= da.infoUrl
+da1['HPLC'] = 1 
+counts_series = da1[['depth','datetime','lat','lon']].value_counts() #count how many unique cast,depth, datetime, lat, and lons there are
+da1['triplicate'] = 1 #based on inpsecting counts_series, no triplicates
+------------------
+
+
+[1;31m---------------------------------------------------------------------------[0m
+[1;31mNameError[0m                                 Traceback (most recent call last)
+Cell [1;32mIn[2], line 2[0m
+[0;32m      1[0m url[38;5;241m=[39m[38;5;124m'[39m[38;5;124mhttps://data.cioospacific.ca/erddap/tabledap/IYS_NISKIN_chl_phaeo.nc?cruise[39m[38;5;124m%[39m[38;5;124m2Cstation[39m[38;5;124m%[39m[38;5;124m2Ctime[39m[38;5;124m%[39m[38;5;124m2Clatitude[39m[38;5;124m%[39m[38;5;124m2Clongitude[39m[38;5;124m%[39m[38;5;124m2Cdepth[39m[38;5;124m%[39m[38;5;124m2Cchlorophyll_a&time[39m[38;5;132;01m%3E[39;00m[38;5;124m=2019-03-07T00[39m[38;5;124m%[39m[38;5;124m3A00[39m[38;5;124m%[39m[38;5;124m3A00Z&time[39m[38;5;124m%[39m[38;5;124m3C=2019-03-14T15[39m[38;5;124m%[39m[38;5;124m3A59[39m[38;5;124m%[39m[38;5;124m3A00Z[39m[38;5;124m'[39m
+[1;32m----> 2[0m url [38;5;241m=[39m requests[38;5;241m.[39mget(url, verify[38;5;241m=[39m[38;5;28;01mFalse[39;00m)[38;5;241m.[39mcontent
+[0;32m      3[0m da [38;5;241m=[39m xr[38;5;241m.[39mopen_dataset(url)
+[0;32m      4[0m da1[38;5;241m=[39m da[38;5;241m.[39mto_dataframe() [38;5;66;03m#so even though they do have a chla_calib, it looks like it's empty [39;00m
+
+[1;31mNameError[0m: name 'requests' is not defined
+

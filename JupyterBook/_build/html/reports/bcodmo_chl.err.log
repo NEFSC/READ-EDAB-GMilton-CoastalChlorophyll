@@ -1,0 +1,147 @@
+Traceback (most recent call last):
+  File "C:\Users\gianna.milton\AppData\Local\anaconda3\Lib\site-packages\jupyter_cache\executors\utils.py", line 58, in single_nb_execution
+    executenb(
+  File "C:\Users\gianna.milton\AppData\Local\anaconda3\Lib\site-packages\nbclient\client.py", line 1305, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gianna.milton\AppData\Local\anaconda3\Lib\site-packages\jupyter_core\utils\__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gianna.milton\AppData\Local\anaconda3\Lib\asyncio\base_events.py", line 687, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\gianna.milton\AppData\Local\anaconda3\Lib\site-packages\nbclient\client.py", line 705, in async_execute
+    await self.async_execute_cell(
+  File "C:\Users\gianna.milton\AppData\Local\anaconda3\Lib\site-packages\nbclient\client.py", line 1058, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "C:\Users\gianna.milton\AppData\Local\anaconda3\Lib\site-packages\nbclient\client.py", line 914, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+url='https://erddap.bco-dmo.org/erddap/tabledap/bcodmo_dataset_816216.nc?Station%2Ctime%2Clatitude%2Clongitude%2Cdepth%2CChl_a&Bottom_Depth%3C=100'
+url = requests.get(url, verify=False).content
+da = xr.open_dataset(url)
+da1= da.to_dataframe()
+da1 = da1.rename(columns={'time': 'datetime','latitude':'lat','longitude':'lon','Chl_a':'chl'}) 
+da1['source']='BCO-DMO'
+da1['project'] = da.projects_0_name
+da1['contact']=da.people_0_person_name
+da1['affiliation']=da.people_0_affiliation 
+da1['chl']=da1['chl']*0.001 #convert nanograms/L to miligram/m^3
+da1['url']= 'https://www.bco-dmo.org/dataset/816216' #'https://erddap.bco-dmo.org/erddap/tabledap/bcodmo_dataset_816216.html'
+da1['HPLC'] = 0 #HPLC based on the url website
+counts_series = da1[['depth','datetime','lat','lon']].value_counts() #count how many unique cast,depth, datetime, lat, and lons there are
+da1['triplicate'] = 1 #based on inpsecting counts_series, no triplicates
+
+url='https://erddap.bco-dmo.org/erddap/tabledap/bcodmo_dataset_3884.nc?latitude%2Clongitude%2Ctime%2Cdepth%2Cchl_a'
+url = requests.get(url, verify=False).content
+da = xr.open_dataset(url) 
+da2= da.to_dataframe()
+da2 = da2.rename(columns={'time': 'datetime','latitude':'lat','longitude':'lon','Chl_a':'chl'}) 
+da2['source']='BCO-DMO'
+da2['project'] = da.projects_0_name
+da2['contact']=da.people_0_person_name
+da2['affiliation']=da.people_0_affiliation 
+da2['url']='https://www.bco-dmo.org/dataset/3884'
+da2['HPLC'] = 0 #HPLC based on the url website
+#triplicate flag
+counts_series = da2[['depth','datetime','lat','lon']].value_counts() #count how many unique cast,depth, datetime, lat, and lons there are
+counts_df = counts_series.reset_index(name='freq_uniq')
+da2 = pd.merge(da2, counts_df, on=['depth','datetime','lat','lon'], how='left') #add frequency column to original dataframe
+
+#sometimes, triplicate specific times are recorded (ex: 3:00, 3:05, 3:10 ), so also check for unique datehour entries
+da2['date_hour'] = da2['datetime'].dt.strftime('%Y-%m-%d %H')
+counts_series = da2[['depth','date_hour','lat','lon']].value_counts() #count how many unique datehour, lat, and lons there are
+counts_df = counts_series.reset_index(name='freq_hour')
+da2 = pd.merge(da2, counts_df, on=['depth','date_hour','lat','lon'], how='left') #add frequency column to original dataframe
+da2['triplicate'] = 1 #assume bad unless otherwise said
+da2.loc[da2['freq_uniq'] == 3, 'triplicate'] = 0 #if there was a unique datetime, lat, and lon that happened 3 times, triplicate
+da2.loc[(da2['freq_uniq'] == 1) &(da2['freq_hour'] == 3), 'triplicate'] = 0 #if 1 unique datetime and 3 unique date_hours, assume triplicate
+da2=da2[['lat', 'lon', 'datetime', 'depth', 'chl_a', 'source', 'project','contact', 'affiliation', 'url', 'HPLC', 'triplicate']]
+
+url='https://erddap.bco-dmo.org/erddap/tabledap/bcodmo_dataset_929873_v1.nc?Cruise_ID%2Ctime%2Clatitude%2Clongitude%2Cdepth%2CChl_a'
+url = requests.get(url, verify=False).content
+da = xr.open_dataset(url)
+da3= da.to_dataframe()
+da3 = da3.rename(columns={'time': 'datetime','latitude':'lat','longitude':'lon','Chl_a':'chl'}) 
+da3['source']='BCO-DMO'
+da3['project'] = 'Collaborative Research: Seasonal Variability in refractory dissolved organic carbon fluxes associated with primary marine aerosol emitted from the oceans'
+da3['contact']='David J. Kieber'
+da3['affiliation']='State University of New York College of Environmental Science and Forestry'
+da3['url']='https://www.bco-dmo.org/dataset/929873'#
+da3['HPLC'] = 1 #no HPLC based on their url website
+counts_series = da3[['depth','datetime','lat','lon']].value_counts()
+da3['triplicate'] = 1 #no triplicates
+da3=da3[['datetime', 'lat', 'lon', 'depth', 'chl', 'source','project', 'contact', 'affiliation', 'url', 'HPLC', 'triplicate']]
+
+url='https://erddap.bco-dmo.org/erddap/tabledap/bcodmo_dataset_906562_v2.nc?time%2CChlA%2Clatitude%2Clongitude'
+url = requests.get(url, verify=False).content
+da = xr.open_dataset(url) 
+da5= da.to_dataframe()
+da5 = da5.rename(columns={'time': 'datetime','latitude':'lat','longitude':'lon','ChlA':'chl'}) 
+da5['source']='BCO-DMO'
+da5['project'] = 'Collaborative research: Characterization of Synechococcus-cyanophage interactions across phylogenetic and temporal scales'
+da5['contact']='Nathan Ahlgren'
+da5['affiliation']='Clark University'
+da5['url']='https://osprey.bco-dmo.org/dataset/906562'
+da5['HPLC'] = 1 #HPLC NO 
+counts_series = da5[['datetime','lat','lon']].value_counts()
+da5['triplicate'] = 1 #no triplicates
+
+url='https://erddap.bco-dmo.org/erddap/tabledap/bcodmo_dataset_765327.nc?latitude%2Clongitude%2Ctime%2Cdepth%2CChlorophyll'
+url = requests.get(url, verify=False).content
+da = xr.open_dataset(url) 
+da6= da.to_dataframe()
+da6 = da6.rename(columns={'time': 'datetime','latitude':'lat','longitude':'lon','Chlorophyll':'chl'}) 
+da6['source']='BCO-DMO'
+da6['project'] = da.projects_0_name
+da6['contact']=da.people_0_person_name
+da6['affiliation']=da.people_0_affiliation 
+da6['url']='https://www.bco-dmo.org/dataset/765327'
+da6['HPLC'] = 1 #HPLC NO 
+counts_series = da6[['depth','datetime','lat','lon']].value_counts()
+da6['triplicate'] = 1 #no triplicates
+
+url='https://erddap.bco-dmo.org/erddap/tabledap/bcodmo_dataset_817214.nc?latitude%2Clongitude%2CChlorophyll%2Ctime'
+url = requests.get(url, verify=False).content
+da = xr.open_dataset(url)
+da7= da.to_dataframe()
+da7 = da7.rename(columns={'time': 'datetime','latitude':'lat','longitude':'lon','Chlorophyll':'chl'}) 
+da7['source']='BCO-DMO'
+da7['project'] = da.projects_0_name
+da7['contact']=da.people_0_person_name
+da7['affiliation']=da.people_0_affiliation 
+da7['url']='https://www.bco-dmo.org/dataset/817214'
+da7['HPLC'] = 1 #HPLC NO 
+counts_series = da7[['datetime','lat','lon']].value_counts()
+da7['triplicate'] = 1 #no triplicates
+
+url='https://erddap.bco-dmo.org/erddap/tabledap/bcodmo_dataset_787316.nc?latitude%2Clongitude%2Cdepth%2CChlorophyll%2Ctime'
+url = requests.get(url, verify=False).content
+da = xr.open_dataset(url)
+da8= da.to_dataframe()
+da8 = da8.rename(columns={'time': 'datetime','latitude':'lat','longitude':'lon','Chlorophyll':'chl'}) 
+da8['source']='BCO-DMO'
+da8['project'] = da.projects_0_name
+da8['contact']=da.people_0_person_name
+da8['affiliation']=da.people_0_affiliation 
+da8['url']='https://www.bco-dmo.org/dataset/787316'
+da8['HPLC'] = 1 #HPLC NO 
+counts_series = da8[['depth','datetime','lat','lon']].value_counts()
+da8['triplicate'] = 1 #no triplicates
+
+dfs1=[da1,da2,da3,da5,da6,da7,da8] #concatinate all errdap data together
+bco1=pd.concat(dfs1).reset_index(drop=True)
+------------------
+
+
+[1;31m---------------------------------------------------------------------------[0m
+[1;31mNameError[0m                                 Traceback (most recent call last)
+Cell [1;32mIn[1], line 2[0m
+[0;32m      1[0m url[38;5;241m=[39m[38;5;124m'[39m[38;5;124mhttps://erddap.bco-dmo.org/erddap/tabledap/bcodmo_dataset_816216.nc?Station[39m[38;5;124m%[39m[38;5;124m2Ctime[39m[38;5;124m%[39m[38;5;124m2Clatitude[39m[38;5;124m%[39m[38;5;124m2Clongitude[39m[38;5;124m%[39m[38;5;124m2Cdepth[39m[38;5;124m%[39m[38;5;124m2CChl_a&Bottom_Depth[39m[38;5;124m%[39m[38;5;124m3C=100[39m[38;5;124m'[39m
+[1;32m----> 2[0m url [38;5;241m=[39m requests[38;5;241m.[39mget(url, verify[38;5;241m=[39m[38;5;28;01mFalse[39;00m)[38;5;241m.[39mcontent
+[0;32m      3[0m da [38;5;241m=[39m xr[38;5;241m.[39mopen_dataset(url)
+[0;32m      4[0m da1[38;5;241m=[39m da[38;5;241m.[39mto_dataframe()
+
+[1;31mNameError[0m: name 'requests' is not defined
+

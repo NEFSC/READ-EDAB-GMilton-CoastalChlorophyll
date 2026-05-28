@@ -1,0 +1,780 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>CIOOS data &#8212; Coastal Chlorophyll Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=1ae7504c"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'cioos_chl';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="WOD data" href="wod_chl.html" />
+    <link rel="prev" title="IOOS Data" href="ioos_chl.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Coastal Chlorophyll Book - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Coastal Chlorophyll Book - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Introduction
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="chl_data.html">Chlorophyll data</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="seabass_chl.html">SeaBASS data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="calcofi_chl.html">CalCOFI data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HOTS_chl.html">HOTS Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="seamap_chl.html">SEAMAP data</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="ioos_chl.html">IOOS Data</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">CIOOS data</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="wod_chl.html">WOD data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bcodmo_chl.html">BCO-DMO data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="aquamatch_chl.html">Aquamatch Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Pan-Arctic_chl.html">Pan-Arctic data</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="globec_chl.html">GLOBEC data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gloria_chl.html">GLORIA data</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="final_concatination_chl.html">Chlorophyll Final Concatination</a></li>
+
+
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="Reflectance_data.html">Reflectance data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="seabass_rrs.html">SeaBASS data</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="gloria_rrs.html">GLORIA RRS data</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="final_concatination_rrs.html">RRS Final Concatination</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="cdom_data.html">CDOM data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="seabass_cdom.html">SeaBASS Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ioos_cdom.html">IOOS data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bcodmo_cdom.html">BCO-DMO data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="final_concatination_cdom.html">CDOM Final Concatination</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="final_dataset.html">Final variable appending and organization</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/GMilton2/coastal-chlorophyll" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/GMilton2/coastal-chlorophyll/issues/new?title=Issue%20on%20page%20%2Fcioos_chl.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/cioos_chl.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>CIOOS data</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">CIOOS data</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-1">Dataset 1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-2">Dataset 2</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-3">Dataset 3</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#plots">Plots</a></li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="cioos-data">
+<h1>CIOOS data<a class="headerlink" href="#cioos-data" title="Link to this heading">#</a></h1>
+<p>CIOOS standas for the the Canadian Integrated Ocean Observing System and similar to IOOS, is an repository of observational oceanographic data.</p>
+<p>Datasets from CIOOS was chosen by searching ‘chl’ in the two CIOOS ERDDAPS:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://data.cioospacific.ca/erddap/search/index.html?page=1&amp;amp;itemsPerPage=1000&amp;amp;searchFor=chl">https://data.cioospacific.ca/erddap/search/index.html?page=1&amp;itemsPerPage=1000&amp;searchFor=chl</a></p></li>
+<li><p><a class="reference external" href="https://cioosatlantic.ca/erddap/search/index.html?page=1&amp;amp;itemsPerPage=1000&amp;amp;searchFor=chl">https://cioosatlantic.ca/erddap/search/index.html?page=1&amp;itemsPerPage=1000&amp;searchFor=chl</a></p></li>
+</ul>
+<p>and only keeping extracted chlorophyll datsets.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">cartopy</span>
+<span class="kn">import</span> <span class="nn">cartopy.crs</span> <span class="k">as</span> <span class="nn">ccrs</span>
+<span class="kn">import</span> <span class="nn">cartopy.feature</span> <span class="k">as</span> <span class="nn">cfeature</span>
+<span class="kn">from</span> <span class="nn">cartopy.mpl.gridliner</span> <span class="kn">import</span> <span class="n">LONGITUDE_FORMATTER</span><span class="p">,</span> <span class="n">LATITUDE_FORMATTER</span>
+<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">ticker</span>
+<span class="kn">import</span> <span class="nn">datetime</span> <span class="k">as</span> <span class="nn">dt</span>
+<span class="kn">import</span> <span class="nn">plotly.express</span> <span class="k">as</span> <span class="nn">px</span>
+<span class="kn">import</span> <span class="nn">cmocean</span> <span class="k">as</span> <span class="nn">cm</span>
+<span class="kn">import</span> <span class="nn">cmocean.cm</span> <span class="k">as</span> <span class="nn">cmo</span>
+<span class="kn">import</span> <span class="nn">matplotlib.gridspec</span> <span class="k">as</span> <span class="nn">gridspec</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">matplotlib.ticker</span> <span class="k">as</span> <span class="nn">mticker</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="dataset-1">
+<h2>Dataset 1<a class="headerlink" href="#dataset-1" title="Link to this heading">#</a></h2>
+<p><a class="reference external" href="http://data.cioospacific.ca/erddap/tabledap/IYS_NISKIN_chl_phaeo">data.cioospacific.ca/erddap/tabledap/IYS_NISKIN_chl_phaeo</a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">url</span><span class="o">=</span><span class="s1">&#39;https://data.cioospacific.ca/erddap/tabledap/IYS_NISKIN_chl_phaeo.nc?cruise%2Cstation%2Ctime%2Clatitude%2Clongitude%2Cdepth%2Cchlorophyll_a&amp;time</span><span class="si">%3E</span><span class="s1">=2019-03-07T00%3A00%3A00Z&amp;time%3C=2019-03-14T15%3A59%3A00Z&#39;</span>
+<span class="n">url</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">verify</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">content</span>
+<span class="n">da</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+<span class="n">da1</span><span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">to_dataframe</span><span class="p">()</span> <span class="c1">#so even though they do have a chla_calib, it looks like it&#39;s empty </span>
+<span class="n">da1</span> <span class="o">=</span> <span class="n">da1</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="s1">&#39;datetime&#39;</span><span class="p">,</span><span class="s1">&#39;latitude&#39;</span><span class="p">:</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span><span class="s1">&#39;longitude&#39;</span><span class="p">:</span><span class="s1">&#39;lon&#39;</span><span class="p">,</span><span class="s1">&#39;chlorophyll_a&#39;</span><span class="p">:</span><span class="s1">&#39;chl&#39;</span><span class="p">})</span> 
+<span class="n">da1</span><span class="p">[</span><span class="s1">&#39;experiment&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">project</span> 
+<span class="n">da1</span><span class="p">[</span><span class="s1">&#39;investigators&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">da</span><span class="o">.</span><span class="n">publisher</span> 
+<span class="n">da1</span><span class="p">[</span><span class="s1">&#39;affiliations&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">da</span><span class="o">.</span><span class="n">institution</span>
+<span class="n">da1</span><span class="p">[</span><span class="s1">&#39;DOI_url&#39;</span><span class="p">]</span><span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">infoUrl</span>
+<span class="n">da1</span><span class="p">[</span><span class="s1">&#39;HPLC&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> 
+<span class="n">counts_series</span> <span class="o">=</span> <span class="n">da1</span><span class="p">[[</span><span class="s1">&#39;depth&#39;</span><span class="p">,</span><span class="s1">&#39;datetime&#39;</span><span class="p">,</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span><span class="s1">&#39;lon&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span> <span class="c1">#count how many unique cast,depth, datetime, lat, and lons there are</span>
+<span class="n">da1</span><span class="p">[</span><span class="s1">&#39;triplicate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1">#based on inpsecting counts_series, no triplicates</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">url</span><span class="o">=</span><span class="s1">&#39;https://data.cioospacific.ca/erddap/tabledap/IYS_NISKIN_chl_phaeo.nc?cruise%2Cstation%2Ctime%2Clatitude%2Clongitude%2Cdepth%2Cchlorophyll_a&amp;time</span><span class="si">%3E</span><span class="s1">=2019-03-07T00%3A00%3A00Z&amp;time%3C=2019-03-14T15%3A59%3A00Z&#39;</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">url</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">verify</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">content</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">da</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">da1</span><span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">to_dataframe</span><span class="p">()</span> <span class="c1">#so even though they do have a chla_calib, it looks like it&#39;s empty </span>
+
+<span class="ne">NameError</span>: name &#39;requests&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="dataset-2">
+<h2>Dataset 2<a class="headerlink" href="#dataset-2" title="Link to this heading">#</a></h2>
+<p><a class="reference external" href="https://data.cioospacific.ca/erddap/tabledap/IOS_BOT_Profiles">https://data.cioospacific.ca/erddap/tabledap/IOS_BOT_Profiles</a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">url</span><span class="o">=</span><span class="s1">&#39;https://data.cioospacific.ca/erddap/tabledap/IOS_BOT_Profiles.nc?mission_id%2Cscientist%2Cproject%2Cagency%2Cplatform%2Cinstrument_type%2Cinstrument_model%2Clatitude%2Clongitude%2Ctime%2Cdepth%2CCPHLFLP1&amp;time</span><span class="si">%3E</span><span class="s1">=2000-01-01&amp;time%3C=2024-08-30T03%3A17%3A44Z&#39;</span>
+<span class="n">url</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">verify</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">content</span>
+<span class="n">da</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+<span class="n">da2</span><span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">to_dataframe</span><span class="p">()</span> <span class="c1">#so even though they do have a chla_calib, it looks like it&#39;s empty </span>
+<span class="n">da2</span> <span class="o">=</span> <span class="n">da2</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;CPHLFLP1&#39;</span><span class="p">])</span>
+<span class="n">da2</span> <span class="o">=</span> <span class="n">da2</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;scientist&#39;</span><span class="p">:</span> <span class="s1">&#39;investigators&#39;</span><span class="p">,</span><span class="s1">&#39;project&#39;</span><span class="p">:</span><span class="s1">&#39;experiment&#39;</span><span class="p">,</span><span class="s1">&#39;agency&#39;</span><span class="p">:</span><span class="s1">&#39;affiliations&#39;</span><span class="p">,</span><span class="s1">&#39;platform&#39;</span><span class="p">:</span><span class="s1">&#39;station&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;latitude&#39;</span><span class="p">:</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span><span class="s1">&#39;longitude&#39;</span><span class="p">:</span><span class="s1">&#39;lon&#39;</span><span class="p">,</span><span class="s1">&#39;time&#39;</span><span class="p">:</span><span class="s1">&#39;datetime&#39;</span><span class="p">,</span><span class="s1">&#39;CPHLFLP1&#39;</span><span class="p">:</span><span class="s1">&#39;chl&#39;</span><span class="p">})</span> 
+<span class="n">counts_series</span> <span class="o">=</span> <span class="n">da2</span><span class="p">[[</span><span class="s1">&#39;depth&#39;</span><span class="p">,</span><span class="s1">&#39;datetime&#39;</span><span class="p">,</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span><span class="s1">&#39;lon&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span> <span class="c1">#count how many unique cast,depth, datetime, lat, and lons there are</span>
+<span class="n">counts_df</span> <span class="o">=</span> <span class="n">counts_series</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;freq_uniq&#39;</span><span class="p">)</span>
+<span class="n">da2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">da2</span><span class="p">,</span> <span class="n">counts_df</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;depth&#39;</span><span class="p">,</span><span class="s1">&#39;datetime&#39;</span><span class="p">,</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span><span class="s1">&#39;lon&#39;</span><span class="p">],</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span> <span class="c1">#add frequency column to original dataframe</span>
+
+<span class="c1">#sometimes, triplicate specific times are recorded (ex: 3:00, 3:05, 3:10 ), so also check for unique datehour entries</span>
+<span class="n">da2</span><span class="p">[</span><span class="s1">&#39;date_hour&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">da2</span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H&#39;</span><span class="p">)</span>
+<span class="n">counts_series</span> <span class="o">=</span> <span class="n">da2</span><span class="p">[[</span><span class="s1">&#39;depth&#39;</span><span class="p">,</span><span class="s1">&#39;date_hour&#39;</span><span class="p">,</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span><span class="s1">&#39;lon&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span> <span class="c1">#count how many unique datehour, lat, and lons there are</span>
+<span class="n">counts_df</span> <span class="o">=</span> <span class="n">counts_series</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;freq_hour&#39;</span><span class="p">)</span>
+<span class="n">da2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">da2</span><span class="p">,</span> <span class="n">counts_df</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;depth&#39;</span><span class="p">,</span><span class="s1">&#39;date_hour&#39;</span><span class="p">,</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span><span class="s1">&#39;lon&#39;</span><span class="p">],</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span> <span class="c1">#add frequency column to original dataframe</span>
+<span class="n">da2</span><span class="p">[</span><span class="s1">&#39;triplicate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1">#assume bad unless otherwise said</span>
+<span class="n">da2</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">da2</span><span class="p">[</span><span class="s1">&#39;freq_uniq&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;triplicate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1">#if there was a unique datetime, lat, and lon that happened 3 times, triplicate</span>
+<span class="n">da2</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">da2</span><span class="p">[</span><span class="s1">&#39;freq_uniq&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span><span class="p">(</span><span class="n">da2</span><span class="p">[</span><span class="s1">&#39;freq_hour&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">3</span><span class="p">),</span> <span class="s1">&#39;triplicate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1">#if 1 unique datetime but 3 unique date hours, assume triplicate</span>
+
+<span class="n">da2</span><span class="o">=</span><span class="n">da2</span><span class="p">[[</span><span class="s1">&#39;investigators&#39;</span><span class="p">,</span> <span class="s1">&#39;experiment&#39;</span><span class="p">,</span> <span class="s1">&#39;affiliations&#39;</span><span class="p">,</span> <span class="s1">&#39;station&#39;</span><span class="p">,</span> <span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="s1">&#39;lon&#39;</span><span class="p">,</span> <span class="s1">&#39;datetime&#39;</span><span class="p">,</span> <span class="s1">&#39;depth&#39;</span><span class="p">,</span> <span class="s1">&#39;chl&#39;</span><span class="p">,</span> <span class="s1">&#39;triplicate&#39;</span><span class="p">]]</span>
+<span class="n">da2</span><span class="p">[</span><span class="s1">&#39;HPLC&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">da2</span><span class="p">[</span><span class="s1">&#39;DOI_url&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;https://data.cioospacific.ca/erddap/tabledap/IOS_BOT_Profiles&#39;</span>
+<span class="n">da2</span><span class="o">=</span><span class="n">da2</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">da2</span><span class="p">[</span><span class="s1">&#39;depth&#39;</span><span class="p">]</span><span class="o">&lt;=</span><span class="mi">150</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> 
+<span class="n">da2</span> <span class="o">=</span> <span class="n">da2</span><span class="p">[</span><span class="n">da2</span><span class="p">[</span><span class="s1">&#39;chl&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="dataset-3">
+<h2>Dataset 3<a class="headerlink" href="#dataset-3" title="Link to this heading">#</a></h2>
+<p><a class="reference external" href="http://cioosatlantic.ca/erddap/tabledap/bio_atlantic_zone_monitoring_program_bottle_bbmp">cioosatlantic.ca/erddap/tabledap/bio_atlantic_zone_monitoring_program_bottle_bbmp</a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">url</span><span class="o">=</span><span class="s1">&#39;https://cioosatlantic.ca/erddap/tabledap/bio_atlantic_zone_monitoring_program_bottle_bbmp.nc?mission_descriptor%2Cinstitute%2Cstation%2Clatitude%2Clongitude%2Ctime%2Cdepth%2CChlorophyll_A%2CHPLC_chlorophyll_a&amp;time</span><span class="si">%3E</span><span class="s1">=2000-01-01&amp;time%3C=2024-12-31T13%3A19%3A00Z&#39;</span>
+<span class="n">url</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">verify</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">content</span>
+<span class="n">da</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+<span class="n">da3</span><span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">to_dataframe</span><span class="p">()</span>
+<span class="n">da3</span><span class="o">=</span><span class="n">da3</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Chlorophyll_A&#39;</span><span class="p">,</span> <span class="s1">&#39;HPLC_chlorophyll_a&#39;</span><span class="p">],</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
+<span class="n">da3</span> <span class="o">=</span> <span class="n">da3</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;mission_descriptor&#39;</span><span class="p">:</span> <span class="s1">&#39;cruise&#39;</span><span class="p">,</span><span class="s1">&#39;institute&#39;</span><span class="p">:</span><span class="s1">&#39;affiliations&#39;</span><span class="p">,</span><span class="s1">&#39;HPLC_chlorophyll_a&#39;</span><span class="p">:</span><span class="s1">&#39;chl_a&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;latitude&#39;</span><span class="p">:</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span><span class="s1">&#39;longitude&#39;</span><span class="p">:</span><span class="s1">&#39;lon&#39;</span><span class="p">,</span><span class="s1">&#39;time&#39;</span><span class="p">:</span><span class="s1">&#39;datetime&#39;</span><span class="p">,</span><span class="s1">&#39;Chlorophyll_A&#39;</span><span class="p">:</span><span class="s1">&#39;chl&#39;</span><span class="p">})</span> 
+<span class="c1">#so some chl and chl_a values are shifted down. so while they should be coincidental they instead populate nan and are shifted down. need to re aling them to show side by side comparison </span>
+<span class="n">metadata_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;cruise&#39;</span><span class="p">,</span> <span class="s1">&#39;affiliations&#39;</span><span class="p">,</span> <span class="s1">&#39;station&#39;</span><span class="p">,</span> <span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="s1">&#39;lon&#39;</span><span class="p">,</span> <span class="s1">&#39;datetime&#39;</span><span class="p">,</span> <span class="s1">&#39;depth&#39;</span><span class="p">]</span>
+<span class="n">da3</span> <span class="o">=</span> <span class="n">da3</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">metadata_cols</span><span class="p">,</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+<span class="n">da3</span><span class="p">[</span><span class="s1">&#39;experiment&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">program</span> 
+<span class="n">da3</span><span class="p">[</span><span class="s1">&#39;investigators&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">da</span><span class="o">.</span><span class="n">chief_scientist</span> 
+<span class="n">da3</span><span class="p">[</span><span class="s1">&#39;affiliations&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">da</span><span class="o">.</span><span class="n">institution</span>
+<span class="n">da3</span><span class="p">[</span><span class="s1">&#39;DOI_url&#39;</span><span class="p">]</span><span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">publisher_url</span>
+<span class="c1">#so some chl and chl_a values are shifted down. so while they should be coincidental they instead populate nan and are shifted down. need to re aling them to show side by side comparison </span>
+<span class="c1">#HPLC</span>
+<span class="n">da3</span><span class="p">[</span><span class="s1">&#39;HPLC&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1">#initiate all columns as good, only empty values will be 1 </span>
+<span class="n">da3</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">da3</span><span class="p">[</span><span class="s1">&#39;chl_a&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">(),</span> <span class="s1">&#39;HPLC&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">counts_series</span> <span class="o">=</span> <span class="n">da3</span><span class="p">[[</span><span class="s1">&#39;depth&#39;</span><span class="p">,</span><span class="s1">&#39;datetime&#39;</span><span class="p">,</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span><span class="s1">&#39;lon&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span> <span class="c1">#count how many unique cast,depth, datetime, lat, and lons there are</span>
+<span class="n">da3</span><span class="p">[</span><span class="s1">&#39;triplicate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1">#based on inpsecting counts_series, no triplicates</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_combined</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">da1</span><span class="p">,</span> <span class="n">da2</span><span class="p">,</span><span class="n">da3</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">shp</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;C:\Users\gianna.milton\Documents\Python\Shapefiles\combined_coastline.shp&#39;</span><span class="p">)</span>
+<span class="n">gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">df_combined</span><span class="p">,</span> <span class="n">geometry</span><span class="o">=</span><span class="n">gpd</span><span class="o">.</span><span class="n">points_from_xy</span><span class="p">(</span><span class="n">df_combined</span><span class="o">.</span><span class="n">lon</span><span class="p">,</span> <span class="n">df_combined</span><span class="o">.</span><span class="n">lat</span><span class="p">),</span> <span class="n">crs</span><span class="o">=</span><span class="s2">&quot;EPSG:4269&quot;</span><span class="p">)</span>
+<span class="n">gdf</span> <span class="o">=</span> <span class="n">gdf</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="n">shp</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span>
+<span class="n">df_combined</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">sjoin</span><span class="p">(</span><span class="n">gdf</span><span class="p">,</span> <span class="n">shp</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;inner&quot;</span><span class="p">,</span> <span class="n">predicate</span><span class="o">=</span><span class="s2">&quot;within&quot;</span><span class="p">)</span>
+<span class="n">columns_to_drop</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">,</span> <span class="s1">&#39;index_right&#39;</span><span class="p">,</span> <span class="s1">&#39;merge_id&#39;</span><span class="p">]</span>
+<span class="n">df_combined</span> <span class="o">=</span> <span class="n">df_combined</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">columns_to_drop</span><span class="p">)</span>
+<span class="n">df_combined</span><span class="o">=</span> <span class="n">df_combined</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Done with CIOOS data.</p>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="plots">
+<h1>Plots<a class="headerlink" href="#plots" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cioos</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;C:\Users\gianna.milton\Documents\Python\Coastal_chl_final\CIOOS_chl.xlsx&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">year_test</span><span class="o">=</span><span class="n">cioos</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">year_test</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">year_test</span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">])</span>
+<span class="n">year_test</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">year_test</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span>
+<span class="n">grouped</span> <span class="o">=</span> <span class="n">year_test</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;year&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;DataPoints&#39;</span><span class="p">)</span>
+
+<span class="c1"># Create bar chart</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">grouped</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;DataPoints&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Yearly distribution all data&#39;</span><span class="p">,</span>
+             <span class="n">labels</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;year&#39;</span><span class="p">:</span> <span class="s1">&#39;Year&#39;</span><span class="p">,</span> <span class="s1">&#39;DataPoints&#39;</span><span class="p">:</span> <span class="s1">&#39;Number of Data Points&#39;</span><span class="p">,</span> <span class="s1">&#39;metadata&#39;</span><span class="p">:</span> <span class="s1">&#39;Metadata&#39;</span><span class="p">},)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="nb">range</span><span class="o">=</span><span class="p">[</span><span class="mi">1999</span><span class="p">,</span><span class="mi">2027</span><span class="p">])</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">barmode</span><span class="o">=</span><span class="s1">&#39;stack&#39;</span><span class="p">)</span>  <span class="c1"># ensures stacking</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/a8a9ff3a67180319cf1538459e4266f046ec0f5c2b3fcdc86261c5732fda0723.png" src="_images/a8a9ff3a67180319cf1538459e4266f046ec0f5c2b3fcdc86261c5732fda0723.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib.colors</span> <span class="kn">import</span> <span class="n">LogNorm</span> <span class="c1"># Important for high-variance data</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">())</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">LAND</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">OCEAN</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">COASTLINE</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">BORDERS</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">STATES</span><span class="p">)</span>
+<span class="n">hb</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">hexbin</span><span class="p">(</span><span class="n">year_test</span><span class="o">.</span><span class="n">lon</span><span class="p">,</span> <span class="n">year_test</span><span class="o">.</span><span class="n">lat</span><span class="p">,</span> <span class="n">gridsize</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;inferno_r&#39;</span><span class="p">,</span> <span class="n">mincnt</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">(),</span><span class="n">norm</span><span class="o">=</span><span class="n">LogNorm</span><span class="p">())</span> 
+<span class="n">cb</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">hb</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;vertical&#39;</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">cb</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="s1">&#39;Number of Datapoints&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">gl</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">gridlines</span><span class="p">(</span><span class="n">linewidth</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">draw_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">x_inline</span><span class="o">=</span> <span class="kc">False</span><span class="p">,</span><span class="n">y_inline</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">gl</span><span class="o">.</span><span class="n">xformatter</span><span class="o">=</span><span class="n">LONGITUDE_FORMATTER</span>
+<span class="n">gl</span><span class="o">.</span><span class="n">yformatter</span><span class="o">=</span><span class="n">LATITUDE_FORMATTER</span>
+<span class="n">gl</span><span class="o">.</span><span class="n">top_labels</span> <span class="o">=</span> <span class="kc">False</span>    <span class="c1"># Disable top labels</span>
+<span class="n">gl</span><span class="o">.</span><span class="n">right_labels</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># Disable right labels</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">year_test</span><span class="o">.</span><span class="n">lon</span><span class="p">)</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="nb">max</span><span class="p">(</span><span class="n">year_test</span><span class="o">.</span><span class="n">lon</span><span class="p">)</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">year_test</span><span class="o">.</span><span class="n">lat</span><span class="p">)</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="nb">max</span><span class="p">(</span><span class="n">year_test</span><span class="o">.</span><span class="n">lat</span><span class="p">)</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Spatial Data Density&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/88ad0dc0ffdb94499e021b8ccf973aa666c1036ebe5de8d89756b499919f7b20.png" src="_images/88ad0dc0ffdb94499e021b8ccf973aa666c1036ebe5de8d89756b499919f7b20.png" />
+</div>
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="ioos_chl.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">IOOS Data</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="wod_chl.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">WOD data</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">CIOOS data</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-1">Dataset 1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-2">Dataset 2</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-3">Dataset 3</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#plots">Plots</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Gianna Milton
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

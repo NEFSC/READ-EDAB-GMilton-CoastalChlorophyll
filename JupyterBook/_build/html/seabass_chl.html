@@ -1,0 +1,1153 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>SeaBASS data &#8212; Coastal Chlorophyll Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=1ae7504c"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'seabass_chl';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="CalCOFI data" href="calcofi_chl.html" />
+    <link rel="prev" title="Chlorophyll data" href="chl_data.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Coastal Chlorophyll Book - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Coastal Chlorophyll Book - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Introduction
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="chl_data.html">Chlorophyll data</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">SeaBASS data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="calcofi_chl.html">CalCOFI data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HOTS_chl.html">HOTS Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="seamap_chl.html">SEAMAP data</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="ioos_chl.html">IOOS Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cioos_chl.html">CIOOS data</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="wod_chl.html">WOD data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bcodmo_chl.html">BCO-DMO data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="aquamatch_chl.html">Aquamatch Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Pan-Arctic_chl.html">Pan-Arctic data</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="globec_chl.html">GLOBEC data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gloria_chl.html">GLORIA data</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="final_concatination_chl.html">Chlorophyll Final Concatination</a></li>
+
+
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="Reflectance_data.html">Reflectance data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="seabass_rrs.html">SeaBASS data</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="gloria_rrs.html">GLORIA RRS data</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="final_concatination_rrs.html">RRS Final Concatination</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="cdom_data.html">CDOM data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="seabass_cdom.html">SeaBASS Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ioos_cdom.html">IOOS data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bcodmo_cdom.html">BCO-DMO data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="final_concatination_cdom.html">CDOM Final Concatination</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="final_dataset.html">Final variable appending and organization</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/GMilton2/coastal-chlorophyll" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/GMilton2/coastal-chlorophyll/issues/new?title=Issue%20on%20page%20%2Fseabass_chl.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/seabass_chl.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>SeaBASS data</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#download-data">Download Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#turn-raw-sb-files-into-workable-dataframes">Turn raw .sb files into workable dataframes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hplc-flags">HPLC Flags</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#triplicate-flags">Triplicate flags</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-type-detection">Data type detection</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plots-of-all-data">Plots of all data</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="seabass-data">
+<h1>SeaBASS data<a class="headerlink" href="#seabass-data" title="Link to this heading">#</a></h1>
+<p>all chlorophyll data on seabass was bulk downloaded from <a class="reference external" href="https://seabass.gsfc.nasa.gov/search#bio">https://seabass.gsfc.nasa.gov/search#bio</a></p>
+<section id="download-data">
+<h2>Download Data<a class="headerlink" href="#download-data" title="Link to this heading">#</a></h2>
+<p>The SeaBASS chlorophyll datasets are large, and so to manage data sizes, Chlorophyll data was downloaded in regional sections.</p>
+<p>Data was limited to dates from 2000/01/01 - 2024/04/28, products included were Chl and HPLC, and the regional sections were limited based on the following coordinates:</p>
+<ul class="simple">
+<li><p>boudries for East Coast: 47.11N - 23.87S  -83.67W - -69.26E</p></li>
+<li><p>boundries for West Coast 53N 19S, -131W -111E</p></li>
+<li><p>boundries for Gulf Coast: 31N - 18S  -100W - -79.5E</p></li>
+<li><p>boundries for Hawaii: -180W -150E, 25N 0S</p></li>
+<li><p>boundries for Alaska: -180W -136, 87N 42S</p></li>
+</ul>
+<p>In the end, you’ll have seperate folders for each region:</p>
+<p><img alt="seabass_regions" src="_images/sb_regions.png" /></p>
+</section>
+<section id="turn-raw-sb-files-into-workable-dataframes">
+<h2>Turn raw .sb files into workable dataframes<a class="headerlink" href="#turn-raw-sb-files-into-workable-dataframes" title="Link to this heading">#</a></h2>
+<p>The SB_support code found on the SeaBASS website (<a class="reference external" href="https://seabass.gsfc.nasa.gov/wiki/Getting_Started#Python%20reader">https://seabass.gsfc.nasa.gov/wiki/Getting_Started#Python reader</a>) can be used to read in the .sb files.</p>
+<p>These next def loops are used to gather all folder names in each of the SeaBASS folders downloaded, and then gathering all files that end in .sb in those folders</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">cartopy</span>
+<span class="kn">import</span> <span class="nn">cartopy.feature</span> <span class="k">as</span> <span class="nn">cfeature</span>
+<span class="kn">from</span> <span class="nn">cartopy.mpl.gridliner</span> <span class="kn">import</span> <span class="n">LONGITUDE_FORMATTER</span><span class="p">,</span> <span class="n">LATITUDE_FORMATTER</span>
+<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">datetime</span> <span class="k">as</span> <span class="nn">dt</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">ticker</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+<span class="c1">#import SB_support as sb </span>
+<span class="kn">import</span> <span class="nn">plotly.express</span> <span class="k">as</span> <span class="nn">px</span>
+<span class="kn">import</span> <span class="nn">cmocean</span> <span class="k">as</span> <span class="nn">cm</span>
+<span class="kn">import</span> <span class="nn">cmocean.cm</span> <span class="k">as</span> <span class="nn">cmo</span>
+<span class="kn">import</span> <span class="nn">matplotlib.gridspec</span> <span class="k">as</span> <span class="nn">gridspec</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">matplotlib.ticker</span> <span class="k">as</span> <span class="nn">mticker</span>
+<span class="kn">import</span> <span class="nn">cartopy.crs</span> <span class="k">as</span> <span class="nn">ccrs</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_folder_names</span><span class="p">(</span><span class="n">folder_path</span><span class="p">):</span> 
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  Returns a list of folder names in the given directory.</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="n">folder_names</span> <span class="o">=</span> <span class="p">[]</span>
+  <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">folder_path</span><span class="p">):</span>
+    <span class="n">item_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">folder_path</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">item_path</span><span class="p">):</span>
+      <span class="n">folder_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">folder_names</span>
+
+<span class="k">def</span> <span class="nf">get_files</span><span class="p">(</span><span class="nb">dir</span><span class="p">):</span> 
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">     Gather name of all .sb files in a folder </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">file_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">root</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="nb">dir</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">file</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.sb&quot;</span><span class="p">):</span>
+                <span class="n">file_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">file</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">file_list</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>In order to reduce the size of each dataset, the variable selected_columns is used to only save the needed variables that might be present in the files. All variables in selected_columns after ‘chl_a’ are included to help us detect if the chlorophyll is HPLC or not.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">selected_columns</span> <span class="o">=</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span><span class="s1">&#39;lon&#39;</span><span class="p">,</span><span class="s1">&#39;year&#39;</span><span class="p">,</span><span class="s1">&#39;month&#39;</span><span class="p">,</span><span class="s1">&#39;day&#39;</span><span class="p">,</span><span class="s1">&#39;hour&#39;</span><span class="p">,</span><span class="s1">&#39;minute&#39;</span><span class="p">,</span><span class="s1">&#39;second&#39;</span><span class="p">,</span><span class="s1">&#39;time&#39;</span><span class="p">,</span><span class="s1">&#39;date&#39;</span><span class="p">,</span><span class="s1">&#39;datetime&#39;</span><span class="p">,</span><span class="s1">&#39;depth&#39;</span><span class="p">,</span><span class="s1">&#39;station&#39;</span><span class="p">,</span> <span class="s1">&#39;chl&#39;</span><span class="p">,</span><span class="s1">&#39;chl_a&#39;</span><span class="p">,</span> <span class="s1">&#39;Allo&#39;</span><span class="p">,</span> <span class="s1">&#39;alpha-beta-car&#39;</span><span class="p">,</span> <span class="s1">&#39;anth&#39;</span><span class="p">,</span> <span class="s1">&#39;asta&#39;</span><span class="p">,</span> <span class="s1">&#39;bchl_a&#39;</span><span class="p">,</span>
+                   <span class="s1">&#39;beta-beta-car&#39;</span><span class="p">,</span> <span class="s1">&#39;beta-epi-car&#39;</span><span class="p">,</span> <span class="s1">&#39;beta-psi-car&#39;</span><span class="p">,</span> <span class="s1">&#39;but-fuco&#39;</span><span class="p">,</span> <span class="s1">&#39;cantha&#39;</span><span class="p">,</span> <span class="s1">&#39;chl_a_allom&#39;</span><span class="p">,</span> <span class="s1">&#39;chl_a_prime&#39;</span><span class="p">,</span><span class="s1">&#39;chl_b&#39;</span><span class="p">,</span> <span class="s1">&#39;chl_c&#39;</span><span class="p">,</span> <span class="s1">&#39;chl_c1&#39;</span><span class="p">,</span> 
+                   <span class="s1">&#39;chl_c1c2&#39;</span><span class="p">,</span> <span class="s1">&#39;chl_c2&#39;</span><span class="p">,</span> <span class="s1">&#39;chl_c3&#39;</span><span class="p">,</span> <span class="s1">&#39;chlide_a&#39;</span><span class="p">,</span> <span class="s1">&#39;chlide_b&#39;</span><span class="p">,</span> <span class="s1">&#39;chors_id&#39;</span><span class="p">,</span> <span class="s1">&#39;croco&#39;</span><span class="p">,</span> <span class="s1">&#39;diadchr&#39;</span><span class="p">,</span> <span class="s1">&#39;diadino&#39;</span><span class="p">,</span> <span class="s1">&#39;diato&#39;</span><span class="p">,</span> <span class="s1">&#39;dino&#39;</span><span class="p">,</span> <span class="s1">&#39;dv_chl_a&#39;</span><span class="p">,</span> <span class="s1">&#39;dv_chl_b&#39;</span><span class="p">,</span>
+                   <span class="s1">&#39;echin&#39;</span><span class="p">,</span> <span class="s1">&#39;epi-epi-car&#39;</span><span class="p">,</span> <span class="s1">&#39;et-8-carot&#39;</span><span class="p">,</span> <span class="s1">&#39;et-chlide_a&#39;</span><span class="p">,</span> <span class="s1">&#39;et-chlide_b&#39;</span><span class="p">,</span> <span class="s1">&#39;fuco&#39;</span><span class="p">,</span> <span class="s1">&#39;gyro&#39;</span><span class="p">,</span> <span class="s1">&#39;hex-fuco&#39;</span><span class="p">,</span> <span class="s1">&#39;hex-kfuco&#39;</span><span class="p">,</span> <span class="s1">&#39;hpl_id&#39;</span><span class="p">,</span> <span class="s1">&#39;hplc_gsfc_id&#39;</span><span class="p">,</span> <span class="s1">&#39;lut&#39;</span><span class="p">,</span> 
+                   <span class="s1">&#39;lyco&#39;</span><span class="p">,</span> <span class="s1">&#39;me-chlide_a&#39;</span><span class="p">,</span><span class="s1">&#39;me-chlide_b&#39;</span><span class="p">,</span> <span class="s1">&#39;mg_dvp&#39;</span><span class="p">,</span> <span class="s1">&#39;monado&#39;</span><span class="p">,</span> <span class="s1">&#39;mv_chl_a&#39;</span><span class="p">,</span> <span class="s1">&#39;mv_chl_b&#39;</span><span class="p">,</span> <span class="s1">&#39;neo&#39;</span><span class="p">,</span> <span class="s1">&#39;p-457&#39;</span><span class="p">,</span> <span class="s1">&#39;perid&#39;</span><span class="p">,</span> <span class="s1">&#39;phide_a&#39;</span><span class="p">,</span> <span class="s1">&#39;phide_b&#39;</span><span class="p">,</span> <span class="s1">&#39;phide_c&#39;</span><span class="p">,</span>
+                   <span class="s1">&#39;phytin_a&#39;</span><span class="p">,</span><span class="s1">&#39;phytin_b&#39;</span><span class="p">,</span> <span class="s1">&#39;phytin_c&#39;</span><span class="p">,</span><span class="s1">&#39; phytyl-chl_c&#39;</span><span class="p">,</span> <span class="s1">&#39;pras&#39;</span><span class="p">,</span> <span class="s1">&#39;pyrophide_a&#39;</span><span class="p">,</span> <span class="s1">&#39;pyrophytin_a&#39;</span><span class="p">,</span> <span class="s1">&#39;pyrophytin_b&#39;</span><span class="p">,</span> <span class="s1">&#39;pyrophytin_c&#39;</span><span class="p">,</span> <span class="s1">&#39;siphn&#39;</span><span class="p">,</span> <span class="s1">&#39;siphx&#39;</span><span class="p">,</span> 
+                   <span class="s1">&#39;tot_chl_a&#39;</span><span class="p">,</span> <span class="s1">&#39;tot_chl_b&#39;</span><span class="p">,</span> <span class="s1">&#39;tot_chl_c&#39;</span><span class="p">,</span> <span class="s1">&#39;vauch&#39;</span><span class="p">,</span> <span class="s1">&#39;viola&#39;</span><span class="p">,</span> <span class="s1">&#39;zea&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Within each regional folder, there can be several requested_files. This for example, is the folder structure inside the east_coast folder:
+<img alt="seabass_request" src="_images/sb_request_file.png" /></p>
+<p><strong>For each resquested_files_# in the folder</strong> the next two code blocks need to be run and the path_to_folder variable needs to be changed. This code turns .sb files in each of the folders into a dataframe with metadata appended on each row</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">path_to_folder</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;west_coast\requested_files_2\requested_files&#39;</span> <span class="c1">#NOTE: there are usually multiple requested_files, this is where you would manually loop thru them</span>
+<span class="n">all_folders</span> <span class="o">=</span> <span class="n">get_folder_names</span><span class="p">(</span><span class="n">path_to_folder</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">folders</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">all_folders</span><span class="p">)):</span> <span class="c1">#for each affiliation folder in all_folders</span>
+    <span class="n">f_list1</span> <span class="o">=</span>   <span class="n">path_to_folder</span> <span class="o">+</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">all_folders</span><span class="p">[</span><span class="n">folders</span><span class="p">])</span> <span class="c1">#create path to that specific folder </span>
+    <span class="n">f_list</span> <span class="o">=</span> <span class="n">get_files</span><span class="p">(</span><span class="n">f_list1</span><span class="p">)</span> <span class="c1">#gather all .sb files in f_list1</span>
+    <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">all_folders</span><span class="p">[</span><span class="n">folders</span><span class="p">]))</span>
+    <span class="n">dfs</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># list to collect all processed DataFrames</span>
+    <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">f_list</span><span class="p">:</span> <span class="c1">#for each .sb file</span>
+        <span class="n">data1</span> <span class="o">=</span> <span class="n">sb</span><span class="o">.</span><span class="n">readSB</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">file</span><span class="p">,</span> <span class="n">no_warn</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1">#read it using readSB from the seabass website</span>
+        <span class="n">data2</span> <span class="o">=</span> <span class="n">data1</span><span class="o">.</span><span class="n">data</span> <span class="c1">#append the data </span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">data2</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s1">&#39;index&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">T</span> <span class="c1">#turn data into dataframe</span>
+        <span class="n">dt</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># initialize datetime variable</span>
+        <span class="c1">#Detect the datetime columns in the dataframe and create single datetime column </span>
+        <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span><span class="p">,</span> <span class="s1">&#39;day&#39;</span><span class="p">,</span> <span class="s1">&#39;hour&#39;</span><span class="p">,</span> <span class="s1">&#39;minute&#39;</span><span class="p">,</span> <span class="s1">&#39;second&#39;</span><span class="p">]):</span>
+            <span class="n">dt</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span><span class="p">,</span> <span class="s1">&#39;day&#39;</span><span class="p">,</span> <span class="s1">&#39;hour&#39;</span><span class="p">,</span> <span class="s1">&#39;minute&#39;</span><span class="p">,</span> <span class="s1">&#39;second&#39;</span><span class="p">]])</span> <span class="c1">#if all 6 time values, create datetime</span>
+        <span class="k">elif</span> <span class="nb">all</span><span class="p">(</span><span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span><span class="p">,</span> <span class="s1">&#39;day&#39;</span><span class="p">,</span> <span class="s1">&#39;hour&#39;</span><span class="p">,</span> <span class="s1">&#39;minute&#39;</span><span class="p">]):</span>
+            <span class="n">dt</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span><span class="p">,</span> <span class="s1">&#39;day&#39;</span><span class="p">,</span> <span class="s1">&#39;hour&#39;</span><span class="p">,</span> <span class="s1">&#39;minute&#39;</span><span class="p">]])</span>
+        <span class="k">elif</span> <span class="nb">all</span><span class="p">(</span><span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span><span class="p">,</span> <span class="s1">&#39;day&#39;</span><span class="p">,</span> <span class="s1">&#39;time&#39;</span><span class="p">]):</span>
+            <span class="n">df</span><span class="p">[</span><span class="s1">&#39;hour&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="p">[:</span><span class="o">-</span><span class="mi">6</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span> <span class="c1">#if just time, seperate into hour, min, sec </span>
+            <span class="n">df</span><span class="p">[</span><span class="s1">&#39;minute&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="p">[</span><span class="o">-</span><span class="mi">5</span><span class="p">:</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+            <span class="n">df</span><span class="p">[</span><span class="s1">&#39;second&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+            <span class="n">dt</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span><span class="p">,</span> <span class="s1">&#39;day&#39;</span><span class="p">,</span> <span class="s1">&#39;hour&#39;</span><span class="p">,</span> <span class="s1">&#39;minute&#39;</span><span class="p">,</span> <span class="s1">&#39;second&#39;</span><span class="p">]])</span>
+        <span class="k">elif</span> <span class="nb">all</span><span class="p">(</span><span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="s1">&#39;time&#39;</span><span class="p">]):</span>
+            <span class="n">df</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="p">[:</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+            <span class="n">df</span><span class="p">[</span><span class="s1">&#39;month&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="p">[</span><span class="mi">4</span><span class="p">:</span><span class="mi">6</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+            <span class="n">df</span><span class="p">[</span><span class="s1">&#39;day&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="p">[</span><span class="mi">6</span><span class="p">:</span><span class="mi">8</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+            <span class="n">time_strs</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span> <span class="c1">#some files have time as HH:mm, some as HH:mm:ss, so this accounts for both</span>
+            <span class="k">if</span> <span class="n">time_strs</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span> <span class="ow">and</span> <span class="n">time_strs</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>  <span class="c1">#determine format based on string length or presence of &quot;:&quot;</span>
+                <span class="n">df</span><span class="p">[</span><span class="s1">&#39;hour&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">time_strs</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+                <span class="n">df</span><span class="p">[</span><span class="s1">&#39;minute&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">time_strs</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+                <span class="n">df</span><span class="p">[</span><span class="s1">&#39;second&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">time_strs</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+                <span class="n">dt</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span><span class="p">,</span> <span class="s1">&#39;day&#39;</span><span class="p">,</span> <span class="s1">&#39;hour&#39;</span><span class="p">,</span> <span class="s1">&#39;minute&#39;</span><span class="p">,</span> <span class="s1">&#39;second&#39;</span><span class="p">]])</span>
+            <span class="k">elif</span> <span class="n">time_strs</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span> <span class="ow">and</span> <span class="n">time_strs</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+                <span class="n">df</span><span class="p">[</span><span class="s1">&#39;hour&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">time_strs</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+                <span class="n">df</span><span class="p">[</span><span class="s1">&#39;minute&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">time_strs</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+                <span class="n">df</span><span class="p">[</span><span class="s1">&#39;second&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">dt</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span><span class="p">,</span> <span class="s1">&#39;day&#39;</span><span class="p">,</span> <span class="s1">&#39;hour&#39;</span><span class="p">,</span> <span class="s1">&#39;minute&#39;</span><span class="p">,</span> <span class="s1">&#39;second&#39;</span><span class="p">]])</span>
+        <span class="k">else</span><span class="p">:</span> <span class="c1">#if none of the above is deteted, skip for now, we&#39;ll create it later</span>
+            <span class="n">dt</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">NaT</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;datetime&#39;</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span> <span class="c1">#insert datetime column into df</span>
+        <span class="n">columns_to_keep</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">selected_columns</span> <span class="ow">or</span> <span class="n">col</span> <span class="o">==</span> <span class="s1">&#39;datetime&#39;</span><span class="p">]</span> <span class="c1">#only keep whatever columns are in selected_columns</span>
+        <span class="n">df_filtered</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">columns_to_keep</span><span class="p">]</span>
+        <span class="n">header</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">data1</span><span class="o">.</span><span class="n">headers</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s1">&#39;index&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">T</span> <span class="c1">#create metedata header from dictionary and repeat it to match lenth of dataset</span>
+        <span class="n">header_repeated</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">header</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_filtered</span><span class="p">),</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="c1"># Combine data and metadata</span>
+        <span class="n">combined</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df_filtered</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">header_repeated</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">combined</span> <span class="o">=</span> <span class="n">combined</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="o">~</span><span class="n">combined</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">duplicated</span><span class="p">()]</span>
+        <span class="n">dfs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">combined</span><span class="p">)</span>
+    <span class="c1">#final concatenation</span>
+    <span class="nb">globals</span><span class="p">()[</span><span class="nb">str</span><span class="p">(</span><span class="n">all_folders</span><span class="p">[</span><span class="n">folders</span><span class="p">])]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">dfs</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1">#append all files in that specific affiliation file toether </span>
+
+<span class="n">chl_columns</span> <span class="o">=</span><span class="p">[</span><span class="s1">&#39;chl&#39;</span><span class="p">,</span><span class="s1">&#39;chl_a&#39;</span><span class="p">]</span> <span class="c1">#for reducing rows without these in it (without ,&#39;chl_experiment&#39;,&#39;chl_stimf&#39;)</span>
+<span class="k">for</span> <span class="n">names</span> <span class="ow">in</span> <span class="n">all_folders</span><span class="p">:</span> <span class="c1">#for each affilitation dataframe</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">names</span><span class="p">)</span>
+    <span class="n">chl_cols</span><span class="o">=</span><span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="p">(</span><span class="nb">globals</span><span class="p">()[</span><span class="n">names</span><span class="p">])</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">chl_columns</span><span class="p">]</span> <span class="c1">#detect the chlorophyll columns present </span>
+    <span class="p">(</span><span class="nb">globals</span><span class="p">()[</span><span class="n">names</span><span class="p">])</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="n">chl_cols</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1">#if rows in the chl columns empty, remove </span>
+
+<span class="c1">#for any remaining empty datetime, manually create it from the metadata date </span>
+<span class="k">for</span> <span class="n">names</span> <span class="ow">in</span> <span class="n">all_folders</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">names</span><span class="p">)</span>
+    <span class="p">(</span><span class="nb">globals</span><span class="p">()[</span><span class="n">names</span><span class="p">])[</span><span class="s1">&#39;time_flag&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;no&#39;</span> <span class="c1">#create a flag stating if datetime populated from metadata, initiate as no </span>
+    <span class="k">if</span> <span class="s1">&#39;datetime&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="nb">globals</span><span class="p">()[</span><span class="n">names</span><span class="p">])</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span> <span class="c1">#if the dataframe does not have datetime column, create one</span>
+        <span class="p">(</span><span class="nb">globals</span><span class="p">()[</span><span class="n">names</span><span class="p">])[</span><span class="s1">&#39;datetime&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">NaT</span>
+    <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="p">(</span><span class="nb">globals</span><span class="p">()[</span><span class="n">names</span><span class="p">])</span><span class="o">.</span><span class="n">index</span><span class="p">:</span> <span class="c1">#loop through each row </span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">isna</span><span class="p">((</span><span class="nb">globals</span><span class="p">()[</span><span class="n">names</span><span class="p">])</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="s1">&#39;datetime&#39;</span><span class="p">])</span> <span class="ow">and</span> <span class="p">(</span><span class="nb">globals</span><span class="p">()[</span><span class="n">names</span><span class="p">])</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="s1">&#39;start_date&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="p">(</span><span class="nb">globals</span><span class="p">()[</span><span class="n">names</span><span class="p">])</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="s1">&#39;end_date&#39;</span><span class="p">]:</span> 
+                <span class="c1">#sometimes, start_date and end_date are concerning the start and end of the cruise/project, not that specific data recording. so only enter if loop if start_date = end_date</span>
+                <span class="c1">#extract strings</span>
+                <span class="n">date_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">((</span><span class="nb">globals</span><span class="p">()[</span><span class="n">names</span><span class="p">])</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="s1">&#39;end_date&#39;</span><span class="p">])</span>  <span class="c1"># e.g. &quot;20240520&quot;</span>
+                <span class="n">time_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">((</span><span class="nb">globals</span><span class="p">()[</span><span class="n">names</span><span class="p">])</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="s1">&#39;end_time&#39;</span><span class="p">])</span>  <span class="c1"># e.g. &quot;14:30:00.000&quot;</span>
+                <span class="c1">#parse date and time parts</span>
+                <span class="n">year</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">date_str</span><span class="p">[:</span><span class="mi">4</span><span class="p">])</span>
+                <span class="n">month</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">date_str</span><span class="p">[</span><span class="mi">4</span><span class="p">:</span><span class="mi">6</span><span class="p">])</span>
+                <span class="n">day</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">date_str</span><span class="p">[</span><span class="mi">6</span><span class="p">:</span><span class="mi">8</span><span class="p">])</span>
+                <span class="n">hour</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">time_str</span><span class="p">[:</span><span class="o">-</span><span class="mi">11</span><span class="p">])</span>
+                <span class="n">minute</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">time_str</span><span class="p">[</span><span class="o">-</span><span class="mi">10</span><span class="p">:</span><span class="o">-</span><span class="mi">8</span><span class="p">])</span>
+                <span class="n">second</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">time_str</span><span class="p">[</span><span class="o">-</span><span class="mi">7</span><span class="p">:</span><span class="o">-</span><span class="mi">5</span><span class="p">]))</span>  <span class="c1"># Handles &quot;00.000&quot;</span>
+
+                <span class="n">dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">day</span><span class="p">,</span> <span class="n">hour</span><span class="p">,</span> <span class="n">minute</span><span class="p">,</span> <span class="n">second</span><span class="p">)</span>
+                <span class="p">(</span><span class="nb">globals</span><span class="p">()[</span><span class="n">names</span><span class="p">])</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="s1">&#39;datetime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dt</span> <span class="c1">#populate that specific datetime row with dt</span>
+                <span class="p">(</span><span class="nb">globals</span><span class="p">()[</span><span class="n">names</span><span class="p">])</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="s1">&#39;time_flag&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;yes&#39;</span> <span class="c1">#turn the time_flag to yes</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="c1"># If there&#39;s a parsing problem, skip gracefully</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Row </span><span class="si">{</span><span class="n">idx</span><span class="si">}</span><span class="s2"> failed — start_date: </span><span class="si">{</span><span class="n">date_str</span><span class="si">}</span><span class="s2">, end_time: </span><span class="si">{</span><span class="n">time_str</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="p">(</span><span class="nb">globals</span><span class="p">()[</span><span class="n">names</span><span class="p">])</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="s1">&#39;time_flag&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s1">&#39;</span>
+
+<span class="c1">#if lat or lon are empty, populate with the metadata      </span>
+<span class="k">for</span> <span class="n">names</span> <span class="ow">in</span> <span class="n">all_folders</span><span class="p">:</span>
+    <span class="p">(</span><span class="nb">globals</span><span class="p">()[</span><span class="n">names</span><span class="p">])[</span><span class="s1">&#39;coord_flag&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;no&#39;</span> <span class="c1">#create a flag stating if coordinates populated from metadata, initiate as no </span>
+    <span class="k">if</span> <span class="s1">&#39;lat&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="nb">globals</span><span class="p">()[</span><span class="n">names</span><span class="p">])</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span> <span class="c1">#if lat and lon not in columns, create an empty column</span>
+        <span class="p">(</span><span class="nb">globals</span><span class="p">()[</span><span class="n">names</span><span class="p">])[</span><span class="s1">&#39;lat&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">NA</span>
+        <span class="p">(</span><span class="nb">globals</span><span class="p">()[</span><span class="n">names</span><span class="p">])[</span><span class="s1">&#39;lon&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">NA</span>
+    <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="p">(</span><span class="nb">globals</span><span class="p">()[</span><span class="n">names</span><span class="p">])</span><span class="o">.</span><span class="n">index</span><span class="p">:</span> <span class="c1">#for each row</span>
+        <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">isna</span><span class="p">((</span><span class="nb">globals</span><span class="p">()[</span><span class="n">names</span><span class="p">])</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="s1">&#39;lat&#39;</span><span class="p">])</span> <span class="ow">and</span> <span class="p">(</span><span class="nb">globals</span><span class="p">()[</span><span class="n">names</span><span class="p">])</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="s1">&#39;north_latitude&#39;</span><span class="p">]</span> <span class="o">==</span><span class="p">(</span><span class="nb">globals</span><span class="p">()[</span><span class="n">names</span><span class="p">])</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="s1">&#39;south_latitude&#39;</span><span class="p">]:</span>
+            <span class="c1">#sometimes, north_lat and south_lat show the total boundry of the project rather than specific point. so only append if they equal each other</span>
+            <span class="p">(</span><span class="nb">globals</span><span class="p">()[</span><span class="n">names</span><span class="p">])</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="s1">&#39;lat&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">((</span><span class="nb">globals</span><span class="p">()[</span><span class="n">names</span><span class="p">])</span><span class="o">.</span><span class="n">north_latitude</span><span class="p">[</span><span class="n">idx</span><span class="p">][:</span><span class="o">-</span><span class="mi">5</span><span class="p">])</span> <span class="c1">#pull latitude value out of north_lat</span>
+            <span class="p">(</span><span class="nb">globals</span><span class="p">()[</span><span class="n">names</span><span class="p">])</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="s1">&#39;coord_flag&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;yes&#39;</span> <span class="c1">#turn flag to yes</span>
+        <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">isna</span><span class="p">((</span><span class="nb">globals</span><span class="p">()[</span><span class="n">names</span><span class="p">])</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="s1">&#39;lon&#39;</span><span class="p">])</span> <span class="ow">and</span> <span class="p">(</span><span class="nb">globals</span><span class="p">()[</span><span class="n">names</span><span class="p">])</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="s1">&#39;west_longitude&#39;</span><span class="p">]</span> <span class="o">==</span><span class="p">(</span><span class="nb">globals</span><span class="p">()[</span><span class="n">names</span><span class="p">])</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="s1">&#39;east_longitude&#39;</span><span class="p">]:</span>
+            <span class="p">(</span><span class="nb">globals</span><span class="p">()[</span><span class="n">names</span><span class="p">])</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="s1">&#39;lon&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">((</span><span class="nb">globals</span><span class="p">()[</span><span class="n">names</span><span class="p">])</span><span class="o">.</span><span class="n">west_longitude</span><span class="p">[</span><span class="n">idx</span><span class="p">][:</span><span class="o">-</span><span class="mi">5</span><span class="p">])</span>
+            <span class="p">(</span><span class="nb">globals</span><span class="p">()[</span><span class="n">names</span><span class="p">])</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="s1">&#39;coord_flag&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;yes&#39;</span>   
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">FileNotFoundError</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">path_to_folder</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;west_coast\requested_files_2\requested_files&#39;</span> <span class="c1">#NOTE: there are usually multiple requested_files, this is where you would manually loop thru them</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">all_folders</span> <span class="o">=</span> <span class="n">get_folder_names</span><span class="p">(</span><span class="n">path_to_folder</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="k">for</span> <span class="n">folders</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">all_folders</span><span class="p">)):</span> <span class="c1">#for each affiliation folder in all_folders</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span>     <span class="n">f_list1</span> <span class="o">=</span>   <span class="n">path_to_folder</span> <span class="o">+</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">all_folders</span><span class="p">[</span><span class="n">folders</span><span class="p">])</span> <span class="c1">#create path to that specific folder </span>
+
+<span class="nn">Cell In[2], line 6,</span> in <span class="ni">get_folder_names</span><span class="nt">(folder_path)</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span><span class="sd"> Returns a list of folder names in the given directory.</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span><span class="sd"> &quot;&quot;&quot;</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">folder_names</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="ne">----&gt; </span><span class="mi">6</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">folder_path</span><span class="p">):</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span>   <span class="n">item_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">folder_path</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span>   <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">item_path</span><span class="p">):</span>
+
+<span class="ne">FileNotFoundError</span>: [WinError 3] The system cannot find the path specified: &#39;west_coast\\requested_files_2\\requested_files&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="hplc-flags">
+<h2>HPLC Flags<a class="headerlink" href="#hplc-flags" title="Link to this heading">#</a></h2>
+<p>In order to detect if HPLC is recorded or not, 3 methods are used.</p>
+<ol class="arabic simple">
+<li><p>If chl_a is in the dataframe, then assume HPLC</p></li>
+<li><p>if chl_a is not in the dataframe and no other columns in hplc_hints are found, then assume no HPLC is recorded.</p></li>
+<li><p>if chl_a is not in the datafrme <strong>BUT</strong> another variable that can only be recorded with HPLC methods <strong>IS</strong> recorded, then assume chl_a was mislabled and mark chl as HPLC.</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#strictly speaking, seabass marks chl as non-hplc and chl_a as hplc. however, sometimes hplc data is entered as chl. so to better detect if </span>
+<span class="c1">#the data is hplc or not, hplc_hints can be used to see if other HPLC exclusive variables were collected. </span>
+<span class="n">hplc_hints</span> <span class="o">=</span><span class="p">[</span><span class="s1">&#39;Allo&#39;</span><span class="p">,</span> <span class="s1">&#39;alpha-beta-car&#39;</span><span class="p">,</span> <span class="s1">&#39;anth&#39;</span><span class="p">,</span> <span class="s1">&#39;asta&#39;</span><span class="p">,</span> <span class="s1">&#39;bchl_a&#39;</span><span class="p">,</span> <span class="s1">&#39;beta-beta-car&#39;</span><span class="p">,</span> <span class="s1">&#39;beta-epi-car&#39;</span><span class="p">,</span> <span class="s1">&#39;beta-psi-car&#39;</span><span class="p">,</span> <span class="s1">&#39;but-fuco&#39;</span><span class="p">,</span> <span class="s1">&#39;cantha&#39;</span><span class="p">,</span> 
+             <span class="s1">&#39;chl_a&#39;</span><span class="p">,</span> <span class="s1">&#39;chl_a_allom&#39;</span><span class="p">,</span> <span class="s1">&#39;chl_a_prime&#39;</span><span class="p">,</span><span class="s1">&#39;chl_b&#39;</span><span class="p">,</span> <span class="s1">&#39;chl_c&#39;</span><span class="p">,</span> <span class="s1">&#39;chl_c1&#39;</span><span class="p">,</span> <span class="s1">&#39;chl_c1c2&#39;</span><span class="p">,</span> <span class="s1">&#39;chl_c2&#39;</span><span class="p">,</span> <span class="s1">&#39;chl_c3&#39;</span><span class="p">,</span> <span class="s1">&#39;chlide_a&#39;</span><span class="p">,</span> <span class="s1">&#39;chlide_b&#39;</span><span class="p">,</span>
+             <span class="s1">&#39;chors_id&#39;</span><span class="p">,</span> <span class="s1">&#39;croco&#39;</span><span class="p">,</span> <span class="s1">&#39;diadchr&#39;</span><span class="p">,</span> <span class="s1">&#39;diadino&#39;</span><span class="p">,</span> <span class="s1">&#39;diato&#39;</span><span class="p">,</span> <span class="s1">&#39;dino&#39;</span><span class="p">,</span> <span class="s1">&#39;dv_chl_a&#39;</span><span class="p">,</span> <span class="s1">&#39;dv_chl_b&#39;</span><span class="p">,</span> <span class="s1">&#39;echin&#39;</span><span class="p">,</span> <span class="s1">&#39;epi-epi-car&#39;</span><span class="p">,</span> <span class="s1">&#39;et-8-carot&#39;</span><span class="p">,</span>
+             <span class="s1">&#39;et-chlide_a&#39;</span><span class="p">,</span> <span class="s1">&#39;et-chlide_b&#39;</span><span class="p">,</span> <span class="s1">&#39;fuco&#39;</span><span class="p">,</span> <span class="s1">&#39;gyro&#39;</span><span class="p">,</span> <span class="s1">&#39;hex-fuco&#39;</span><span class="p">,</span> <span class="s1">&#39;hex-kfuco&#39;</span><span class="p">,</span> <span class="s1">&#39;hpl_id&#39;</span><span class="p">,</span> <span class="s1">&#39;hplc_gsfc_id&#39;</span><span class="p">,</span> <span class="s1">&#39;lut&#39;</span><span class="p">,</span> <span class="s1">&#39;lyco&#39;</span><span class="p">,</span> <span class="s1">&#39;me-chlide_a&#39;</span><span class="p">,</span>
+             <span class="s1">&#39;me-chlide_b&#39;</span><span class="p">,</span> <span class="s1">&#39;mg_dvp&#39;</span><span class="p">,</span> <span class="s1">&#39;monado&#39;</span><span class="p">,</span> <span class="s1">&#39;mv_chl_a&#39;</span><span class="p">,</span> <span class="s1">&#39;mv_chl_b&#39;</span><span class="p">,</span> <span class="s1">&#39;neo&#39;</span><span class="p">,</span> <span class="s1">&#39;p-457&#39;</span><span class="p">,</span> <span class="s1">&#39;perid&#39;</span><span class="p">,</span> <span class="s1">&#39;phide_a&#39;</span><span class="p">,</span> <span class="s1">&#39;phide_b&#39;</span><span class="p">,</span> <span class="s1">&#39;phide_c&#39;</span><span class="p">,</span> <span class="s1">&#39;phytin_a&#39;</span><span class="p">,</span>
+             <span class="s1">&#39;phytin_b&#39;</span><span class="p">,</span> <span class="s1">&#39;phytin_c&#39;</span><span class="p">,</span><span class="s1">&#39; phytyl-chl_c&#39;</span><span class="p">,</span> <span class="s1">&#39;pras&#39;</span><span class="p">,</span> <span class="s1">&#39;pyrophide_a&#39;</span><span class="p">,</span> <span class="s1">&#39;pyrophytin_a&#39;</span><span class="p">,</span> <span class="s1">&#39;pyrophytin_b&#39;</span><span class="p">,</span> <span class="s1">&#39;pyrophytin_c&#39;</span><span class="p">,</span> <span class="s1">&#39;siphn&#39;</span><span class="p">,</span> <span class="s1">&#39;siphx&#39;</span><span class="p">,</span> 
+             <span class="s1">&#39;tot_chl_a&#39;</span><span class="p">,</span> <span class="s1">&#39;tot_chl_b&#39;</span><span class="p">,</span> <span class="s1">&#39;tot_chl_c&#39;</span><span class="p">,</span> <span class="s1">&#39;vauch&#39;</span><span class="p">,</span> <span class="s1">&#39;viola&#39;</span><span class="p">,</span> <span class="s1">&#39;zea&#39;</span><span class="p">]</span> <span class="c1">#columns that hint towards hplc </span>
+      
+<span class="c1"># create HPLC flag</span>
+<span class="c1">#if chl_a was recorded, flag as hplc.</span>
+<span class="c1">#if chl is present WITHOUT chl_a, BUT other columns in hplc_hints are present, mark as suspected HPLC (2)</span>
+<span class="k">for</span> <span class="n">names</span> <span class="ow">in</span> <span class="n">all_folders</span><span class="p">:</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="nb">globals</span><span class="p">()[</span><span class="n">names</span><span class="p">]</span> 
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;HPLC&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1">#assume not hplc unless i tell it otherwise</span>
+    <span class="k">if</span> <span class="s1">&#39;chl_a&#39;</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;chl_a&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">(),</span> <span class="s1">&#39;HPLC&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1">#if chl_a in columns and is not empty, mark as hplc</span>
+    <span class="n">existing_hints</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">hplc_hints</span> <span class="k">if</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span> <span class="c1">#first, are there any hplc columns in the dataframe</span>
+    <span class="k">if</span> <span class="s1">&#39;chl&#39;</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="n">cond_chl_exists</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;chl&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span> <span class="c1">#if chl is not empty</span>
+        <span class="k">if</span> <span class="s1">&#39;chl_a&#39;</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span> <span class="c1">#if chl_a is either is empty or doesn&#39;t exist </span>
+            <span class="n">cond_chla_empty</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;chl_a&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">cond_chla_empty</span> <span class="o">=</span> <span class="kc">True</span> 
+        <span class="k">if</span> <span class="n">existing_hints</span><span class="p">:</span> <span class="c1">#if the dataframe has these columns in it </span>
+            <span class="n">cond_hints_exist</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">existing_hints</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="c1">#pull these columns</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">cond_hints_exist</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">final_mask</span> <span class="o">=</span> <span class="n">cond_chl_exists</span> <span class="o">&amp;</span> <span class="n">cond_chla_empty</span> <span class="o">&amp;</span> <span class="n">cond_hints_exist</span> <span class="c1">#if chl is recorded AND chl_a is empty AND there are hplc_hint columns</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">final_mask</span><span class="p">,</span> <span class="s1">&#39;HPLC&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span> <span class="c1">#flag as suspected hplc</span>
+        
+        <span class="c1">#you can stop above, the below is to detect when and where the suspected flags occur </span>
+        <span class="n">flagged_rows</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">final_mask</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">flagged_rows</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span> <span class="c1">#for the rows that agree with the final mask</span>
+            <span class="n">found_cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">existing_hints</span> <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">notna</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="n">col</span><span class="p">])]</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DF: </span><span class="si">{</span><span class="n">names</span><span class="si">}</span><span class="s2"> | Row: </span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2"> | Flagged as HPLC (2). Found hints: </span><span class="si">{</span><span class="n">found_cols</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+<span class="n">dfs_to_concat</span> <span class="o">=</span> <span class="p">[(</span><span class="nb">globals</span><span class="p">()[</span><span class="n">names</span><span class="p">])</span> <span class="k">for</span> <span class="n">names</span> <span class="ow">in</span> <span class="n">all_folders</span><span class="p">]</span> <span class="c1">#concatinate the dataframes in all_folders</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Once dfs_to_concat has run, save all the dataframes in that folder to a dataframe, and then repeat for the next however many requested_files_# you have. Since east_coast has three requested_files_#, each folder is saved to east1, east2, and east3 respectively.</p>
+<p>Once all folders are run and concatinated, the dataframe is reduced to only the columns relevant to the project and subset to a North America shapefile</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#For example there are 3 requested_files in the east coast section </span>
+<span class="n">east1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">dfs_to_concat</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1">#save dfs_to_concat to single dataframe. STOP HERE and repeat if you have multiple requested files</span>
+<span class="n">east2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">dfs_to_concat</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">east3</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">dfs_to_concat</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">east_coast</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">east1</span><span class="p">,</span><span class="n">east2</span><span class="p">,</span><span class="n">east3</span><span class="p">])</span>
+<span class="n">east_coast</span><span class="o">=</span><span class="n">east_coast</span><span class="p">[[</span><span class="s1">&#39;datetime&#39;</span><span class="p">,</span> <span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="s1">&#39;lon&#39;</span><span class="p">,</span> <span class="s1">&#39;chl&#39;</span><span class="p">,</span> <span class="s1">&#39;station&#39;</span><span class="p">,</span> <span class="s1">&#39;affiliations&#39;</span><span class="p">,</span> <span class="s1">&#39;investigators&#39;</span><span class="p">,</span> <span class="s1">&#39;contact&#39;</span><span class="p">,</span> <span class="s1">&#39;experiment&#39;</span><span class="p">,</span> <span class="s1">&#39;cruise&#39;</span><span class="p">,</span> <span class="s1">&#39;data_type&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;water_depth&#39;</span><span class="p">,</span> <span class="s1">&#39;measurement_depth&#39;</span><span class="p">,</span> <span class="s1">&#39;water_depth &#39;</span><span class="p">,</span> <span class="s1">&#39;depth&#39;</span><span class="p">,</span> <span class="s1">&#39;identifier_product_doi&#39;</span><span class="p">,</span> <span class="s1">&#39;instrument_name&#39;</span><span class="p">,</span> <span class="s1">&#39;instrument&#39;</span><span class="p">,</span> <span class="s1">&#39;time_flag&#39;</span><span class="p">,</span> 
+        <span class="s1">&#39;coord_flag&#39;</span><span class="p">,</span>  <span class="s1">&#39;hplc_lab&#39;</span><span class="p">,</span> <span class="s1">&#39;chl_a&#39;</span><span class="p">,</span> <span class="s1">&#39;sequence_number&#39;</span><span class="p">,</span><span class="s1">&#39;sample&#39;</span><span class="p">,</span><span class="s1">&#39;data_file_name&#39;</span><span class="p">,</span><span class="s1">&#39;HPLC&#39;</span><span class="p">]]</span>
+
+<span class="n">shp</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s1">&#39;combined_coastline.shp&#39;</span><span class="p">)</span>
+<span class="n">gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">east_coast</span><span class="p">,</span> <span class="n">geometry</span><span class="o">=</span><span class="n">gpd</span><span class="o">.</span><span class="n">points_from_xy</span><span class="p">(</span><span class="n">east_coast</span><span class="o">.</span><span class="n">lon</span><span class="p">,</span> <span class="n">east_coast</span><span class="o">.</span><span class="n">lat</span><span class="p">),</span> <span class="n">crs</span><span class="o">=</span><span class="s2">&quot;EPSG:4269&quot;</span><span class="p">)</span>
+<span class="n">gdf</span> <span class="o">=</span> <span class="n">gdf</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="n">shp</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span>
+<span class="n">east_coast</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">sjoin</span><span class="p">(</span><span class="n">gdf</span><span class="p">,</span> <span class="n">shp</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;inner&quot;</span><span class="p">,</span> <span class="n">predicate</span><span class="o">=</span><span class="s2">&quot;within&quot;</span><span class="p">)</span>
+<span class="n">columns_to_drop</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">,</span> <span class="s1">&#39;index_right&#39;</span><span class="p">,</span> <span class="s1">&#39;merge_id&#39;</span><span class="p">]</span>
+<span class="n">east_coast</span> <span class="o">=</span> <span class="n">east_coast</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">columns_to_drop</span><span class="p">)</span>
+<span class="n">east_coast</span><span class="o">=</span> <span class="n">east_coast</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Repeat the code from  “path_to_folder =” to “east_coast= east_coast.reset_index(drop=True)” for each regional folder. In my case, I repeated it for the East Coast, West Coast, Gulf Coast, Hawaii, and Alaska, resulting in 5 dataframes (df)</p>
+<p>Each Dataframe (df) is then reduced to only data post 1999. Additionally, depth is populated depending on the datatype from the metadata.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="s1">&#39;2000-01-01&#39;</span><span class="p">]</span> <span class="c1">#only want data from 2000 on for this algorithm </span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;depth&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;depth&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">())</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;data_type&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;flow_thru&#39;</span><span class="p">),</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;measurement_depth&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;depth&#39;</span><span class="p">])</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;depth&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;depth&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">())</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;data_type&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;mooring&#39;</span><span class="p">),</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;water_depth&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;depth&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="triplicate-flags">
+<h2>Triplicate flags<a class="headerlink" href="#triplicate-flags" title="Link to this heading">#</a></h2>
+<p>In order to detect in a sample was recorded in triplicates, two methods are employed.</p>
+<ol class="arabic simple">
+<li><p>The number of unique datetime, lat, and lon points are recorded and saved to a column of the dataframe (called freq_uniq). if freq_uniq ==3, then there are three unique samples recorded at that specific datetime, lat, and lon, and so we can assume it’s a triplicate.</p></li>
+<li><p>Sometimes, a project recordes the exact time each tripliate sample is recorded, so for example a sample will be recorded at 3:25, 3:30, and 3:33. In order to detect these triplicate samples, all unique date hours, lat, and lon are recorded as the column name freq_hour. IF freq_uniq ==1 and freq_hour ==3, assume the sample was recorded in triplicate.</p></li>
+</ol>
+<p>Here’s an example of the above methods in action:
+<img alt="seabass_trip" src="_images/triplicate_example.png" /></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#FLAG for triplicates </span>
+<span class="n">counts_series</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;datetime&#39;</span><span class="p">,</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span><span class="s1">&#39;lon&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span> <span class="c1">#count how many unique datetime, lat, and lons there are</span>
+<span class="n">counts_df</span> <span class="o">=</span> <span class="n">counts_series</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;freq_uniq&#39;</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">counts_df</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">,</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span><span class="s1">&#39;lon&#39;</span><span class="p">],</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span> <span class="c1">#add frequency column to original dataframe</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;date_hour&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H&#39;</span><span class="p">)</span><span class="c1">#some places have 3 different times close to gether but that&#39;s bc of recording each time for triplicate (3:00, 3:05, 3:10 )</span>
+<span class="n">counts_series</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;date_hour&#39;</span><span class="p">,</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span><span class="s1">&#39;lon&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span> <span class="c1">#count how many unique datehour, lat, and lons there are</span>
+<span class="n">counts_df</span> <span class="o">=</span> <span class="n">counts_series</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;freq_hour&#39;</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">counts_df</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;date_hour&#39;</span><span class="p">,</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span><span class="s1">&#39;lon&#39;</span><span class="p">],</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span> <span class="c1">#add frequency column to original dataframe</span>
+
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;triplicate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1">#assume bad unless otherwise said</span>
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;freq_uniq&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;triplicate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1">#if there was a unique datetime, lat, and lon that happened 3 times, triplicate</span>
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;freq_uniq&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;freq_hour&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">3</span><span class="p">),</span> <span class="s1">&#39;triplicate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1">#if 1 unique datetime recorded and only 3 for datehour, assume triplicate </span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#remove depths below 150</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;depth&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;depth&#39;</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;depth&#39;</span><span class="p">]</span> <span class="o">&lt;=</span><span class="mi">150</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1">#save the same columns for all files</span>
+<span class="n">df</span><span class="o">=</span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;datetime&#39;</span><span class="p">,</span> <span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="s1">&#39;lon&#39;</span><span class="p">,</span> <span class="s1">&#39;chl&#39;</span><span class="p">,</span> <span class="s1">&#39;chl_a&#39;</span><span class="p">,</span><span class="s1">&#39;depth&#39;</span><span class="p">,</span><span class="s1">&#39;experiment&#39;</span><span class="p">,</span> <span class="s1">&#39;data_type&#39;</span><span class="p">,</span><span class="s1">&#39;station&#39;</span><span class="p">,</span> <span class="s1">&#39;affiliations&#39;</span><span class="p">,</span><span class="s1">&#39;investigators&#39;</span><span class="p">,</span> <span class="s1">&#39;contact&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;cruise&#39;</span><span class="p">,</span> <span class="s1">&#39;identifier_product_doi&#39;</span><span class="p">,</span> <span class="s1">&#39;time_flag&#39;</span><span class="p">,</span><span class="s1">&#39;coord_flag&#39;</span><span class="p">,</span> <span class="s1">&#39;data_file_name&#39;</span><span class="p">,</span> <span class="s1">&#39;HPLC&#39;</span><span class="p">,</span> <span class="s1">&#39;triplicate&#39;</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Concatinate all the folders into one dataframe and drop any duplicates.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">all_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">alas</span><span class="p">,</span><span class="n">east</span><span class="p">,</span> <span class="n">gom</span><span class="p">,</span><span class="n">hawaii</span><span class="p">,</span><span class="n">west</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> 
+<span class="n">all_data</span> <span class="o">=</span> <span class="n">all_data</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="data-type-detection">
+<h2>Data type detection<a class="headerlink" href="#data-type-detection" title="Link to this heading">#</a></h2>
+<p>Sometimes, the SeaBASS metadata variable ‘data_type’ is not completely true. For example, it’s hard to tell if ‘cast’ means an instrument deployed on a cast that recorded flourecence data, of if data was collected from a cast rosette, which can then be confused with bottle type.</p>
+<p>For this algorithm, we care less about the specific data_type used to gather chl, as long as the chl is not in-vivo. And an easy way of detecting if it’s in-vivo or not is by looking at the spatial and temporal resolution of each datatype to see if it was floursecence or not.</p>
+<p>To do this, we’ll create a a flagging system <em>(0=good, 1=bad, 2=undetermined)</em> that detects:</p>
+<ul class="simple">
+<li><p><strong>diff_space</strong>: the spatial station dfference between stations (how far apart are each station?)</p></li>
+<li><p><strong>diff_s</strong>: the time between each sample’s recording (was the sample taken every 10 mins? 10 seconds?)</p></li>
+<li><p><strong>num_s</strong>: number of measurments per stations (did 1 station at a specific date record 1000 sample? 10 samples?)</p></li>
+<li><p><strong>data_flag</strong>: flag for the SeaBASS data_type (what is the data_type SeaBASS says it is?)</p></li>
+<li><p><strong>s_flag</strong>: the spatial resolution between samples (how far apart are each sample’s lat and lon?)</p></li>
+<li><p><strong>d_flag</strong>: the depth resolution (how far apart is each depth sample?)</p></li>
+<li><p><strong>t_flag</strong>: the temporal resolution (how much time is between each sample?)</p></li>
+<li><p><strong>decision</strong>: Final flag based off of other flags values. If 0, not in-vivo. if 1, assume in-vivo. if 2, suspect/ unsure</p></li>
+</ul>
+<p>For the most part, the flags are triggered to bad if:</p>
+<ul class="simple">
+<li><p><strong>s_flag</strong>: the space between samples is less than 1km</p></li>
+<li><p><strong>d_flag</strong>: the change in depth between samples is less than 1m</p></li>
+<li><p><strong>t_flag</strong>: the time between samples is less than 10 mins for flow_thru and pigment, 1 hour for cast and bottle</p></li>
+</ul>
+<p>Below is a snippit of the flagging code “SeaBass_flags2” that is used to estimate if the data is in-vivo or not. Bear in mind this specific snippet is just for data_type = pigment. The specific limits vary slightly depending on the data_type (for example, I am more strict with flow thru data since it’s most likely in vivo than with bottle). Please refer to the code in the github for the complete code.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">measure</span><span class="p">(</span><span class="n">lat1</span><span class="p">,</span> <span class="n">lon1</span><span class="p">,</span> <span class="n">lat2</span><span class="p">,</span> <span class="n">lon2</span><span class="p">):</span> <span class="c1">#function to convert the difference between two lat and lon points to km</span>
+    <span class="n">R</span> <span class="o">=</span> <span class="mf">6378.137</span> <span class="c1">#Radius of earth in KM</span>
+    <span class="n">dLat</span> <span class="o">=</span> <span class="n">lat2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">180</span> <span class="o">-</span> <span class="n">lat1</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">180</span>
+    <span class="n">dLon</span> <span class="o">=</span> <span class="n">lon2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">180</span> <span class="o">-</span> <span class="n">lon1</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">180</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">dLat</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">dLat</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">lat1</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span> <span class="mi">180</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">lat2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">180</span><span class="p">)</span> <span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">dLon</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">dLon</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan2</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">a</span><span class="p">))</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">R</span> <span class="o">*</span> <span class="n">c</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">d</span> <span class="o">*</span> <span class="mi">1000</span> <span class="c1">#; // meters</span>
+
+<span class="n">a</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">a</span><span class="p">[</span><span class="s1">&#39;t_flag&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">0</span> <span class="c1">#initialize temporal resolution flag, 0=good, 1= bad (less than 1hour),2=flag (time is 0 i.e repeated)</span>
+<span class="n">a</span><span class="p">[</span><span class="s1">&#39;s_flag&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">0</span> <span class="c1">#initialize spatial resolution flag, 0=good, 1= bad (less than 2km),2=flag (lat/lon is 0 i.e repeated)</span>
+<span class="n">a</span><span class="p">[</span><span class="s1">&#39;data_flag&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1">#column to populate with datatypes as values for organization</span>
+<span class="n">a</span><span class="p">[</span><span class="s1">&#39;d_flag&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1">#initialize depth flag, 0=good, 1=bad (less than 5m), 2=flag</span>
+<span class="n">a</span><span class="p">[</span><span class="s1">&#39;decision&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span> <span class="c1">#ultimate decision flag inidcating whether to keep or toss data point (0=good, 1=bad,2=flag)</span>
+<span class="n">a</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">a</span><span class="p">[</span><span class="s1">&#39;data_type&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;bottle&#39;</span><span class="p">),</span> <span class="s1">&#39;data_flag&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">a</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">a</span><span class="p">[</span><span class="s1">&#39;data_type&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;cast&#39;</span><span class="p">),</span> <span class="s1">&#39;data_flag&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span> 
+<span class="n">a</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">a</span><span class="p">[</span><span class="s1">&#39;data_type&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;flow_thru&#39;</span><span class="p">),</span> <span class="s1">&#39;data_flag&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">a</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">a</span><span class="p">[</span><span class="s1">&#39;data_type&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;pigment&#39;</span><span class="p">),</span> <span class="s1">&#39;data_flag&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="k">if</span> <span class="s1">&#39;station&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">a</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="n">a</span><span class="p">[</span><span class="s1">&#39;station&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+<span class="k">if</span> <span class="mi">1</span> <span class="ow">in</span> <span class="n">a</span><span class="o">.</span><span class="n">data_flag</span><span class="o">.</span><span class="n">values</span><span class="p">:</span> <span class="c1">#pigment</span>
+    <span class="n">p</span><span class="o">=</span><span class="n">a</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">a</span><span class="p">[</span><span class="s1">&#39;data_flag&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> 
+    <span class="c1">#p.dropna(axis=1, how=&#39;all&#39;, inplace=True) #drop all empty columns</span>
+    <span class="n">pp</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">station</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span> <span class="c1">#identify number of stations </span>
+    <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">station</span><span class="o">.</span><span class="n">empty</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">p</span><span class="p">)</span><span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">pp</span><span class="p">):</span> <span class="c1">#if the metadata has no stations or every point is a station</span>
+        <span class="c1">#time flag</span>
+        <span class="n">p</span><span class="p">[</span><span class="s1">&#39;diff_time&#39;</span><span class="p">]</span><span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">t_flag</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;diff_time&#39;</span><span class="p">]</span><span class="o">&lt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_timedelta</span><span class="p">(</span><span class="s1">&#39;10 minutes&#39;</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">t_flag</span><span class="p">)</span> <span class="c1">#if delta t is less than 1 hour, flag as bad</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">t_flag</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;diff_time&#39;</span><span class="p">]</span><span class="o">==</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_timedelta</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="mi">2</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">t_flag</span><span class="p">)</span> <span class="c1">#if 0, then just a repeat so not necessarily bad</span>
+        <span class="c1">#space flag</span>
+        <span class="n">c</span><span class="o">=</span><span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">p</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+            <span class="n">meters</span><span class="o">=</span><span class="n">measure</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">lat</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span><span class="nb">float</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">lon</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span><span class="nb">float</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">lat</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]),</span><span class="nb">float</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">lon</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]))</span>
+            <span class="n">c</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">meters</span><span class="p">)</span>
+            <span class="c1">#add nan on top to make the list shift down and fit</span>
+        <span class="n">c</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">float</span><span class="p">(</span><span class="s1">&#39;nan&#39;</span><span class="p">))</span>
+        <span class="n">p</span><span class="p">[</span><span class="s1">&#39;diff_space&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">s_flag</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;diff_space&#39;</span><span class="p">]</span><span class="o">&lt;</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">s_flag</span><span class="p">)</span> <span class="c1">#2000m ie 2km</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">s_flag</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;diff_space&#39;</span><span class="p">]</span><span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">s_flag</span><span class="p">)</span> <span class="c1">#if 0, then just a multi samples so not necessarily bad</span>
+        <span class="c1">#add decicion flags</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">decision</span><span class="p">[(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;t_flag&#39;</span><span class="p">]</span> <span class="o">==</span><span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;s_flag&#39;</span><span class="p">]</span> <span class="o">==</span><span class="mi">0</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1">#if both good, then good</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">decision</span><span class="p">[(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;t_flag&#39;</span><span class="p">]</span> <span class="o">==</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;s_flag&#39;</span><span class="p">]</span> <span class="o">==</span><span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1">#if both bad, then flag bad</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">decision</span><span class="p">[(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;t_flag&#39;</span><span class="p">]</span> <span class="o">==</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;s_flag&#39;</span><span class="p">]</span> <span class="o">==</span><span class="mi">0</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">1</span> 
+        <span class="n">p</span><span class="o">.</span><span class="n">decision</span><span class="p">[(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;t_flag&#39;</span><span class="p">]</span> <span class="o">==</span><span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;s_flag&#39;</span><span class="p">]</span> <span class="o">==</span><span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">2</span> 
+    <span class="c1">#when i first populat the column, it&#39;s populated with flag, so all other cases that are not above are flagged</span>
+    <span class="k">else</span><span class="p">:</span> <span class="c1">#if the station column is NOT empty i.e stations are recorded or just 1 station</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s1">&#39;datetime&#39;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>        
+        <span class="n">pp</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;datetime&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">size</span><span class="p">()</span> <span class="c1">#Group by datetime i.e station and time</span>
+        <span class="n">pp</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">pp</span><span class="p">)</span>        
+        <span class="n">pp_n</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;datetime&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span> <span class="c1">#group again, this time with datetime in column to manipulate</span>
+        <span class="n">pp_n</span><span class="p">[</span><span class="s1">&#39;diff_s&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pp_n</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span> <span class="c1">#caluclate change in time between each station</span>
+        <span class="n">pp_n</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">pp_n</span><span class="p">)</span>
+
+        <span class="n">pp</span><span class="p">[</span><span class="s1">&#39;diff_s&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">pp_n</span><span class="p">[</span><span class="s1">&#39;diff_s&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span> <span class="c1">#populate pp dataframe with change in station time</span>
+        <span class="n">station_count</span> <span class="o">=</span> <span class="n">pp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c1">#sample rate i.e how many samples per station</span>
+        <span class="n">time_count</span> <span class="o">=</span> <span class="n">pp</span><span class="p">[</span><span class="s1">&#39;diff_s&#39;</span><span class="p">]</span> <span class="c1">#time between stations</span>
+        <span class="n">p</span><span class="p">[</span><span class="s1">&#39;diff_time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">time_count</span><span class="p">)</span> <span class="c1">#Map onto original dataframe</span>
+        <span class="n">p</span><span class="p">[</span><span class="s1">&#39;num_s&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">station_count</span><span class="p">)</span> <span class="c1">#number of measurments per stations</span>
+        <span class="c1">#both of these above should trigger t_flag</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">t_flag</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;diff_time&#39;</span><span class="p">]</span><span class="o">&lt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_timedelta</span><span class="p">(</span><span class="s1">&#39;10 minutes&#39;</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">t_flag</span><span class="p">)</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">t_flag</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;num_s&#39;</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">t_flag</span><span class="p">)</span> <span class="c1">#if the number of measurments at one station is too high i.e sample rate, flag it</span>
+        <span class="c1">#space flag can be more loose since there are discrete stations, but still tag for high resolution cases</span>
+        <span class="n">c</span><span class="o">=</span><span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">p</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+            <span class="n">meters</span><span class="o">=</span><span class="n">measure</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">lat</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span><span class="nb">float</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">lon</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span><span class="nb">float</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">lat</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]),</span><span class="nb">float</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">lon</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]))</span>
+            <span class="n">c</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">meters</span><span class="p">)</span>    
+        <span class="n">c</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">float</span><span class="p">(</span><span class="s1">&#39;nan&#39;</span><span class="p">))</span>
+        <span class="n">p</span><span class="p">[</span><span class="s1">&#39;diff_space&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">s_flag</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;diff_space&#39;</span><span class="p">]</span><span class="o">&lt;</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">s_flag</span><span class="p">)</span> <span class="c1">#2000m ie 2km</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">s_flag</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;diff_space&#39;</span><span class="p">]</span><span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">s_flag</span><span class="p">)</span> <span class="c1">#if 0, then mark as good because diff_time and num_s will stop bad data points</span>
+        
+        <span class="c1">#depth flag</span>
+        <span class="k">if</span> <span class="s1">&#39;depth&#39;</span> <span class="ow">in</span> <span class="n">p</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="n">depth_diff</span> <span class="o">=</span><span class="nb">abs</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">depth</span><span class="o">.</span><span class="n">diff</span><span class="p">())</span><span class="c1">#calculate absolute change in depth</span>
+            <span class="n">p</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="n">depth_diff</span><span class="o">&lt;</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">,</span><span class="s1">&#39;d_flag&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">1</span> <span class="c1">#if the change in depth is not large enough</span>
+            <span class="n">p</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="n">depth_diff</span><span class="o">==</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">,</span><span class="s1">&#39;d_flag&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">2</span> <span class="c1">#if the change in depth doesn&#39;t move, set as 2, diff_time and num_s will take care of it</span>
+
+
+        <span class="c1">#add decicion flags</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">decision</span><span class="p">[(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;t_flag&#39;</span><span class="p">]</span> <span class="o">==</span><span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;s_flag&#39;</span><span class="p">]</span> <span class="o">==</span><span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;d_flag&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1">#if both good, then good</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">decision</span><span class="p">[(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;t_flag&#39;</span><span class="p">]</span> <span class="o">==</span><span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;s_flag&#39;</span><span class="p">]</span> <span class="o">==</span><span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;d_flag&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1">#if everything else is good but the depth is too short, flag as nad</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">decision</span><span class="p">[(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;t_flag&#39;</span><span class="p">]</span> <span class="o">==</span><span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;s_flag&#39;</span><span class="p">]</span> <span class="o">==</span><span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;d_flag&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1">#if everything else is good and depth repeats, good</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">decision</span><span class="p">[(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;t_flag&#39;</span><span class="p">]</span> <span class="o">==</span><span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;s_flag&#39;</span><span class="p">]</span> <span class="o">==</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;d_flag&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">2</span> <span class="c1">#if time per station is ok and depth ok but space no, just flag</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">decision</span><span class="p">[(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;t_flag&#39;</span><span class="p">]</span> <span class="o">==</span><span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;s_flag&#39;</span><span class="p">]</span> <span class="o">==</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;d_flag&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1">#if depth range bad, and space bad, no</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">decision</span><span class="p">[(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;t_flag&#39;</span><span class="p">]</span> <span class="o">==</span><span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;s_flag&#39;</span><span class="p">]</span> <span class="o">==</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;d_flag&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">2</span> 
+        <span class="n">p</span><span class="o">.</span><span class="n">decision</span><span class="p">[(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;t_flag&#39;</span><span class="p">]</span> <span class="o">==</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;s_flag&#39;</span><span class="p">]</span> <span class="o">==</span><span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;d_flag&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1">#IF TIME IS EVER BAD then the whole thing is bad</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">decision</span><span class="p">[(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;t_flag&#39;</span><span class="p">]</span> <span class="o">==</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;s_flag&#39;</span><span class="p">]</span> <span class="o">==</span><span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;d_flag&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">decision</span><span class="p">[(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;t_flag&#39;</span><span class="p">]</span> <span class="o">==</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;s_flag&#39;</span><span class="p">]</span> <span class="o">==</span><span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;d_flag&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">decision</span><span class="p">[(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;t_flag&#39;</span><span class="p">]</span> <span class="o">==</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;s_flag&#39;</span><span class="p">]</span> <span class="o">==</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;d_flag&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">decision</span><span class="p">[(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;t_flag&#39;</span><span class="p">]</span> <span class="o">==</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;s_flag&#39;</span><span class="p">]</span> <span class="o">==</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;d_flag&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">decision</span><span class="p">[(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;t_flag&#39;</span><span class="p">]</span> <span class="o">==</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;s_flag&#39;</span><span class="p">]</span> <span class="o">==</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="s1">&#39;d_flag&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="s1">&#39;diff_space&#39;</span> <span class="ow">in</span> <span class="n">p</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="n">p</span><span class="o">.</span><span class="n">decision</span><span class="p">[(</span><span class="n">pd</span><span class="o">.</span><span class="n">isna</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">diff_time</span><span class="p">))</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">isna</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">num_s</span><span class="p">))</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">isna</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">diff_space</span><span class="p">))]</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1">#if change in time, stations, and change in space all empty, flag bad</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">p</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span> <span class="c1">#if there is no pigmant data, make empty dataframe to append</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Once you run through all dataframes through the seabass_flags2 code, you’re seabass chlorophyll dataset is complete! You now have a dataset of all Seabass chlorophyll data, above 150m, post 1999, in North America with flourecence flags, HPLC flags, and triplicate flags.</p>
+<p>P.J. Werdell, S.W. Bailey, G.S. Fargion, C. Pietras, K.D. Knobelspiesse, G.C. Feldman, and C.R. McClain, “Unique data repository facilitates ocean color satellite validation”, EOS Trans. AGU 84 , 38, 377 (2003)</p>
+</section>
+<section id="plots-of-all-data">
+<h2>Plots of all data<a class="headerlink" href="#plots-of-all-data" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">seabass</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;C:\Users\gianna.milton\Documents\Python\Coastal_chl_final\SB_chl_na.xlsx&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">year_test</span><span class="o">=</span><span class="n">seabass</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">year_test</span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">year_test</span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">])</span>
+<span class="n">year_test</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">year_test</span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span>
+<span class="n">grouped</span> <span class="o">=</span> <span class="n">year_test</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;year&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;DataPoints&#39;</span><span class="p">)</span>
+
+<span class="c1"># Create bar chart</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">grouped</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;DataPoints&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Yearly distribution all data&#39;</span><span class="p">,</span>
+             <span class="n">labels</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;year&#39;</span><span class="p">:</span> <span class="s1">&#39;Year&#39;</span><span class="p">,</span> <span class="s1">&#39;DataPoints&#39;</span><span class="p">:</span> <span class="s1">&#39;Number of Data Points&#39;</span><span class="p">,</span> <span class="s1">&#39;metadata&#39;</span><span class="p">:</span> <span class="s1">&#39;Metadata&#39;</span><span class="p">},)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="nb">range</span><span class="o">=</span><span class="p">[</span><span class="mi">1999</span><span class="p">,</span><span class="mi">2027</span><span class="p">])</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">barmode</span><span class="o">=</span><span class="s1">&#39;stack&#39;</span><span class="p">)</span>  <span class="c1"># ensures stacking</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/3a61717c598199f674e9046459d2952af7a30b53d164de695f5f0c49d54d26b5.png" src="_images/3a61717c598199f674e9046459d2952af7a30b53d164de695f5f0c49d54d26b5.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">year_test</span><span class="p">[</span><span class="s1">&#39;log_chl&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">year_test</span><span class="p">[</span><span class="s1">&#39;chl&#39;</span><span class="p">])</span>
+<span class="n">year_test</span><span class="p">[</span><span class="s1">&#39;log_chl_a&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">year_test</span><span class="p">[</span><span class="s1">&#39;chl_a&#39;</span><span class="p">])</span>
+
+<span class="n">fig</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">axs1</span><span class="o">=</span><span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">projection</span><span class="o">=</span> <span class="n">cartopy</span><span class="o">.</span><span class="n">crs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">())</span>
+<span class="n">axs1</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">LAND</span><span class="p">)</span>
+<span class="n">axs1</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">OCEAN</span><span class="p">)</span>
+<span class="n">axs1</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">BORDERS</span><span class="p">)</span>
+<span class="n">im</span><span class="o">=</span><span class="n">axs1</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">year_test</span><span class="o">.</span><span class="n">lon</span><span class="p">,</span><span class="n">year_test</span><span class="o">.</span><span class="n">lat</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="n">year_test</span><span class="o">.</span><span class="n">log_chl</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="n">cmo</span><span class="o">.</span><span class="n">algae</span><span class="p">,</span><span class="n">s</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">vmin</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">axs1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;SeaBASS Chlorophyll data&#39;</span><span class="p">)</span>
+<span class="n">axs1</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">year_test</span><span class="o">.</span><span class="n">lon</span><span class="p">)</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="nb">max</span><span class="p">(</span><span class="n">year_test</span><span class="o">.</span><span class="n">lon</span><span class="p">)</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">axs1</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">year_test</span><span class="o">.</span><span class="n">lat</span><span class="p">)</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="nb">max</span><span class="p">(</span><span class="n">year_test</span><span class="o">.</span><span class="n">lat</span><span class="p">)</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">cb</span><span class="o">=</span><span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">,</span><span class="n">ax</span><span class="o">=</span><span class="n">axs1</span><span class="p">,</span><span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;horizontal&#39;</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+<span class="n">cb</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="s1">&#39;log chl&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">gl</span><span class="o">=</span><span class="n">axs1</span><span class="o">.</span><span class="n">gridlines</span><span class="p">(</span><span class="n">linewidth</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">draw_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">x_inline</span><span class="o">=</span> <span class="kc">False</span><span class="p">,</span><span class="n">y_inline</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">gl</span><span class="o">.</span><span class="n">xformatter</span><span class="o">=</span><span class="n">LONGITUDE_FORMATTER</span>
+<span class="n">gl</span><span class="o">.</span><span class="n">yformatter</span><span class="o">=</span><span class="n">LATITUDE_FORMATTER</span>
+<span class="n">gl</span><span class="o">.</span><span class="n">top_labels</span> <span class="o">=</span> <span class="kc">False</span>    <span class="c1"># Disable top labels</span>
+<span class="n">gl</span><span class="o">.</span><span class="n">right_labels</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># Disable right labels</span>
+
+<span class="n">axs2</span><span class="o">=</span><span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">projection</span><span class="o">=</span> <span class="n">cartopy</span><span class="o">.</span><span class="n">crs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">())</span>
+<span class="n">axs2</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">LAND</span><span class="p">)</span>
+<span class="n">axs2</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">OCEAN</span><span class="p">)</span>
+<span class="n">axs2</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">BORDERS</span><span class="p">)</span>
+<span class="n">im</span><span class="o">=</span><span class="n">axs2</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">year_test</span><span class="o">.</span><span class="n">lon</span><span class="p">,</span><span class="n">year_test</span><span class="o">.</span><span class="n">lat</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="n">year_test</span><span class="o">.</span><span class="n">log_chl_a</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="n">cmo</span><span class="o">.</span><span class="n">algae</span><span class="p">,</span><span class="n">s</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">vmin</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">axs2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;SeaBASS HPLC data&#39;</span><span class="p">)</span>
+<span class="n">axs2</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">year_test</span><span class="o">.</span><span class="n">lon</span><span class="p">)</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="nb">max</span><span class="p">(</span><span class="n">year_test</span><span class="o">.</span><span class="n">lon</span><span class="p">)</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">axs2</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">year_test</span><span class="o">.</span><span class="n">lat</span><span class="p">)</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="nb">max</span><span class="p">(</span><span class="n">year_test</span><span class="o">.</span><span class="n">lat</span><span class="p">)</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">cb</span><span class="o">=</span><span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">,</span><span class="n">ax</span><span class="o">=</span><span class="n">axs2</span><span class="p">,</span><span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;horizontal&#39;</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+<span class="n">cb</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="s1">&#39;log chl_a&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">gl</span><span class="o">=</span><span class="n">axs2</span><span class="o">.</span><span class="n">gridlines</span><span class="p">(</span><span class="n">linewidth</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">draw_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">x_inline</span><span class="o">=</span> <span class="kc">False</span><span class="p">,</span><span class="n">y_inline</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">gl</span><span class="o">.</span><span class="n">xformatter</span><span class="o">=</span><span class="n">LONGITUDE_FORMATTER</span>
+<span class="n">gl</span><span class="o">.</span><span class="n">yformatter</span><span class="o">=</span><span class="n">LATITUDE_FORMATTER</span>
+<span class="n">gl</span><span class="o">.</span><span class="n">top_labels</span> <span class="o">=</span> <span class="kc">False</span>    <span class="c1"># Disable top labels</span>
+<span class="n">gl</span><span class="o">.</span><span class="n">right_labels</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># Disable right labels</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/bc13415d4687c1704349662caa7ab453ff5443067d0e5933d84e90d9b68a5418.png" src="_images/bc13415d4687c1704349662caa7ab453ff5443067d0e5933d84e90d9b68a5418.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib.colors</span> <span class="kn">import</span> <span class="n">LogNorm</span> <span class="c1"># Important for high-variance data</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">())</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">LAND</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">OCEAN</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">COASTLINE</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">BORDERS</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">STATES</span><span class="p">)</span>
+<span class="n">hb</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">hexbin</span><span class="p">(</span><span class="n">year_test</span><span class="o">.</span><span class="n">lon</span><span class="p">,</span> <span class="n">year_test</span><span class="o">.</span><span class="n">lat</span><span class="p">,</span> <span class="n">gridsize</span><span class="o">=</span><span class="p">(</span><span class="mi">90</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;inferno_r&#39;</span><span class="p">,</span> <span class="n">mincnt</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">(),</span><span class="n">norm</span><span class="o">=</span><span class="n">LogNorm</span><span class="p">())</span> 
+<span class="n">cb</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">hb</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;vertical&#39;</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">cb</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="s1">&#39;Number of Datapoints&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">gl</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">gridlines</span><span class="p">(</span><span class="n">linewidth</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">draw_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">x_inline</span><span class="o">=</span> <span class="kc">False</span><span class="p">,</span><span class="n">y_inline</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">gl</span><span class="o">.</span><span class="n">xformatter</span><span class="o">=</span><span class="n">LONGITUDE_FORMATTER</span>
+<span class="n">gl</span><span class="o">.</span><span class="n">yformatter</span><span class="o">=</span><span class="n">LATITUDE_FORMATTER</span>
+<span class="n">gl</span><span class="o">.</span><span class="n">top_labels</span> <span class="o">=</span> <span class="kc">False</span>    <span class="c1"># Disable top labels</span>
+<span class="n">gl</span><span class="o">.</span><span class="n">right_labels</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># Disable right labels</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_extent</span><span class="p">([</span><span class="o">-</span><span class="mi">180</span><span class="p">,</span> <span class="o">-</span><span class="mi">40</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">80</span><span class="p">],</span> <span class="n">crs</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">())</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Spatial Data Density&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/3e316ea37850af7cf49793696a1923041e6a46962b4af0e2c7d8990a632d6d82.png" src="_images/3e316ea37850af7cf49793696a1923041e6a46962b4af0e2c7d8990a632d6d82.png" />
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="chl_data.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Chlorophyll data</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="calcofi_chl.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">CalCOFI data</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#download-data">Download Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#turn-raw-sb-files-into-workable-dataframes">Turn raw .sb files into workable dataframes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hplc-flags">HPLC Flags</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#triplicate-flags">Triplicate flags</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-type-detection">Data type detection</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plots-of-all-data">Plots of all data</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Gianna Milton
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
