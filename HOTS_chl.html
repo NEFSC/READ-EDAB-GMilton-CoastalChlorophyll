@@ -1,0 +1,951 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>HOTS Data &#8212; Coastal Chlorophyll Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=1ae7504c"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'HOTS_chl';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="SEAMAP data" href="seamap_chl.html" />
+    <link rel="prev" title="CalCOFI data" href="calcofi_chl.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Coastal Chlorophyll Book - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Coastal Chlorophyll Book - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Introduction
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="chl_data.html">Chlorophyll data</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="seabass_chl.html">SeaBASS data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="calcofi_chl.html">CalCOFI data</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">HOTS Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="seamap_chl.html">SEAMAP data</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="ioos_chl.html">IOOS Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cioos_chl.html">CIOOS data</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="wod_chl.html">WOD data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bcodmo_chl.html">BCO-DMO data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="aquamatch_chl.html">Aquamatch Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Pan-Arctic_chl.html">Pan-Arctic data</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="globec_chl.html">GLOBEC data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gloria_chl.html">GLORIA data</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="final_concatination_chl.html">Chlorophyll Final Concatination</a></li>
+
+
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="Reflectance_data.html">Reflectance data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="seabass_rrs.html">SeaBASS data</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="gloria_rrs.html">GLORIA RRS data</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="final_concatination_rrs.html">RRS Final Concatination</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="cdom_data.html">CDOM data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="seabass_cdom.html">SeaBASS Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ioos_cdom.html">IOOS data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bcodmo_cdom.html">BCO-DMO data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="final_concatination_cdom.html">CDOM Final Concatination</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="final_dataset.html">Final variable appending and organization</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/GMilton2/coastal-chlorophyll" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/GMilton2/coastal-chlorophyll/issues/new?title=Issue%20on%20page%20%2FHOTS_chl.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/HOTS_chl.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>HOTS Data</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hplc-flag">HPLC flag</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#triplicate-flag">triplicate flag</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plots">Plots</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="hots-data">
+<h1>HOTS Data<a class="headerlink" href="#hots-data" title="Link to this heading">#</a></h1>
+<p>Chlorophyll data from Hawaii is gathered from the Hawaii Ocean Time-series (HOTS). More specifically, the Hawaii Ocean Time-series
+Data Organization &amp; Graphical System (HOT-DOGS). <a class="reference external" href="https://hahana.soest.hawaii.edu/hot/hot-dogs/interface.html">https://hahana.soest.hawaii.edu/hot/hot-dogs/interface.html</a></p>
+<p>From the Bottle data on HOT-DOGS, each individual station’s data is downloaded following these boundries:</p>
+<ul class="simple">
+<li><p>Time: Jan 01 2000 -Dec 3 2023</p></li>
+<li><p>Depth: 0-200m</p></li>
+<li><p>variables: CTD salinity, CTD Temperature, Bottle Salinity, Fluorometric chlorophyll a,  HPLC cholorophyll a</p></li>
+</ul>
+<p><img alt="hot_bottle" src="_images/HOTS_bottle.png" /></p>
+<p>Station Locations and file names (<a class="reference external" href="https://hahana.soest.hawaii.edu/hot/locations.html">https://hahana.soest.hawaii.edu/hot/locations.html</a>):</p>
+<ul class="simple">
+<li><p>Kahe point (1): 21 20.6’N, 158 16.4’W (<a class="reference external" href="http://hd871881.nc">hd871881.nc</a>)</p></li>
+<li><p>Aloha (2) 22 45.0’N, 158 00.0’W (<a class="reference external" href="http://hd117751.nc">hd117751.nc</a>)</p></li>
+<li><p>Kaena (6) 21 50.8’N, 158 21.8’W (<a class="reference external" href="http://hd106854.nc">hd106854.nc</a>)</p></li>
+<li><p>Hale-Aloha (8) 22 27.5’N, 158 7.9’W (<a class="reference external" href="http://hd197174.nc">hd197174.nc</a>)</p></li>
+<li><p>WHOTS1 (ORS) (50) 22 45’N, 157 54.0’W (<a class="reference external" href="http://hd258622.nc">hd258622.nc</a>)</p></li>
+<li><p>WHOTS2 22 (52) 22 40.208’N, 157 57.001’W (<a class="reference external" href="http://hd387759.nc">hd387759.nc</a>)</p></li>
+</ul>
+<p>Download similar data from primary prod. with same time and depth, and chlorophyll a values.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">cartopy</span>
+<span class="kn">import</span> <span class="nn">cartopy.crs</span> <span class="k">as</span> <span class="nn">ccrs</span>
+<span class="kn">import</span> <span class="nn">cartopy.feature</span> <span class="k">as</span> <span class="nn">cfeature</span>
+<span class="kn">from</span> <span class="nn">cartopy.mpl.gridliner</span> <span class="kn">import</span> <span class="n">LONGITUDE_FORMATTER</span><span class="p">,</span> <span class="n">LATITUDE_FORMATTER</span>
+<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">ticker</span>
+<span class="kn">import</span> <span class="nn">datetime</span> <span class="k">as</span> <span class="nn">dt</span>
+<span class="kn">import</span> <span class="nn">plotly.express</span> <span class="k">as</span> <span class="nn">px</span>
+<span class="kn">import</span> <span class="nn">cmocean</span> <span class="k">as</span> <span class="nn">cm</span>
+<span class="kn">import</span> <span class="nn">cmocean.cm</span> <span class="k">as</span> <span class="nn">cmo</span>
+<span class="kn">import</span> <span class="nn">matplotlib.gridspec</span> <span class="k">as</span> <span class="nn">gridspec</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">matplotlib.ticker</span> <span class="k">as</span> <span class="nn">mticker</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#def to convert degree minutes to degrees for lat and lon </span>
+<span class="k">def</span> <span class="nf">dm_to_decimal_degrees</span><span class="p">(</span><span class="n">degrees</span><span class="p">,</span> <span class="n">decimal_minutes</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Converts degrees and decimal minutes to decimal degrees.</span>
+<span class="sd">    args:</span>
+<span class="sd">        degrees: The whole number of degrees.</span>
+<span class="sd">        decimal_minutes: The fractional part of the degree, in minutes.</span>
+<span class="sd">    returns: The equivalent decimal degree value.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">decimal_degrees</span> <span class="o">=</span> <span class="n">degrees</span> <span class="o">+</span> <span class="p">(</span><span class="n">decimal_minutes</span> <span class="o">/</span> <span class="mi">60</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">decimal_degrees</span>
+
+<span class="c1">#def to input all .nc files from folder </span>
+<span class="k">def</span> <span class="nf">get_files</span><span class="p">(</span><span class="nb">dir</span><span class="p">):</span>
+    <span class="n">file_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">root</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="nb">dir</span><span class="p">):</span> <span class="c1">#here, dir would be the path to the files</span>
+        <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">file</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.nc&quot;</span><span class="p">):</span>
+                <span class="n">file_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">file</span><span class="p">))</span> <span class="c1">#if file ends in .nc, append to list </span>
+    <span class="k">return</span> <span class="n">file_list</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f_list1</span> <span class="o">=</span>  <span class="s1">&#39;folderto</span><span class="se">\b</span><span class="s1">ottle_data&#39;</span> <span class="c1">#folder holding ONLY the bottle data downloaded from HOTS </span>
+<span class="n">f_list</span> <span class="o">=</span> <span class="n">get_files</span><span class="p">(</span><span class="n">f_list1</span><span class="p">)</span> <span class="c1">#list of all .nc files from folder</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Next, go through each .nc file in the folder, remove any bad dates, and create datetime column. Then, depending on the station (based on value of stn column), append manually the lat and lon of the station, remove flagged chl values, and convert pressure to depth.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">f_list</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+    <span class="n">dfs</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span> <span class="c1">#initiate empty dataframe</span>
+    <span class="n">file2read</span> <span class="o">=</span> <span class="n">netcdf</span><span class="o">.</span><span class="n">NetCDFFile</span><span class="p">(</span><span class="n">file</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="c1">#read in the netcdf file</span>
+    <span class="n">varrs</span> <span class="o">=</span> <span class="n">file2read</span><span class="o">.</span><span class="n">variables</span> <span class="c1">#variables in netcdf file</span>
+    <span class="c1">#remove the dataDesc, which is just a description of the data. if not removed, concatination can&#39;t occur</span>
+    <span class="k">del</span> <span class="n">varrs</span><span class="p">[</span><span class="s2">&quot;dataDesc&quot;</span><span class="p">]</span>
+    <span class="k">for</span> <span class="nb">vars</span> <span class="ow">in</span> <span class="n">varrs</span><span class="p">:</span> <span class="c1">#for every variable in the file</span>
+    <span class="c1">#convert the byte to match specific laptop, and appened the variable column (0) into the dataframe</span>
+        <span class="n">dfs</span><span class="p">[</span><span class="nb">vars</span><span class="p">]</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">varrs</span><span class="p">[</span><span class="nb">vars</span><span class="p">][:]</span><span class="o">.</span><span class="n">byteswap</span><span class="p">()</span><span class="o">.</span><span class="n">newbyteorder</span><span class="p">(),</span> <span class="n">columns</span> <span class="o">=</span><span class="p">[</span><span class="s1">&#39;0&#39;</span><span class="p">])</span> 
+        
+    <span class="n">dfs</span><span class="o">=</span><span class="n">dfs</span><span class="p">[</span><span class="n">dfs</span><span class="p">[</span><span class="s1">&#39;mdate&#39;</span><span class="p">]</span><span class="o">!=-</span><span class="mi">9</span><span class="p">]</span> <span class="c1">#take out any negative datetimes i.e unrecorded data </span>
+    <span class="n">dfs</span><span class="o">=</span><span class="n">dfs</span><span class="p">[</span><span class="n">dfs</span><span class="p">[</span><span class="s1">&#39;mtime&#39;</span><span class="p">]</span><span class="o">!=-</span><span class="mi">9</span><span class="p">]</span>
+ <span class="c1">#datetime is formatted as mmddyy, and hhmmss, but leading 0s are removed so need to pad with 0s until 6 numbers long</span>
+    <span class="n">dfs</span><span class="p">[</span><span class="s1">&#39;mtime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="si">:</span><span class="s2">06d</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">dfs</span><span class="p">[</span><span class="s1">&#39;mtime&#39;</span><span class="p">]]</span> 
+    <span class="n">dfs</span><span class="p">[</span><span class="s1">&#39;mdate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="si">:</span><span class="s2">06d</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">dfs</span><span class="p">[</span><span class="s1">&#39;mdate&#39;</span><span class="p">]]</span> 
+    
+    <span class="n">dfs</span><span class="p">[</span><span class="s1">&#39;month&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="p">[:</span><span class="mi">2</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">dfs</span><span class="p">[</span><span class="s1">&#39;mdate&#39;</span><span class="p">]]</span>
+    <span class="n">dfs</span><span class="p">[</span><span class="s1">&#39;day&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">dfs</span><span class="p">[</span><span class="s1">&#39;mdate&#39;</span><span class="p">]]</span>
+    <span class="n">dfs</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">4</span><span class="p">:])</span><span class="o">+</span><span class="mi">2000</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">dfs</span><span class="p">[</span><span class="s1">&#39;mdate&#39;</span><span class="p">]]</span>
+    <span class="n">dfs</span><span class="p">[</span><span class="s1">&#39;hour&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="p">[:</span><span class="mi">2</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">dfs</span><span class="p">[</span><span class="s1">&#39;mtime&#39;</span><span class="p">]]</span>
+    <span class="n">dfs</span><span class="p">[</span><span class="s1">&#39;minute&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">dfs</span><span class="p">[</span><span class="s1">&#39;mtime&#39;</span><span class="p">]]</span>
+    <span class="n">dfs</span><span class="p">[</span><span class="s1">&#39;second&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">4</span><span class="p">:])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">dfs</span><span class="p">[</span><span class="s1">&#39;mtime&#39;</span><span class="p">]]</span>
+    <span class="n">dfs</span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">]</span><span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">dfs</span><span class="p">[[</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span><span class="p">,</span> <span class="s1">&#39;day&#39;</span><span class="p">,</span> <span class="s1">&#39;hour&#39;</span><span class="p">,</span> <span class="s1">&#39;minute&#39;</span><span class="p">,</span> <span class="s1">&#39;second&#39;</span><span class="p">]])</span> <span class="c1">#datetime variable</span>
+    <span class="c1">#drop unneeded temporal columns now that datetime is created</span>
+    <span class="n">columns_to_drop</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;mtime&#39;</span><span class="p">,</span><span class="s1">&#39;mdate&#39;</span><span class="p">,</span><span class="s1">&#39;month&#39;</span><span class="p">,</span><span class="s1">&#39;day&#39;</span><span class="p">,</span><span class="s1">&#39;year&#39;</span><span class="p">,</span><span class="s1">&#39;hour&#39;</span><span class="p">,</span><span class="s1">&#39;minute&#39;</span><span class="p">,</span><span class="s1">&#39;second&#39;</span><span class="p">]</span>
+    <span class="n">dfs</span> <span class="o">=</span> <span class="n">dfs</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">columns_to_drop</span><span class="p">)</span>
+    <span class="n">dfs</span> <span class="o">=</span> <span class="n">dfs</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+    <span class="c1">#seperate data from each station into it&#39;s own dataframe, where the name of the dataframe equals the station name</span>
+    <span class="c1">#lat and lon are not included in the file, so manually add them</span>
+    <span class="c1">#finally, roughly convert pressure to depth (Depth(m)=Pressure(db) *1.019716)</span>
+    <span class="k">if</span> <span class="n">dfs</span><span class="o">.</span><span class="n">stn</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span> <span class="c1">#station 1 = station Kahe</span>
+        <span class="n">kahe</span><span class="o">=</span><span class="n">dfs</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">kahe</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">dm_to_decimal_degrees</span><span class="p">(</span><span class="mi">21</span><span class="p">,</span> <span class="mf">20.6</span><span class="p">)</span>
+        <span class="n">kahe</span><span class="p">[</span><span class="s1">&#39;lon&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">dm_to_decimal_degrees</span><span class="p">(</span><span class="mi">158</span><span class="p">,</span> <span class="mf">16.4</span><span class="p">)</span><span class="o">*-</span><span class="mi">1</span>
+        <span class="n">kahe</span><span class="o">=</span><span class="n">kahe</span><span class="p">[</span><span class="n">kahe</span><span class="p">[</span><span class="s1">&#39;chl&#39;</span><span class="p">]</span><span class="o">!=-</span><span class="mi">9</span><span class="p">]</span> <span class="c1">#remove -9 i.e. bad chl values</span>
+        <span class="n">kahe</span><span class="p">[</span><span class="s1">&#39;station&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;kahe&#39;</span>
+        <span class="n">kahe</span><span class="p">[</span><span class="s1">&#39;depth&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kahe</span><span class="p">[</span><span class="s1">&#39;press&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mf">1.02</span>
+        <span class="n">kahe</span><span class="o">=</span><span class="n">kahe</span><span class="p">[[</span><span class="s1">&#39;crn&#39;</span><span class="p">,</span> <span class="s1">&#39;depth&#39;</span><span class="p">,</span> <span class="s1">&#39;chl&#39;</span><span class="p">,</span><span class="s1">&#39;hplc&#39;</span><span class="p">,</span> <span class="s1">&#39;datetime&#39;</span><span class="p">,</span> <span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="s1">&#39;lon&#39;</span><span class="p">,</span> <span class="s1">&#39;station&#39;</span><span class="p">]]</span>
+        
+    <span class="k">elif</span> <span class="n">dfs</span><span class="o">.</span><span class="n">stn</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="mi">2</span><span class="p">:</span> <span class="c1">#station 2 = station Aloha</span>
+        <span class="n">aloha</span><span class="o">=</span><span class="n">dfs</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">aloha</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">dm_to_decimal_degrees</span><span class="p">(</span><span class="mi">22</span><span class="p">,</span> <span class="mf">45.0</span><span class="p">)</span>
+        <span class="n">aloha</span><span class="p">[</span><span class="s1">&#39;lon&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">dm_to_decimal_degrees</span><span class="p">(</span><span class="mi">158</span><span class="p">,</span> <span class="mf">00.0</span><span class="p">)</span><span class="o">*-</span><span class="mi">1</span>
+        <span class="c1">#don&#39;t remove -9 from chl for aloha station because some bad chl entries still have hplc values. </span>
+        <span class="n">aloha</span><span class="p">[</span><span class="s1">&#39;station&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;aloha&#39;</span>
+        <span class="n">aloha</span><span class="p">[</span><span class="s1">&#39;depth&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">aloha</span><span class="p">[</span><span class="s1">&#39;press&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mf">1.02</span>
+        <span class="n">aloha</span><span class="o">=</span><span class="n">aloha</span><span class="p">[[</span><span class="s1">&#39;crn&#39;</span><span class="p">,</span> <span class="s1">&#39;depth&#39;</span><span class="p">,</span> <span class="s1">&#39;chl&#39;</span><span class="p">,</span><span class="s1">&#39;hplc&#39;</span><span class="p">,</span> <span class="s1">&#39;datetime&#39;</span><span class="p">,</span> <span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="s1">&#39;lon&#39;</span><span class="p">,</span> <span class="s1">&#39;station&#39;</span><span class="p">]]</span>
+
+    <span class="k">elif</span> <span class="n">dfs</span><span class="o">.</span><span class="n">stn</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="mi">6</span><span class="p">:</span> <span class="c1">#station 6 = station kaena</span>
+        <span class="n">kaena</span><span class="o">=</span><span class="n">dfs</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">kaena</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">dm_to_decimal_degrees</span><span class="p">(</span><span class="mi">21</span><span class="p">,</span> <span class="mf">50.8</span><span class="p">)</span>
+        <span class="n">kaena</span><span class="p">[</span><span class="s1">&#39;lon&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">dm_to_decimal_degrees</span><span class="p">(</span><span class="mi">158</span><span class="p">,</span> <span class="mf">7.9</span><span class="p">)</span><span class="o">*-</span><span class="mi">1</span>
+        <span class="n">kaena</span><span class="o">=</span><span class="n">kaena</span><span class="p">[</span><span class="n">kaena</span><span class="p">[</span><span class="s1">&#39;chl&#39;</span><span class="p">]</span><span class="o">!=-</span><span class="mi">9</span><span class="p">]</span> <span class="c1">#remove -9 i.e. bad chl values</span>
+        <span class="n">kaena</span><span class="p">[</span><span class="s1">&#39;station&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;kaena&#39;</span>
+        <span class="n">kaena</span><span class="p">[</span><span class="s1">&#39;depth&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kaena</span><span class="p">[</span><span class="s1">&#39;press&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mf">1.02</span>
+        <span class="n">kaena</span><span class="o">=</span><span class="n">kaena</span><span class="p">[[</span><span class="s1">&#39;crn&#39;</span><span class="p">,</span> <span class="s1">&#39;depth&#39;</span><span class="p">,</span> <span class="s1">&#39;chl&#39;</span><span class="p">,</span><span class="s1">&#39;hplc&#39;</span><span class="p">,</span> <span class="s1">&#39;datetime&#39;</span><span class="p">,</span> <span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="s1">&#39;lon&#39;</span><span class="p">,</span> <span class="s1">&#39;station&#39;</span><span class="p">]]</span>
+
+    <span class="k">elif</span> <span class="n">dfs</span><span class="o">.</span><span class="n">stn</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="mi">8</span><span class="p">:</span> <span class="c1">#station 8 = station Hale</span>
+        <span class="n">hale</span><span class="o">=</span><span class="n">dfs</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">hale</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">dm_to_decimal_degrees</span><span class="p">(</span><span class="mi">22</span><span class="p">,</span> <span class="mf">27.5</span><span class="p">)</span>
+        <span class="n">hale</span><span class="p">[</span><span class="s1">&#39;lon&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">dm_to_decimal_degrees</span><span class="p">(</span><span class="mi">158</span><span class="p">,</span> <span class="mf">21.8</span><span class="p">)</span><span class="o">*-</span><span class="mi">1</span>
+        <span class="n">hale</span><span class="o">=</span><span class="n">hale</span><span class="p">[</span><span class="n">hale</span><span class="p">[</span><span class="s1">&#39;chl&#39;</span><span class="p">]</span><span class="o">!=-</span><span class="mi">9</span><span class="p">]</span> <span class="c1">#remove -9 i.e. bad chl values</span>
+        <span class="n">hale</span><span class="p">[</span><span class="s1">&#39;station&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;hale&#39;</span>
+        <span class="n">hale</span><span class="p">[</span><span class="s1">&#39;depth&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">hale</span><span class="p">[</span><span class="s1">&#39;press&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mf">1.02</span>
+        <span class="n">hale</span><span class="o">=</span><span class="n">hale</span><span class="p">[[</span><span class="s1">&#39;crn&#39;</span><span class="p">,</span> <span class="s1">&#39;depth&#39;</span><span class="p">,</span> <span class="s1">&#39;chl&#39;</span><span class="p">,</span><span class="s1">&#39;hplc&#39;</span><span class="p">,</span> <span class="s1">&#39;datetime&#39;</span><span class="p">,</span> <span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="s1">&#39;lon&#39;</span><span class="p">,</span> <span class="s1">&#39;station&#39;</span><span class="p">]]</span>
+
+    <span class="k">elif</span> <span class="n">dfs</span><span class="o">.</span><span class="n">stn</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="mi">50</span><span class="p">:</span> <span class="c1">#station 50 = station Ors</span>
+        <span class="n">ors</span><span class="o">=</span><span class="n">dfs</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">ors</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">dm_to_decimal_degrees</span><span class="p">(</span><span class="mi">22</span><span class="p">,</span> <span class="mi">45</span><span class="p">)</span>
+        <span class="n">ors</span><span class="p">[</span><span class="s1">&#39;lon&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">dm_to_decimal_degrees</span><span class="p">(</span><span class="mi">157</span><span class="p">,</span> <span class="mf">54.0</span><span class="p">)</span><span class="o">*-</span><span class="mi">1</span>
+        <span class="n">ors</span><span class="o">=</span><span class="n">ors</span><span class="p">[</span><span class="n">ors</span><span class="p">[</span><span class="s1">&#39;chl&#39;</span><span class="p">]</span><span class="o">!=-</span><span class="mi">9</span><span class="p">]</span> <span class="c1">#remove -9 i.e. bad chl values</span>
+        <span class="n">ors</span><span class="p">[</span><span class="s1">&#39;station&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;ors&#39;</span>
+        <span class="n">ors</span><span class="p">[</span><span class="s1">&#39;depth&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ors</span><span class="p">[</span><span class="s1">&#39;press&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mf">1.02</span>
+        <span class="n">ors</span><span class="o">=</span><span class="n">ors</span><span class="p">[[</span><span class="s1">&#39;crn&#39;</span><span class="p">,</span> <span class="s1">&#39;depth&#39;</span><span class="p">,</span> <span class="s1">&#39;chl&#39;</span><span class="p">,</span><span class="s1">&#39;hplc&#39;</span><span class="p">,</span> <span class="s1">&#39;datetime&#39;</span><span class="p">,</span> <span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="s1">&#39;lon&#39;</span><span class="p">,</span> <span class="s1">&#39;station&#39;</span><span class="p">]]</span>
+
+    <span class="k">elif</span> <span class="n">dfs</span><span class="o">.</span><span class="n">stn</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="mi">52</span><span class="p">:</span> <span class="c1">#station 52 = station Whots</span>
+        <span class="n">whots</span><span class="o">=</span><span class="n">dfs</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">whots</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">dm_to_decimal_degrees</span><span class="p">(</span><span class="mi">22</span><span class="p">,</span> <span class="mf">40.208</span><span class="p">)</span>
+        <span class="n">whots</span><span class="p">[</span><span class="s1">&#39;lon&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">dm_to_decimal_degrees</span><span class="p">(</span><span class="mi">157</span><span class="p">,</span> <span class="mf">57.001</span><span class="p">)</span><span class="o">*-</span><span class="mi">1</span>
+        <span class="n">whots</span><span class="o">=</span><span class="n">whots</span><span class="p">[</span><span class="n">whots</span><span class="p">[</span><span class="s1">&#39;chl&#39;</span><span class="p">]</span><span class="o">!=-</span><span class="mi">9</span><span class="p">]</span> <span class="c1">#remove -9 i.e. bad chl values</span>
+        <span class="n">whots</span><span class="p">[</span><span class="s1">&#39;station&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;whots&#39;</span>
+        <span class="n">whots</span><span class="p">[</span><span class="s1">&#39;depth&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">whots</span><span class="p">[</span><span class="s1">&#39;press&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mf">1.02</span>
+        <span class="n">whots</span><span class="o">=</span><span class="n">whots</span><span class="p">[[</span><span class="s1">&#39;crn&#39;</span><span class="p">,</span> <span class="s1">&#39;depth&#39;</span><span class="p">,</span> <span class="s1">&#39;chl&#39;</span><span class="p">,</span><span class="s1">&#39;hplc&#39;</span><span class="p">,</span> <span class="s1">&#39;datetime&#39;</span><span class="p">,</span> <span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="s1">&#39;lon&#39;</span><span class="p">,</span> <span class="s1">&#39;station&#39;</span><span class="p">]]</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">file</span><span class="p">)</span> <span class="c1">#if noe of the above, print the file to inspect</span>
+    <span class="n">file2read</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>  <span class="c1">#close file</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Once the Bottle data is done, complete the primary prod data.</p>
+<p><img alt="hot_bottle" src="_images/hots_pp.png" /></p>
+<p>For primary production, create datetime column and initialize empty hplc column to match with the bottle data. Primary prod is only recorded at station aloha, so add that lat and lon.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ppro</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+<span class="n">file2read</span> <span class="o">=</span> <span class="n">netcdf</span><span class="o">.</span><span class="n">NetCDFFile</span><span class="p">(</span><span class="s1">&#39;hd192096.nc&#39;</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">varrs</span> <span class="o">=</span> <span class="n">file2read</span><span class="o">.</span><span class="n">variables</span> <span class="c1">#variables</span>
+<span class="k">del</span> <span class="n">varrs</span><span class="p">[</span><span class="s2">&quot;dataDesc&quot;</span><span class="p">]</span>
+<span class="k">for</span> <span class="nb">vars</span> <span class="ow">in</span> <span class="n">varrs</span><span class="p">:</span>
+    <span class="n">ppro</span><span class="p">[</span><span class="nb">vars</span><span class="p">]</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">varrs</span><span class="p">[</span><span class="nb">vars</span><span class="p">][:]</span><span class="o">.</span><span class="n">byteswap</span><span class="p">()</span><span class="o">.</span><span class="n">newbyteorder</span><span class="p">(),</span> <span class="n">columns</span> <span class="o">=</span><span class="p">[</span><span class="s1">&#39;0&#39;</span><span class="p">])</span>
+<span class="n">ppro</span><span class="p">[</span><span class="s1">&#39;stime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="si">:</span><span class="s2">04d</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">ppro</span><span class="p">[</span><span class="s1">&#39;stime&#39;</span><span class="p">]]</span> <span class="c1">#start time</span>
+<span class="n">ppro</span><span class="p">[</span><span class="s1">&#39;etime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="si">:</span><span class="s2">04d</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">ppro</span><span class="p">[</span><span class="s1">&#39;etime&#39;</span><span class="p">]]</span> <span class="c1">#end time  </span>
+<span class="n">ppro</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="si">:</span><span class="s2">06d</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">ppro</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]]</span>  <span class="c1">#date</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">ppro</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">file2read</span> <span class="o">=</span> <span class="n">netcdf</span><span class="o">.</span><span class="n">NetCDFFile</span><span class="p">(</span><span class="s1">&#39;hd192096.nc&#39;</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">varrs</span> <span class="o">=</span> <span class="n">file2read</span><span class="o">.</span><span class="n">variables</span> <span class="c1">#variables</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="k">del</span> <span class="n">varrs</span><span class="p">[</span><span class="s2">&quot;dataDesc&quot;</span><span class="p">]</span>
+
+<span class="ne">NameError</span>: name &#39;netcdf&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#arbitrarily deciding to use etime (end time) for datetime column</span>
+<span class="n">ppro</span><span class="p">[</span><span class="s1">&#39;month&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">ppro</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]]</span>
+<span class="n">ppro</span><span class="p">[</span><span class="s1">&#39;day&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">4</span><span class="p">:])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">ppro</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]]</span>
+<span class="n">ppro</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="p">[:</span><span class="mi">2</span><span class="p">])</span><span class="o">+</span><span class="mi">2000</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">ppro</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]]</span>
+<span class="n">ppro</span><span class="p">[</span><span class="s1">&#39;hour&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="p">[:</span><span class="mi">2</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">ppro</span><span class="p">[</span><span class="s1">&#39;etime&#39;</span><span class="p">]]</span>
+<span class="n">ppro</span><span class="p">[</span><span class="s1">&#39;minute&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">ppro</span><span class="p">[</span><span class="s1">&#39;etime&#39;</span><span class="p">]]</span>
+<span class="n">ppro</span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">]</span><span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">ppro</span><span class="p">[[</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span><span class="p">,</span> <span class="s1">&#39;day&#39;</span><span class="p">,</span> <span class="s1">&#39;hour&#39;</span><span class="p">,</span> <span class="s1">&#39;minute&#39;</span><span class="p">]])</span>
+<span class="n">ppro</span><span class="o">=</span><span class="n">ppro</span><span class="p">[[</span><span class="s1">&#39;crn&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">,</span> <span class="s1">&#39;depth&#39;</span><span class="p">,</span> <span class="s1">&#39;chl&#39;</span><span class="p">,</span> <span class="s1">&#39;bsal&#39;</span><span class="p">,</span><span class="s1">&#39;datetime&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  
+<span class="n">ppro</span><span class="p">[</span><span class="s1">&#39;station&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;primary_prod&#39;</span>
+<span class="n">ppro</span><span class="p">[</span><span class="s1">&#39;hplc&#39;</span><span class="p">]</span><span class="o">=-</span><span class="mi">9</span> <span class="c1">#initiate empty hplc column so that when concatinated with stations it matches with other columns</span>
+<span class="c1">#lat and lon to match station aloha </span>
+<span class="n">ppro</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">dm_to_decimal_degrees</span><span class="p">(</span><span class="mi">22</span><span class="p">,</span> <span class="mf">45.0</span><span class="p">)</span>
+<span class="n">ppro</span><span class="p">[</span><span class="s1">&#39;lon&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">dm_to_decimal_degrees</span><span class="p">(</span><span class="mi">158</span><span class="p">,</span> <span class="mf">00.0</span><span class="p">)</span><span class="o">*-</span><span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hots</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">kahe</span><span class="p">,</span> <span class="n">aloha</span><span class="p">,</span> <span class="n">kaena</span><span class="p">,</span><span class="n">hale</span><span class="p">,</span><span class="n">ors</span><span class="p">,</span><span class="n">whots</span><span class="p">,</span><span class="n">ppro</span><span class="p">])</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="hplc-flag">
+<h2>HPLC flag<a class="headerlink" href="#hplc-flag" title="Link to this heading">#</a></h2>
+<p>Some stations recorded HPLC data, under the column name ‘hplc’. If it’s not recorded, it’s entered as -9. So, if a column has hplc recorded, then flag as HPLC and convert to mg/L to match SeaBASS data and rename as chl_a.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#HPLC flag: if column hplc = -9, flag as 1 (bad), if there is a value, value, then convert to mg/L and flag as hplc=0</span>
+<span class="n">hots</span><span class="p">[</span><span class="s1">&#39;HPLC&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1">#assume no HPLC</span>
+<span class="n">hots</span><span class="o">=</span><span class="n">hots</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;hplc&#39;</span><span class="p">:</span><span class="s1">&#39;chl_a&#39;</span><span class="p">})</span>
+<span class="n">hots</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">hots</span><span class="p">[</span><span class="s1">&#39;chl_a&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">9</span><span class="p">,</span> <span class="s1">&#39;HPLC&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1">#if hplc column does not equal -9 change to 0</span>
+<span class="c1">#Based on this linke, https://www.bco-dmo.org/dataset/3773, hplc is in nanograms/L, so need to convert</span>
+<span class="n">hots</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">hots</span><span class="p">[</span><span class="s1">&#39;chl_a&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">9</span><span class="p">,</span> <span class="s1">&#39;chl_a&#39;</span><span class="p">]</span> <span class="o">=</span><span class="n">hots</span><span class="p">[</span><span class="s1">&#39;chl_a&#39;</span><span class="p">]</span><span class="o">*</span><span class="mf">0.001</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="triplicate-flag">
+<h2>triplicate flag<a class="headerlink" href="#triplicate-flag" title="Link to this heading">#</a></h2>
+<p>Triplicate flags are flagged in the same way the SeaBASS data was, with detecting how many unique depths, datetime, lat, and lon entries there are and flagging if 3 samples were recorded at the exact same time/ hour.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">counts_series</span> <span class="o">=</span> <span class="n">hots</span><span class="p">[[</span><span class="s1">&#39;depth&#39;</span><span class="p">,</span><span class="s1">&#39;datetime&#39;</span><span class="p">,</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span><span class="s1">&#39;lon&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span> <span class="c1">#count how many unique cast,depth, datetime, lat, and lons there are</span>
+<span class="n">counts_df</span> <span class="o">=</span> <span class="n">counts_series</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;freq_uniq&#39;</span><span class="p">)</span>
+<span class="n">hots</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">hots</span><span class="p">,</span> <span class="n">counts_df</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;depth&#39;</span><span class="p">,</span><span class="s1">&#39;datetime&#39;</span><span class="p">,</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span><span class="s1">&#39;lon&#39;</span><span class="p">],</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span> <span class="c1">#add frequency column to original dataframe4</span>
+
+<span class="c1">#sometimes, triplicate specific times are recorded (ex: 3:00, 3:05, 3:10 ), so also check for unique datehour entries</span>
+<span class="n">hots</span><span class="p">[</span><span class="s1">&#39;date_hour&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">hots</span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H&#39;</span><span class="p">)</span>
+<span class="n">counts_series</span> <span class="o">=</span> <span class="n">hots</span><span class="p">[[</span><span class="s1">&#39;depth&#39;</span><span class="p">,</span><span class="s1">&#39;date_hour&#39;</span><span class="p">,</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span><span class="s1">&#39;lon&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span> <span class="c1">#count how many unique datehour, lat, and lons there are</span>
+<span class="n">counts_df</span> <span class="o">=</span> <span class="n">counts_series</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;freq_hour&#39;</span><span class="p">)</span>
+<span class="n">hots</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">hots</span><span class="p">,</span> <span class="n">counts_df</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;depth&#39;</span><span class="p">,</span><span class="s1">&#39;date_hour&#39;</span><span class="p">,</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span><span class="s1">&#39;lon&#39;</span><span class="p">],</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span> <span class="c1">#add frequency column to original dataframe</span>
+<span class="n">hots</span><span class="p">[</span><span class="s1">&#39;triplicate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1">#assume bad unless otherwise said</span>
+<span class="n">hots</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">hots</span><span class="p">[</span><span class="s1">&#39;freq_uniq&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;triplicate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1">#if there was a unique datetime, lat, and lon that happened 3 times, triplicate</span>
+<span class="n">hots</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">hots</span><span class="p">[</span><span class="s1">&#39;freq_uniq&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span><span class="p">(</span><span class="n">hots</span><span class="p">[</span><span class="s1">&#39;freq_hour&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">3</span><span class="p">),</span> <span class="s1">&#39;triplicate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1">#if 1 unique datetime but 3 unique date hours, assume triplicate</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hots</span><span class="o">=</span><span class="n">hots</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">hots</span><span class="p">[</span><span class="s1">&#39;depth&#39;</span><span class="p">]</span><span class="o">&lt;=</span><span class="mi">150</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1">#reduce to upper 150 meteres for algorithm development</span>
+
+<span class="n">hots</span><span class="o">=</span><span class="n">hots</span><span class="p">[[</span><span class="s1">&#39;datetime&#39;</span><span class="p">,</span> <span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="s1">&#39;lon&#39;</span><span class="p">,</span><span class="s1">&#39;depth&#39;</span><span class="p">,</span> <span class="s1">&#39;chl&#39;</span><span class="p">,</span> <span class="s1">&#39;chl_a&#39;</span><span class="p">,</span> <span class="s1">&#39;station&#39;</span><span class="p">,</span> <span class="s1">&#39;HPLC&#39;</span><span class="p">,</span> <span class="s1">&#39;triplicate&#39;</span><span class="p">]]</span>
+<span class="n">hots</span><span class="p">[</span><span class="s1">&#39;experiment&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;HOTS&#39;</span>
+<span class="n">hots</span><span class="p">[</span><span class="s1">&#39;source&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;HOT-DOGS&#39;</span>
+<span class="n">hots</span><span class="p">[</span><span class="s1">&#39;investigators&#39;</span><span class="p">]</span><span class="o">=</span> <span class="s1">&#39;Angelicque E. White&#39;</span>
+<span class="n">hots</span><span class="p">[</span><span class="s1">&#39;affiliations&#39;</span><span class="p">]</span><span class="o">=</span><span class="s2">&quot;University of Hawai&#39;i at Mānoa&quot;</span>
+<span class="n">hots</span><span class="p">[</span><span class="s1">&#39;url&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;https://hahana.soest.hawaii.edu/hot/hot-dogs/interface.html&#39;</span>
+<span class="n">hots</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="o">-</span><span class="mi">9</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">hots</span> <span class="o">=</span> <span class="n">hots</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;chl&#39;</span><span class="p">,</span> <span class="s1">&#39;chl_a&#39;</span><span class="p">],</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Done with Hots data!!</p>
+<p>Data obtained via the Hawaii Ocean Time-series HOT-DOGS application; University of Hawai’i at Mānoa. National Science Foundation Award # 2241005</p>
+</section>
+<section id="plots">
+<h2>Plots<a class="headerlink" href="#plots" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">HOTS</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;C:\Users\gianna.milton\Documents\Python\Coastal_chl_final\hots_chl_qc.xlsx&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">year_test</span><span class="o">=</span><span class="n">HOTS</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">year_test</span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">year_test</span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">])</span>
+<span class="n">year_test</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">year_test</span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span>
+<span class="n">grouped</span> <span class="o">=</span> <span class="n">year_test</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;year&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;DataPoints&#39;</span><span class="p">)</span>
+
+<span class="c1"># Create bar chart</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">grouped</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;DataPoints&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Yearly distribution all data&#39;</span><span class="p">,</span>
+             <span class="n">labels</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;year&#39;</span><span class="p">:</span> <span class="s1">&#39;Year&#39;</span><span class="p">,</span> <span class="s1">&#39;DataPoints&#39;</span><span class="p">:</span> <span class="s1">&#39;Number of Data Points&#39;</span><span class="p">,</span> <span class="s1">&#39;metadata&#39;</span><span class="p">:</span> <span class="s1">&#39;Metadata&#39;</span><span class="p">},)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="nb">range</span><span class="o">=</span><span class="p">[</span><span class="mi">1999</span><span class="p">,</span><span class="mi">2027</span><span class="p">])</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">barmode</span><span class="o">=</span><span class="s1">&#39;stack&#39;</span><span class="p">)</span>  <span class="c1"># ensures stacking</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/f822ad1eb48617f14f234a0ef4a308866b1d0b7db4884d577358082caa267647.png" src="_images/f822ad1eb48617f14f234a0ef4a308866b1d0b7db4884d577358082caa267647.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">year_test</span><span class="p">[</span><span class="s1">&#39;log_chl&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">year_test</span><span class="p">[</span><span class="s1">&#39;chl&#39;</span><span class="p">])</span>
+<span class="n">year_test</span><span class="p">[</span><span class="s1">&#39;log_chl_a&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">year_test</span><span class="p">[</span><span class="s1">&#39;chl_a&#39;</span><span class="p">])</span>
+
+<span class="n">fig</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">axs1</span><span class="o">=</span><span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">projection</span><span class="o">=</span> <span class="n">cartopy</span><span class="o">.</span><span class="n">crs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">())</span>
+<span class="n">axs1</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">LAND</span><span class="p">)</span>
+<span class="n">axs1</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">OCEAN</span><span class="p">)</span>
+<span class="n">axs1</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">COASTLINE</span><span class="p">)</span>
+<span class="n">axs1</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">BORDERS</span><span class="p">)</span>
+<span class="n">axs1</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">STATES</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">im</span><span class="o">=</span><span class="n">axs1</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">year_test</span><span class="o">.</span><span class="n">lon</span><span class="p">,</span><span class="n">year_test</span><span class="o">.</span><span class="n">lat</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="n">year_test</span><span class="o">.</span><span class="n">log_chl</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="n">cmo</span><span class="o">.</span><span class="n">algae</span><span class="p">,</span><span class="n">s</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span><span class="n">vmin</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">edgecolors</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linewidths</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">axs1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;HOTS Chlorophyll data&#39;</span><span class="p">)</span>
+<span class="n">axs1</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">year_test</span><span class="o">.</span><span class="n">lon</span><span class="p">)</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="nb">max</span><span class="p">(</span><span class="n">year_test</span><span class="o">.</span><span class="n">lon</span><span class="p">)</span><span class="o">+</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">axs1</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">year_test</span><span class="o">.</span><span class="n">lat</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="nb">max</span><span class="p">(</span><span class="n">year_test</span><span class="o">.</span><span class="n">lat</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">cb</span><span class="o">=</span><span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">,</span><span class="n">ax</span><span class="o">=</span><span class="n">axs1</span><span class="p">,</span><span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;horizontal&#39;</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+<span class="n">cb</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="s1">&#39;log chl&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">gl</span><span class="o">=</span><span class="n">axs1</span><span class="o">.</span><span class="n">gridlines</span><span class="p">(</span><span class="n">linewidth</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">draw_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">x_inline</span><span class="o">=</span> <span class="kc">False</span><span class="p">,</span><span class="n">y_inline</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">gl</span><span class="o">.</span><span class="n">xformatter</span><span class="o">=</span><span class="n">LONGITUDE_FORMATTER</span>
+<span class="n">gl</span><span class="o">.</span><span class="n">yformatter</span><span class="o">=</span><span class="n">LATITUDE_FORMATTER</span>
+<span class="n">gl</span><span class="o">.</span><span class="n">top_labels</span> <span class="o">=</span> <span class="kc">False</span>    <span class="c1"># Disable top labels</span>
+<span class="n">gl</span><span class="o">.</span><span class="n">right_labels</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># Disable right labels</span>
+
+<span class="n">axs2</span><span class="o">=</span><span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">projection</span><span class="o">=</span> <span class="n">cartopy</span><span class="o">.</span><span class="n">crs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">())</span>
+<span class="n">axs2</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">LAND</span><span class="p">)</span>
+<span class="n">axs2</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">OCEAN</span><span class="p">)</span>
+<span class="n">axs2</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">COASTLINE</span><span class="p">)</span>
+<span class="n">axs2</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">BORDERS</span><span class="p">)</span>
+<span class="n">axs2</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">STATES</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">im</span><span class="o">=</span><span class="n">axs2</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">year_test</span><span class="o">.</span><span class="n">lon</span><span class="p">,</span><span class="n">year_test</span><span class="o">.</span><span class="n">lat</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="n">year_test</span><span class="o">.</span><span class="n">log_chl_a</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="n">cmo</span><span class="o">.</span><span class="n">algae</span><span class="p">,</span><span class="n">s</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span><span class="n">vmin</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">edgecolors</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linewidths</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">axs2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;HOTS HPLC data&#39;</span><span class="p">)</span>
+<span class="n">axs2</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">year_test</span><span class="o">.</span><span class="n">lon</span><span class="p">)</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="nb">max</span><span class="p">(</span><span class="n">year_test</span><span class="o">.</span><span class="n">lon</span><span class="p">)</span><span class="o">+</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">axs2</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">year_test</span><span class="o">.</span><span class="n">lat</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="nb">max</span><span class="p">(</span><span class="n">year_test</span><span class="o">.</span><span class="n">lat</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">cb</span><span class="o">=</span><span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">,</span><span class="n">ax</span><span class="o">=</span><span class="n">axs2</span><span class="p">,</span><span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;horizontal&#39;</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+<span class="n">cb</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="s1">&#39;log chl_a&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">gl</span><span class="o">=</span><span class="n">axs2</span><span class="o">.</span><span class="n">gridlines</span><span class="p">(</span><span class="n">linewidth</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">draw_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">x_inline</span><span class="o">=</span> <span class="kc">False</span><span class="p">,</span><span class="n">y_inline</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">gl</span><span class="o">.</span><span class="n">xformatter</span><span class="o">=</span><span class="n">LONGITUDE_FORMATTER</span>
+<span class="n">gl</span><span class="o">.</span><span class="n">yformatter</span><span class="o">=</span><span class="n">LATITUDE_FORMATTER</span>
+<span class="n">gl</span><span class="o">.</span><span class="n">top_labels</span> <span class="o">=</span> <span class="kc">False</span>    <span class="c1"># Disable top labels</span>
+<span class="n">gl</span><span class="o">.</span><span class="n">right_labels</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># Disable right labels</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/8ce7fcb056d194843369c0828c722eddb698b0dd2e444fa9094cbac8a8a686a2.png" src="_images/8ce7fcb056d194843369c0828c722eddb698b0dd2e444fa9094cbac8a8a686a2.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib.colors</span> <span class="kn">import</span> <span class="n">LogNorm</span> <span class="c1"># Important for high-variance data</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">())</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">LAND</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">OCEAN</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">COASTLINE</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">BORDERS</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">STATES</span><span class="p">)</span>
+<span class="n">hb</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">hexbin</span><span class="p">(</span><span class="n">year_test</span><span class="o">.</span><span class="n">lon</span><span class="p">,</span> <span class="n">year_test</span><span class="o">.</span><span class="n">lat</span><span class="p">,</span> <span class="n">gridsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;inferno_r&#39;</span><span class="p">,</span> <span class="n">mincnt</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">(),</span><span class="n">norm</span><span class="o">=</span><span class="n">LogNorm</span><span class="p">())</span> 
+<span class="n">cb</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">hb</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;vertical&#39;</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">cb</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="s1">&#39;Number of Datapoints&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">gl</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">gridlines</span><span class="p">(</span><span class="n">linewidth</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">draw_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">x_inline</span><span class="o">=</span> <span class="kc">False</span><span class="p">,</span><span class="n">y_inline</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">gl</span><span class="o">.</span><span class="n">xformatter</span><span class="o">=</span><span class="n">LONGITUDE_FORMATTER</span>
+<span class="n">gl</span><span class="o">.</span><span class="n">yformatter</span><span class="o">=</span><span class="n">LATITUDE_FORMATTER</span>
+<span class="n">gl</span><span class="o">.</span><span class="n">top_labels</span> <span class="o">=</span> <span class="kc">False</span>    <span class="c1"># Disable top labels</span>
+<span class="n">gl</span><span class="o">.</span><span class="n">right_labels</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># Disable right labels</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_extent</span><span class="p">([</span><span class="o">-</span><span class="mi">161</span><span class="p">,</span> <span class="o">-</span><span class="mi">155</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">24</span><span class="p">],</span> <span class="n">crs</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">())</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Spatial Data Density&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/b539b1cffe791c016d999128988dbf730cadf00d50145a452b7462bec4125028.png" src="_images/b539b1cffe791c016d999128988dbf730cadf00d50145a452b7462bec4125028.png" />
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="calcofi_chl.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">CalCOFI data</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="seamap_chl.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">SEAMAP data</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hplc-flag">HPLC flag</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#triplicate-flag">triplicate flag</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plots">Plots</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Gianna Milton
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

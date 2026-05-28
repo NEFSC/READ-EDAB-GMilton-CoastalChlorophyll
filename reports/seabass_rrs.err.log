@@ -1,0 +1,96 @@
+Traceback (most recent call last):
+  File "C:\Users\gianna.milton\AppData\Local\anaconda3\Lib\site-packages\jupyter_cache\executors\utils.py", line 58, in single_nb_execution
+    executenb(
+  File "C:\Users\gianna.milton\AppData\Local\anaconda3\Lib\site-packages\nbclient\client.py", line 1305, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gianna.milton\AppData\Local\anaconda3\Lib\site-packages\jupyter_core\utils\__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gianna.milton\AppData\Local\anaconda3\Lib\asyncio\base_events.py", line 687, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\gianna.milton\AppData\Local\anaconda3\Lib\site-packages\nbclient\client.py", line 705, in async_execute
+    await self.async_execute_cell(
+  File "C:\Users\gianna.milton\AppData\Local\anaconda3\Lib\site-packages\nbclient\client.py", line 1058, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "C:\Users\gianna.milton\AppData\Local\anaconda3\Lib\site-packages\nbclient\client.py", line 914, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+for folders in range(len(all_folders)): #for each affiliation folder in all_folders
+    f_list1 =   path_to_folder +'\\'+str(all_folders[folders]) #create path to that specific folder 
+    f_list = get_files(f_list1) #gather all .sb files in f_list1
+    print(str(all_folders[folders]))
+    dfs = []  # list to collect all processed DataFrames
+    for file in f_list: #for each .sb file
+        data1 = sb.readSB(filename=file, no_warn=True) #read it using readSB from the seabass website
+        data2 = data1.data #append the data 
+        df = pd.DataFrame.from_dict(data2, orient='index').T #turn data into dataframe
+        dt = None  # initialize datetime variable
+        #Detect the datetime columns in the dataframe and create single datetime column 
+        if all(col in df.columns for col in ['year', 'month', 'day', 'hour', 'minute', 'second']):
+            dt = pd.to_datetime(df[['year', 'month', 'day', 'hour', 'minute', 'second']]) #if all 6 time values, create datetime
+        elif all(col in df.columns for col in ['year', 'month', 'day', 'hour', 'minute']):
+            dt = pd.to_datetime(df[['year', 'month', 'day', 'hour', 'minute']])
+        elif all(col in df.columns for col in ['year', 'month', 'day', 'time']):
+            df['hour'] = df['time'].astype(str).str[:-6].astype(int) #if just time, seperate into hour, min, sec 
+            df['minute'] = df['time'].astype(str).str[-5:-3].astype(int)
+            df['second'] = df['time'].astype(str).str[-2:].astype(int)
+            dt = pd.to_datetime(df[['year', 'month', 'day', 'hour', 'minute', 'second']])
+        elif all(col in df.columns for col in ['date', 'time']):
+            df['year'] = df['date'].astype(str).str[:4].astype(int)
+            df['month'] = df['date'].astype(str).str[4:6].astype(int)
+            df['day'] = df['date'].astype(str).str[6:8].astype(int)
+            time_strs = df['time'].astype(str) #some files have time as HH:mm, some as HH:mm:ss, so this accounts for both
+            if time_strs.str.contains(":").all() and time_strs.str.count(":").eq(2).all():  #determine format based on string length or presence of ":"
+                df['hour'] = time_strs.str.split(":").str[0].astype(int)
+                df['minute'] = time_strs.str.split(":").str[1].astype(int)
+                df['second'] = time_strs.str.split(":").str[2].astype(float).astype(int)
+                dt = pd.to_datetime(df[['year', 'month', 'day', 'hour', 'minute', 'second']])
+            elif time_strs.str.contains(":").all() and time_strs.str.count(":").eq(1).all():
+                df['hour'] = time_strs.str.split(":").str[0].astype(int)
+                df['minute'] = time_strs.str.split(":").str[1].astype(int)
+                df['second'] = 0
+                dt = pd.to_datetime(df[['year', 'month', 'day', 'hour', 'minute', 'second']])
+        else: #if none of the above is deteted, skip for now, we'll create it later
+            dt = pd.NaT
+        df.insert(0, 'datetime', dt) #insert datetime column into df
+        list_columns=list(df.columns[df.columns.str.contains(contain)]) #gather all columns that have rrs in them (rrs and any rrs500, ect)
+        list_columns = [item for item in list_columns if '_' not in item] #take out columns names with _ in them i.e _unc
+        list_columns = [item for item in list_columns if '.' not in item] #take out columns names with . in them i.e only 1nm bins
+        list_columns = [item for item in list_columns if ')' not in item]
+        
+        if list_columns: #if the dataframe has rrs in them 
+            all_columns = selected_columns+list_columns
+            columns_to_keep = [col for col in df.columns if col in all_columns or col == 'datetime']
+            df_filtered = df[columns_to_keep]
+            header = pd.DataFrame.from_dict(data1.headers, orient='index').T #create header from dictionary and repeat it to match dataset
+            header_repeated = pd.concat([header] * len(df_filtered), ignore_index=True)
+            # Combine data and metadata
+            combined = pd.concat([df_filtered.reset_index(drop=True), header_repeated], axis=1)
+            combined = combined.loc[:, ~combined.columns.duplicated()]
+            dfs.append(combined)
+            
+        #else:#if no rrs, (if there are only the other aop's there, not rrs) then skip 
+    if not dfs: #if dfs empty, 
+        globals()[str(all_folders[folders])] = pd.DataFrame()
+    else:
+        globals()[str(all_folders[folders])] = pd.concat(dfs, ignore_index=True)
+------------------
+
+----- stdout -----
+SIO
+------------------
+
+[1;31m---------------------------------------------------------------------------[0m
+[1;31mNameError[0m                                 Traceback (most recent call last)
+Cell [1;32mIn[5], line 7[0m
+[0;32m      5[0m dfs [38;5;241m=[39m []  [38;5;66;03m# list to collect all processed DataFrames[39;00m
+[0;32m      6[0m [38;5;28;01mfor[39;00m file [38;5;129;01min[39;00m f_list: [38;5;66;03m#for each .sb file[39;00m
+[1;32m----> 7[0m     data1 [38;5;241m=[39m sb[38;5;241m.[39mreadSB(filename[38;5;241m=[39mfile, no_warn[38;5;241m=[39m[38;5;28;01mTrue[39;00m) [38;5;66;03m#read it using readSB from the seabass website[39;00m
+[0;32m      8[0m     data2 [38;5;241m=[39m data1[38;5;241m.[39mdata [38;5;66;03m#append the data [39;00m
+[0;32m      9[0m     df [38;5;241m=[39m pd[38;5;241m.[39mDataFrame[38;5;241m.[39mfrom_dict(data2, orient[38;5;241m=[39m[38;5;124m'[39m[38;5;124mindex[39m[38;5;124m'[39m)[38;5;241m.[39mT [38;5;66;03m#turn data into dataframe[39;00m
+
+[1;31mNameError[0m: name 'sb' is not defined
+

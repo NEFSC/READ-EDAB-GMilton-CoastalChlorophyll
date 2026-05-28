@@ -1,0 +1,143 @@
+Traceback (most recent call last):
+  File "C:\Users\gianna.milton\AppData\Local\anaconda3\Lib\site-packages\jupyter_cache\executors\utils.py", line 58, in single_nb_execution
+    executenb(
+  File "C:\Users\gianna.milton\AppData\Local\anaconda3\Lib\site-packages\nbclient\client.py", line 1305, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gianna.milton\AppData\Local\anaconda3\Lib\site-packages\jupyter_core\utils\__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gianna.milton\AppData\Local\anaconda3\Lib\asyncio\base_events.py", line 687, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\gianna.milton\AppData\Local\anaconda3\Lib\site-packages\nbclient\client.py", line 705, in async_execute
+    await self.async_execute_cell(
+  File "C:\Users\gianna.milton\AppData\Local\anaconda3\Lib\site-packages\nbclient\client.py", line 1058, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "C:\Users\gianna.milton\AppData\Local\anaconda3\Lib\site-packages\nbclient\client.py", line 914, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+path_to_folder = r'west_coast\requested_files_2\requested_files' #NOTE: there are usually multiple requested_files, this is where you would manually loop thru them
+all_folders = get_folder_names(path_to_folder)
+
+for folders in range(len(all_folders)): #for each affiliation folder in all_folders
+    f_list1 =   path_to_folder +'\\'+str(all_folders[folders]) #create path to that specific folder 
+    f_list = get_files(f_list1) #gather all .sb files in f_list1
+    print(str(all_folders[folders]))
+    dfs = []  # list to collect all processed DataFrames
+    for file in f_list: #for each .sb file
+        data1 = sb.readSB(filename=file, no_warn=True) #read it using readSB from the seabass website
+        data2 = data1.data #append the data 
+        df = pd.DataFrame.from_dict(data2, orient='index').T #turn data into dataframe
+        dt = None  # initialize datetime variable
+        #Detect the datetime columns in the dataframe and create single datetime column 
+        if all(col in df.columns for col in ['year', 'month', 'day', 'hour', 'minute', 'second']):
+            dt = pd.to_datetime(df[['year', 'month', 'day', 'hour', 'minute', 'second']]) #if all 6 time values, create datetime
+        elif all(col in df.columns for col in ['year', 'month', 'day', 'hour', 'minute']):
+            dt = pd.to_datetime(df[['year', 'month', 'day', 'hour', 'minute']])
+        elif all(col in df.columns for col in ['year', 'month', 'day', 'time']):
+            df['hour'] = df['time'].astype(str).str[:-6].astype(int) #if just time, seperate into hour, min, sec 
+            df['minute'] = df['time'].astype(str).str[-5:-3].astype(int)
+            df['second'] = df['time'].astype(str).str[-2:].astype(int)
+            dt = pd.to_datetime(df[['year', 'month', 'day', 'hour', 'minute', 'second']])
+        elif all(col in df.columns for col in ['date', 'time']):
+            df['year'] = df['date'].astype(str).str[:4].astype(int)
+            df['month'] = df['date'].astype(str).str[4:6].astype(int)
+            df['day'] = df['date'].astype(str).str[6:8].astype(int)
+            time_strs = df['time'].astype(str) #some files have time as HH:mm, some as HH:mm:ss, so this accounts for both
+            if time_strs.str.contains(":").all() and time_strs.str.count(":").eq(2).all():  #determine format based on string length or presence of ":"
+                df['hour'] = time_strs.str.split(":").str[0].astype(int)
+                df['minute'] = time_strs.str.split(":").str[1].astype(int)
+                df['second'] = time_strs.str.split(":").str[2].astype(float).astype(int)
+                dt = pd.to_datetime(df[['year', 'month', 'day', 'hour', 'minute', 'second']])
+            elif time_strs.str.contains(":").all() and time_strs.str.count(":").eq(1).all():
+                df['hour'] = time_strs.str.split(":").str[0].astype(int)
+                df['minute'] = time_strs.str.split(":").str[1].astype(int)
+                df['second'] = 0
+                dt = pd.to_datetime(df[['year', 'month', 'day', 'hour', 'minute', 'second']])
+        else: #if none of the above is deteted, skip for now, we'll create it later
+            dt = pd.NaT
+        df.insert(0, 'datetime', dt) #insert datetime column into df
+        columns_to_keep = [col for col in df.columns if col in selected_columns or col == 'datetime'] #only keep whatever columns are in selected_columns
+        df_filtered = df[columns_to_keep]
+        header = pd.DataFrame.from_dict(data1.headers, orient='index').T #create metedata header from dictionary and repeat it to match lenth of dataset
+        header_repeated = pd.concat([header] * len(df_filtered), ignore_index=True)
+        # Combine data and metadata
+        combined = pd.concat([df_filtered.reset_index(drop=True), header_repeated], axis=1)
+        combined = combined.loc[:, ~combined.columns.duplicated()]
+        dfs.append(combined)
+    #final concatenation
+    globals()[str(all_folders[folders])] = pd.concat(dfs, ignore_index=True) #append all files in that specific affiliation file toether 
+
+chl_columns =['chl','chl_a'] #for reducing rows without these in it (without ,'chl_experiment','chl_stimf')
+for names in all_folders: #for each affilitation dataframe
+    print(names)
+    chl_cols=[col for col in (globals()[names]).columns if col in chl_columns] #detect the chlorophyll columns present 
+    (globals()[names]).dropna(subset=chl_cols, how='all', inplace=True) #if rows in the chl columns empty, remove 
+
+#for any remaining empty datetime, manually create it from the metadata date 
+for names in all_folders:
+    print(names)
+    (globals()[names])['time_flag']='no' #create a flag stating if datetime populated from metadata, initiate as no 
+    if 'datetime' not in (globals()[names]).columns: #if the dataframe does not have datetime column, create one
+        (globals()[names])['datetime']=pd.NaT
+    for idx in (globals()[names]).index: #loop through each row 
+        try:
+            if pd.isna((globals()[names]).at[idx, 'datetime']) and (globals()[names]).at[idx, 'start_date'] == (globals()[names]).at[idx, 'end_date']: 
+                #sometimes, start_date and end_date are concerning the start and end of the cruise/project, not that specific data recording. so only enter if loop if start_date = end_date
+                #extract strings
+                date_str = str((globals()[names]).at[idx, 'end_date'])  # e.g. "20240520"
+                time_str = str((globals()[names]).at[idx, 'end_time'])  # e.g. "14:30:00.000"
+                #parse date and time parts
+                year = int(date_str[:4])
+                month = int(date_str[4:6])
+                day = int(date_str[6:8])
+                hour = int(time_str[:-11])
+                minute = int(time_str[-10:-8])
+                second = int(float(time_str[-7:-5]))  # Handles "00.000"
+
+                dt = datetime(year, month, day, hour, minute, second)
+                (globals()[names]).at[idx, 'datetime'] = dt #populate that specific datetime row with dt
+                (globals()[names]).at[idx, 'time_flag'] = 'yes' #turn the time_flag to yes
+        except Exception as e:
+            # If there's a parsing problem, skip gracefully
+            print(f"Row {idx} failed — start_date: {date_str}, end_time: {time_str}")
+            (globals()[names]).at[idx, 'time_flag'] = f'error: {e}'
+
+#if lat or lon are empty, populate with the metadata      
+for names in all_folders:
+    (globals()[names])['coord_flag'] = 'no' #create a flag stating if coordinates populated from metadata, initiate as no 
+    if 'lat' not in (globals()[names]).columns: #if lat and lon not in columns, create an empty column
+        (globals()[names])['lat']=pd.NA
+        (globals()[names])['lon']=pd.NA
+    for idx in (globals()[names]).index: #for each row
+        if pd.isna((globals()[names]).at[idx, 'lat']) and (globals()[names]).at[idx, 'north_latitude'] ==(globals()[names]).at[idx, 'south_latitude']:
+            #sometimes, north_lat and south_lat show the total boundry of the project rather than specific point. so only append if they equal each other
+            (globals()[names]).at[idx, 'lat'] = float((globals()[names]).north_latitude[idx][:-5]) #pull latitude value out of north_lat
+            (globals()[names]).at[idx, 'coord_flag'] = 'yes' #turn flag to yes
+        if pd.isna((globals()[names]).at[idx, 'lon']) and (globals()[names]).at[idx, 'west_longitude'] ==(globals()[names]).at[idx, 'east_longitude']:
+            (globals()[names]).at[idx, 'lon'] = float((globals()[names]).west_longitude[idx][:-5])
+            (globals()[names]).at[idx, 'coord_flag'] = 'yes'   
+------------------
+
+
+[1;31m---------------------------------------------------------------------------[0m
+[1;31mFileNotFoundError[0m                         Traceback (most recent call last)
+Cell [1;32mIn[4], line 2[0m
+[0;32m      1[0m path_to_folder [38;5;241m=[39m [38;5;124mr[39m[38;5;124m'[39m[38;5;124mwest_coast[39m[38;5;124m\[39m[38;5;124mrequested_files_2[39m[38;5;124m\[39m[38;5;124mrequested_files[39m[38;5;124m'[39m [38;5;66;03m#NOTE: there are usually multiple requested_files, this is where you would manually loop thru them[39;00m
+[1;32m----> 2[0m all_folders [38;5;241m=[39m get_folder_names(path_to_folder)
+[0;32m      4[0m [38;5;28;01mfor[39;00m folders [38;5;129;01min[39;00m [38;5;28mrange[39m([38;5;28mlen[39m(all_folders)): [38;5;66;03m#for each affiliation folder in all_folders[39;00m
+[0;32m      5[0m     f_list1 [38;5;241m=[39m   path_to_folder [38;5;241m+[39m[38;5;124m'[39m[38;5;130;01m\\[39;00m[38;5;124m'[39m[38;5;241m+[39m[38;5;28mstr[39m(all_folders[folders]) [38;5;66;03m#create path to that specific folder [39;00m
+
+Cell [1;32mIn[2], line 6[0m, in [0;36mget_folder_names[1;34m(folder_path)[0m
+[0;32m      2[0m [38;5;250m[39m[38;5;124;03m"""[39;00m
+[0;32m      3[0m [38;5;124;03mReturns a list of folder names in the given directory.[39;00m
+[0;32m      4[0m [38;5;124;03m"""[39;00m
+[0;32m      5[0m folder_names [38;5;241m=[39m []
+[1;32m----> 6[0m [38;5;28;01mfor[39;00m item [38;5;129;01min[39;00m os[38;5;241m.[39mlistdir(folder_path):
+[0;32m      7[0m   item_path [38;5;241m=[39m os[38;5;241m.[39mpath[38;5;241m.[39mjoin(folder_path, item)
+[0;32m      8[0m   [38;5;28;01mif[39;00m os[38;5;241m.[39mpath[38;5;241m.[39misdir(item_path):
+
+[1;31mFileNotFoundError[0m: [WinError 3] The system cannot find the path specified: 'west_coast\\requested_files_2\\requested_files'
+

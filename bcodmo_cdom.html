@@ -1,0 +1,938 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>BCO-DMO data &#8212; Coastal Chlorophyll Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=1ae7504c"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'bcodmo_cdom';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="CDOM Final Concatination" href="final_concatination_cdom.html" />
+    <link rel="prev" title="IOOS data" href="ioos_cdom.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Coastal Chlorophyll Book - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Coastal Chlorophyll Book - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Introduction
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="chl_data.html">Chlorophyll data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="seabass_chl.html">SeaBASS data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="calcofi_chl.html">CalCOFI data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HOTS_chl.html">HOTS Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="seamap_chl.html">SEAMAP data</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="ioos_chl.html">IOOS Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cioos_chl.html">CIOOS data</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="wod_chl.html">WOD data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bcodmo_chl.html">BCO-DMO data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="aquamatch_chl.html">Aquamatch Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Pan-Arctic_chl.html">Pan-Arctic data</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="globec_chl.html">GLOBEC data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gloria_chl.html">GLORIA data</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="final_concatination_chl.html">Chlorophyll Final Concatination</a></li>
+
+
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="Reflectance_data.html">Reflectance data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="seabass_rrs.html">SeaBASS data</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="gloria_rrs.html">GLORIA RRS data</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="final_concatination_rrs.html">RRS Final Concatination</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="cdom_data.html">CDOM data</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="seabass_cdom.html">SeaBASS Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ioos_cdom.html">IOOS data</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">BCO-DMO data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="final_concatination_cdom.html">CDOM Final Concatination</a></li>
+
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="final_dataset.html">Final variable appending and organization</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/GMilton2/coastal-chlorophyll" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/GMilton2/coastal-chlorophyll/issues/new?title=Issue%20on%20page%20%2Fbcodmo_cdom.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/bcodmo_cdom.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>BCO-DMO data</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plots">Plots</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="bco-dmo-data">
+<h1>BCO-DMO data<a class="headerlink" href="#bco-dmo-data" title="Link to this heading">#</a></h1>
+<p>Similar to chlorophyll data on BCO-DMO, the key word ‘CDOM’ was searched on the website and all results were combed through and processed. This manual methods means that most likely the CDOM data here is not a comprehensive compilation of all CDOM data on BCO-DMO, but rather a compilation of the well documented, clearly labeled, and easily accessible CDOM data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">cartopy</span>
+<span class="kn">import</span> <span class="nn">cartopy.crs</span> <span class="k">as</span> <span class="nn">ccrs</span>
+<span class="kn">import</span> <span class="nn">cartopy.feature</span> <span class="k">as</span> <span class="nn">cfeature</span>
+<span class="kn">from</span> <span class="nn">cartopy.mpl.gridliner</span> <span class="kn">import</span> <span class="n">LONGITUDE_FORMATTER</span><span class="p">,</span> <span class="n">LATITUDE_FORMATTER</span>
+<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">ticker</span>
+<span class="kn">import</span> <span class="nn">datetime</span> <span class="k">as</span> <span class="nn">dt</span>
+<span class="kn">import</span> <span class="nn">plotly.express</span> <span class="k">as</span> <span class="nn">px</span>
+<span class="kn">import</span> <span class="nn">cmocean</span> <span class="k">as</span> <span class="nn">cm</span>
+<span class="kn">import</span> <span class="nn">cmocean.cm</span> <span class="k">as</span> <span class="nn">cmo</span>
+<span class="kn">import</span> <span class="nn">matplotlib.gridspec</span> <span class="k">as</span> <span class="nn">gridspec</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">matplotlib.ticker</span> <span class="k">as</span> <span class="nn">mticker</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">GoMX1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;C:\Users\gianna.milton\Documents\Python\CDOM\BCO-DMO\bottle_data.xlsx&#39;</span><span class="p">)</span>
+<span class="n">GoMX1</span><span class="p">[</span><span class="s1">&#39;time_utc&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="si">:</span><span class="s2">04d</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">GoMX1</span><span class="p">[</span><span class="s1">&#39;time_utc&#39;</span><span class="p">]]</span>  <span class="c1">#for every row in mtime pad with 0 unitl it&#39;s 4 numbers long (HH:mm) (i&#39;m getting rid of seconds fyi)</span>
+<span class="n">GoMX1</span> <span class="o">=</span> <span class="n">GoMX1</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;year_utc&#39;</span><span class="p">:</span> <span class="s1">&#39;year&#39;</span><span class="p">,</span><span class="s1">&#39;month_utc&#39;</span><span class="p">:</span> <span class="s1">&#39;month&#39;</span><span class="p">,</span><span class="s1">&#39;day_utc&#39;</span><span class="p">:</span> <span class="s1">&#39;day&#39;</span><span class="p">,})</span>
+<span class="n">GoMX1</span><span class="p">[</span><span class="s1">&#39;hour&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="p">[:</span><span class="mi">2</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">GoMX1</span><span class="p">[</span><span class="s1">&#39;time_utc&#39;</span><span class="p">]]</span>
+<span class="n">GoMX1</span><span class="p">[</span><span class="s1">&#39;minute&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">GoMX1</span><span class="p">[</span><span class="s1">&#39;time_utc&#39;</span><span class="p">]]</span>
+<span class="n">GoMX1</span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">]</span><span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">GoMX1</span><span class="p">[[</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span><span class="p">,</span> <span class="s1">&#39;day&#39;</span><span class="p">,</span> <span class="s1">&#39;hour&#39;</span><span class="p">,</span> <span class="s1">&#39;minute&#39;</span><span class="p">]])</span> <span class="c1">#datetime variable</span>
+<span class="n">GoMX1</span> <span class="o">=</span> <span class="n">GoMX1</span><span class="p">[[</span><span class="s1">&#39;datetime&#39;</span><span class="p">,</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="s1">&#39;lon&#39;</span><span class="p">,</span> <span class="s1">&#39;depth&#39;</span><span class="p">,</span><span class="s1">&#39;cruiseid&#39;</span><span class="p">,</span> <span class="s1">&#39;CDOM&#39;</span><span class="p">,</span><span class="s1">&#39;turbidity&#39;</span><span class="p">]]</span>
+<span class="n">GoMX1</span><span class="p">[</span><span class="s1">&#39;experiment&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;GoMX - DHOS&#39;</span>
+<span class="n">GoMX1</span><span class="p">[</span><span class="s1">&#39;source&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;BCO-DMO&#39;</span>
+<span class="n">GoMX1</span><span class="p">[</span><span class="s1">&#39;investigators&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;Samantha B. Joye&#39;</span>
+<span class="n">GoMX1</span><span class="p">[</span><span class="s1">&#39;affiliations&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;University of Georgia&#39;</span>
+<span class="n">GoMX1</span><span class="p">[</span><span class="s1">&#39;url&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;https://www.bco-dmo.org/dataset/3727&#39;</span>
+
+
+<span class="n">GoMX2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;C:\Users\gianna.milton\Documents\Python\CDOM\BCO-DMO\AT18-02_CTD.xlsx&#39;</span><span class="p">)</span>
+<span class="n">GoMX2</span><span class="p">[</span><span class="s1">&#39;time_start_utc&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="si">:</span><span class="s2">04d</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">GoMX2</span><span class="p">[</span><span class="s1">&#39;time_start_utc&#39;</span><span class="p">]]</span> 
+<span class="n">GoMX2</span><span class="p">[</span><span class="s1">&#39;hour&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="p">[:</span><span class="mi">2</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">GoMX2</span><span class="p">[</span><span class="s1">&#39;time_start_utc&#39;</span><span class="p">]]</span>
+<span class="n">GoMX2</span><span class="p">[</span><span class="s1">&#39;minute&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">GoMX2</span><span class="p">[</span><span class="s1">&#39;time_start_utc&#39;</span><span class="p">]]</span>
+<span class="n">GoMX2</span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">]</span> <span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">GoMX2</span><span class="p">[</span><span class="s1">&#39;date_start_utc&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span><span class="n">GoMX2</span><span class="p">[</span><span class="s1">&#39;hour&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">+</span> <span class="s1">&#39;:&#39;</span> <span class="o">+</span><span class="n">GoMX2</span><span class="p">[</span><span class="s1">&#39;minute&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">),</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M&#39;</span><span class="p">)</span>
+<span class="n">GoMX2</span> <span class="o">=</span> <span class="n">GoMX2</span><span class="p">[[</span><span class="s1">&#39;datetime&#39;</span><span class="p">,</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="s1">&#39;lon&#39;</span><span class="p">,</span> <span class="s1">&#39;depth&#39;</span><span class="p">,</span> <span class="s1">&#39;CDOM&#39;</span><span class="p">,</span><span class="s1">&#39;turbidity&#39;</span><span class="p">]]</span>
+<span class="n">GoMX2</span><span class="p">[</span><span class="s1">&#39;experiment&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;GoMX - DHOS&#39;</span>
+<span class="n">GoMX2</span><span class="p">[</span><span class="s1">&#39;source&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;BCO-DMO&#39;</span>
+<span class="n">GoMX2</span><span class="p">[</span><span class="s1">&#39;investigators&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;Samantha B. Joye&#39;</span>
+<span class="n">GoMX2</span><span class="p">[</span><span class="s1">&#39;affiliations&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;University of Georgia&#39;</span>
+<span class="n">GoMX2</span><span class="p">[</span><span class="s1">&#39;url&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;https://www.bco-dmo.org/dataset/3728&#39;</span>
+
+<span class="n">GoMX3</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;C:\Users\gianna.milton\Documents\Python\CDOM\BCO-DMO\WS1010_CTD.xlsx&#39;</span><span class="p">)</span>
+<span class="n">GoMX3</span><span class="p">[</span><span class="s1">&#39;time_utc&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="si">:</span><span class="s2">04d</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">GoMX3</span><span class="p">[</span><span class="s1">&#39;time_utc&#39;</span><span class="p">]]</span>  <span class="c1">#for every row in mtime pad with 0 unitl it&#39;s 4 numbers long (HH:mm) (i&#39;m getting rid of seconds fyi)</span>
+<span class="n">GoMX3</span> <span class="o">=</span> <span class="n">GoMX3</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;month_utc&#39;</span><span class="p">:</span> <span class="s1">&#39;month&#39;</span><span class="p">,</span><span class="s1">&#39;day_utc&#39;</span><span class="p">:</span> <span class="s1">&#39;day&#39;</span><span class="p">,})</span>
+<span class="n">GoMX3</span><span class="p">[</span><span class="s1">&#39;hour&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="p">[:</span><span class="mi">2</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">GoMX3</span><span class="p">[</span><span class="s1">&#39;time_utc&#39;</span><span class="p">]]</span>
+<span class="n">GoMX3</span><span class="p">[</span><span class="s1">&#39;minute&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">GoMX3</span><span class="p">[</span><span class="s1">&#39;time_utc&#39;</span><span class="p">]]</span>
+<span class="n">GoMX3</span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">]</span><span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">GoMX3</span><span class="p">[[</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span><span class="p">,</span> <span class="s1">&#39;day&#39;</span><span class="p">,</span> <span class="s1">&#39;hour&#39;</span><span class="p">,</span> <span class="s1">&#39;minute&#39;</span><span class="p">]])</span> <span class="c1">#datetime variable</span>
+<span class="n">GoMX3</span> <span class="o">=</span> <span class="n">GoMX3</span><span class="p">[[</span><span class="s1">&#39;datetime&#39;</span><span class="p">,</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="s1">&#39;lon&#39;</span><span class="p">,</span> <span class="s1">&#39;depth&#39;</span><span class="p">,</span> <span class="s1">&#39;CDOM&#39;</span><span class="p">]]</span>
+<span class="n">GoMX3</span><span class="p">[</span><span class="s1">&#39;experiment&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;GoMX - DHOS&#39;</span>
+<span class="n">GoMX3</span><span class="p">[</span><span class="s1">&#39;source&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;BCO-DMO&#39;</span>
+<span class="n">GoMX3</span><span class="p">[</span><span class="s1">&#39;investigators&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;Samantha B. Joye&#39;</span>
+<span class="n">GoMX3</span><span class="p">[</span><span class="s1">&#39;affiliations&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;University of Georgia&#39;</span>
+<span class="n">GoMX3</span><span class="p">[</span><span class="s1">&#39;url&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;https://www.bco-dmo.org/dataset/3729&#39;</span>
+
+<span class="n">nerissa</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;C:\Users\gianna.milton\Documents\Python\CDOM\BCO-DMO\Nerissa_CTD.xlsx&#39;</span><span class="p">)</span>
+<span class="n">nerissa</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="si">:</span><span class="s2">04d</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">nerissa</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">]]</span> 
+<span class="n">nerissa</span><span class="p">[</span><span class="s1">&#39;Date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">nerissa</span><span class="p">[</span><span class="s1">&#39;Date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+<span class="n">nerissa</span><span class="p">[</span><span class="s1">&#39;month&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">4</span><span class="p">:</span><span class="mi">6</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">nerissa</span><span class="p">[</span><span class="s1">&#39;Date&#39;</span><span class="p">]]</span>
+<span class="n">nerissa</span><span class="p">[</span><span class="s1">&#39;day&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">6</span><span class="p">:</span><span class="mi">8</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">nerissa</span><span class="p">[</span><span class="s1">&#39;Date&#39;</span><span class="p">]]</span>
+<span class="n">nerissa</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">nerissa</span><span class="p">[</span><span class="s1">&#39;Date&#39;</span><span class="p">]]</span>
+<span class="n">nerissa</span><span class="p">[</span><span class="s1">&#39;hour&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="p">[:</span><span class="mi">2</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">nerissa</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">]]</span>
+<span class="n">nerissa</span><span class="p">[</span><span class="s1">&#39;minute&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">nerissa</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">]]</span>
+<span class="n">nerissa</span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">]</span><span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">nerissa</span><span class="p">[[</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span><span class="p">,</span> <span class="s1">&#39;day&#39;</span><span class="p">,</span> <span class="s1">&#39;hour&#39;</span><span class="p">,</span> <span class="s1">&#39;minute&#39;</span><span class="p">]])</span> <span class="c1">#datetime variable</span>
+<span class="n">nerissa</span> <span class="o">=</span> <span class="n">nerissa</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Latitude&#39;</span><span class="p">:</span> <span class="s1">&#39;lat&#39;</span><span class="p">,</span><span class="s1">&#39;Longitude&#39;</span><span class="p">:</span> <span class="s1">&#39;lon&#39;</span><span class="p">,</span><span class="s1">&#39;Depth&#39;</span><span class="p">:</span><span class="s1">&#39;depth&#39;</span><span class="p">,})</span>
+<span class="n">nerissa</span> <span class="o">=</span> <span class="n">nerissa</span><span class="p">[[</span><span class="s1">&#39;datetime&#39;</span><span class="p">,</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="s1">&#39;lon&#39;</span><span class="p">,</span> <span class="s1">&#39;depth&#39;</span><span class="p">,</span> <span class="s1">&#39;CDOM&#39;</span><span class="p">,</span><span class="s1">&#39;Station_ID&#39;</span><span class="p">]]</span>
+<span class="n">nerissa</span><span class="p">[</span><span class="s1">&#39;experiment&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;SoCalPlumeEx2012&#39;</span>
+<span class="n">nerissa</span><span class="p">[</span><span class="s1">&#39;source&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;BCO-DMO&#39;</span>
+<span class="n">nerissa</span><span class="p">[</span><span class="s1">&#39;investigators&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;Raphael M. Kudela&#39;</span>
+<span class="n">nerissa</span><span class="p">[</span><span class="s1">&#39;affiliations&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;University of California-Santa Cruz&#39;</span>
+<span class="n">nerissa</span><span class="p">[</span><span class="s1">&#39;url&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;https://www.bco-dmo.org/dataset/537627&#39;</span>
+
+<span class="n">yfin</span><span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;C:\Users\gianna.milton\Documents\Python\CDOM\BCO-DMO\YellowFin_CTD.xlsx&#39;</span><span class="p">)</span>
+<span class="n">yfin</span><span class="p">[</span><span class="s1">&#39;Date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">yfin</span><span class="p">[</span><span class="s1">&#39;Date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+<span class="n">yfin</span><span class="p">[</span><span class="s1">&#39;month&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">4</span><span class="p">:</span><span class="mi">6</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">yfin</span><span class="p">[</span><span class="s1">&#39;Date&#39;</span><span class="p">]]</span>
+<span class="n">yfin</span><span class="p">[</span><span class="s1">&#39;day&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">6</span><span class="p">:</span><span class="mi">8</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">yfin</span><span class="p">[</span><span class="s1">&#39;Date&#39;</span><span class="p">]]</span>
+<span class="n">yfin</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">yfin</span><span class="p">[</span><span class="s1">&#39;Date&#39;</span><span class="p">]]</span>
+<span class="n">yfin</span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">]</span><span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">yfin</span><span class="p">[[</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span><span class="p">,</span> <span class="s1">&#39;day&#39;</span><span class="p">]])</span> <span class="c1">#datetime variable</span>
+<span class="n">yfin</span> <span class="o">=</span> <span class="n">yfin</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Latitude&#39;</span><span class="p">:</span> <span class="s1">&#39;lat&#39;</span><span class="p">,</span><span class="s1">&#39;Longitude&#39;</span><span class="p">:</span> <span class="s1">&#39;lon&#39;</span><span class="p">,</span><span class="s1">&#39;Depth&#39;</span><span class="p">:</span><span class="s1">&#39;depth&#39;</span><span class="p">,</span><span class="s1">&#39;Turbidity&#39;</span><span class="p">:</span><span class="s1">&#39;turbidity&#39;</span><span class="p">})</span>
+<span class="n">yfin</span> <span class="o">=</span> <span class="n">yfin</span><span class="p">[[</span><span class="s1">&#39;datetime&#39;</span><span class="p">,</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="s1">&#39;lon&#39;</span><span class="p">,</span> <span class="s1">&#39;depth&#39;</span><span class="p">,</span> <span class="s1">&#39;CDOM&#39;</span><span class="p">,</span><span class="s1">&#39;turbidity&#39;</span><span class="p">,</span><span class="s1">&#39;Station_ID&#39;</span><span class="p">]]</span>
+<span class="n">yfin</span><span class="p">[</span><span class="s1">&#39;experiment&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;SoCalPlumeEx2012&#39;</span>
+<span class="n">yfin</span><span class="p">[</span><span class="s1">&#39;source&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;BCO-DMO&#39;</span>
+<span class="n">yfin</span><span class="p">[</span><span class="s1">&#39;investigators&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;Raphael M. Kudela&#39;</span>
+<span class="n">yfin</span><span class="p">[</span><span class="s1">&#39;affiliations&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;University of California-Santa Cruz&#39;</span>
+<span class="n">yfin</span><span class="p">[</span><span class="s1">&#39;url&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;https://www.bco-dmo.org/dataset/537818&#39;</span>
+
+<span class="n">GoMX4</span><span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;C:\Users\gianna.milton\Documents\Python\CDOM\BCO-DMO\discrete_samples_concat.xlsx&#39;</span><span class="p">)</span>
+<span class="n">GoMX4</span><span class="p">[</span><span class="s1">&#39;Date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">GoMX4</span><span class="p">[</span><span class="s1">&#39;Date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+<span class="n">GoMX4</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">GoMX4</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+<span class="n">GoMX4</span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">GoMX4</span><span class="p">[</span><span class="s1">&#39;Date&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">GoMX4</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">])</span>
+<span class="n">GoMX4</span> <span class="o">=</span> <span class="n">GoMX4</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Latitude&#39;</span><span class="p">:</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span><span class="s1">&#39;Longitude&#39;</span><span class="p">:</span><span class="s1">&#39;lon&#39;</span><span class="p">,</span><span class="s1">&#39;Turbidity&#39;</span><span class="p">:</span><span class="s1">&#39;turbidity&#39;</span><span class="p">,</span><span class="s1">&#39;Cruise&#39;</span><span class="p">:</span><span class="s1">&#39;cruiseid&#39;</span><span class="p">,</span><span class="s1">&#39;Station&#39;</span><span class="p">:</span><span class="s1">&#39;Station_ID&#39;</span><span class="p">,</span>
+                              <span class="s1">&#39;Sample_Depth&#39;</span><span class="p">:</span><span class="s1">&#39;depth&#39;</span><span class="p">,</span><span class="s1">&#39;wetCDOM&#39;</span><span class="p">:</span><span class="s1">&#39;CDOM&#39;</span><span class="p">})</span>
+<span class="n">GoMX4</span> <span class="o">=</span> <span class="n">GoMX4</span><span class="p">[[</span><span class="s1">&#39;datetime&#39;</span><span class="p">,</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="s1">&#39;lon&#39;</span><span class="p">,</span> <span class="s1">&#39;depth&#39;</span><span class="p">,</span> <span class="s1">&#39;CDOM&#39;</span><span class="p">,</span><span class="s1">&#39;turbidity&#39;</span><span class="p">,</span><span class="s1">&#39;Station_ID&#39;</span><span class="p">,</span><span class="s1">&#39;cruiseid&#39;</span><span class="p">]]</span>
+<span class="n">GoMX4</span><span class="p">[</span><span class="s1">&#39;experiment&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;nGOMx acidification&#39;</span>
+<span class="n">GoMX4</span><span class="p">[</span><span class="s1">&#39;source&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;BCO-DMO&#39;</span>
+<span class="n">GoMX4</span><span class="p">[</span><span class="s1">&#39;investigators&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;Wei-Jun Cai&#39;</span>
+<span class="n">GoMX4</span><span class="p">[</span><span class="s1">&#39;affiliations&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;University of Delaware&#39;</span>
+<span class="n">GoMX4</span><span class="p">[</span><span class="s1">&#39;url&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;https://www.bco-dmo.org/dataset/772513&#39;</span>
+
+<span class="n">reu_oto</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;C:\Users\gianna.milton\Documents\Python\CDOM\BCO-DMO\combined.xlsx&#39;</span><span class="p">)</span>
+<span class="n">reu_oto</span> <span class="o">=</span> <span class="n">reu_oto</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;date_time&#39;</span><span class="p">:</span> <span class="s1">&#39;datetime&#39;</span><span class="p">,</span><span class="s1">&#39;Water_Depth&#39;</span><span class="p">:</span><span class="s1">&#39;depth&#39;</span><span class="p">,</span><span class="s1">&#39;Latitude&#39;</span><span class="p">:</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span><span class="s1">&#39;Longitude&#39;</span><span class="p">:</span> <span class="s1">&#39;lon&#39;</span><span class="p">,</span><span class="s1">&#39;Station&#39;</span><span class="p">:</span><span class="s1">&#39;Station_ID&#39;</span><span class="p">})</span>
+<span class="n">reu_oto</span> <span class="o">=</span> <span class="n">reu_oto</span><span class="p">[[</span><span class="s1">&#39;datetime&#39;</span><span class="p">,</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="s1">&#39;lon&#39;</span><span class="p">,</span> <span class="s1">&#39;depth&#39;</span><span class="p">,</span> <span class="s1">&#39;CDOM&#39;</span><span class="p">,</span><span class="s1">&#39;Station_ID&#39;</span><span class="p">]]</span>
+<span class="n">reu_oto</span><span class="p">[</span><span class="s1">&#39;experiment&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;REU-OTO&#39;</span>
+<span class="n">reu_oto</span><span class="p">[</span><span class="s1">&#39;source&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;BCO-DMO&#39;</span>
+<span class="n">reu_oto</span><span class="p">[</span><span class="s1">&#39;investigators&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;Lisa Campbell&#39;</span>
+<span class="n">reu_oto</span><span class="p">[</span><span class="s1">&#39;affiliations&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;Texas A&amp;M University&#39;</span>
+<span class="n">reu_oto</span><span class="p">[</span><span class="s1">&#39;url&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;https://www.bco-dmo.org/dataset/753882&#39;</span>
+
+<span class="c1">#scanfish: i deleted some columns from the raw xlsx dataset just so that it takes up less room </span>
+<span class="n">scanfish</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;C:\Users\gianna.milton\Documents\Python\CDOM\BCO-DMO\scanfish_opc.xlsx&#39;</span><span class="p">)</span>
+<span class="n">scanfish</span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">]</span><span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">scanfish</span><span class="p">[</span><span class="s1">&#39;ISO_DateTime_UTC&#39;</span><span class="p">])</span> <span class="c1">#datetime variable</span>
+<span class="n">scanfish</span> <span class="o">=</span> <span class="n">scanfish</span><span class="p">[[</span><span class="s1">&#39;datetime&#39;</span><span class="p">,</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="s1">&#39;lon&#39;</span><span class="p">,</span> <span class="s1">&#39;depth&#39;</span><span class="p">,</span> <span class="s1">&#39;CDOM&#39;</span><span class="p">]]</span>
+<span class="n">scanfish</span><span class="p">[</span><span class="s1">&#39;experiment&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;GoMX - DHOS&#39;</span>
+<span class="n">scanfish</span><span class="p">[</span><span class="s1">&#39;source&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;BCO-DMO&#39;</span>
+<span class="n">scanfish</span><span class="p">[</span><span class="s1">&#39;investigators&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39; Michael R. Roman&#39;</span>
+<span class="n">scanfish</span><span class="p">[</span><span class="s1">&#39;affiliations&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;University of Maryland Center for Environmental Science&#39;</span>
+<span class="n">scanfish</span><span class="p">[</span><span class="s1">&#39;url&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;https://www.bco-dmo.org/dataset/746081&#39;</span>
+
+<span class="n">harvey</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;C:\Users\gianna.milton\Documents\Python\CDOM\BCO-DMO\oct_2017_discrete.xlsx&#39;</span><span class="p">)</span>
+<span class="n">harvey</span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">]</span><span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">harvey</span><span class="p">[</span><span class="s1">&#39;DateTime&#39;</span><span class="p">])</span> <span class="c1">#datetime variable</span>
+<span class="n">harvey</span> <span class="o">=</span> <span class="n">harvey</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Cruise&#39;</span><span class="p">:</span><span class="s1">&#39;cruiseid&#39;</span><span class="p">,</span><span class="s1">&#39;Depth&#39;</span><span class="p">:</span><span class="s1">&#39;depth&#39;</span><span class="p">,</span><span class="s1">&#39;Latitude&#39;</span><span class="p">:</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span><span class="s1">&#39;Longitude&#39;</span><span class="p">:</span> <span class="s1">&#39;lon&#39;</span><span class="p">,</span><span class="s1">&#39;Station&#39;</span><span class="p">:</span><span class="s1">&#39;Station_ID&#39;</span><span class="p">,</span>
+                                <span class="s1">&#39;wetCDOM&#39;</span><span class="p">:</span><span class="s1">&#39;CDOM&#39;</span><span class="p">,</span><span class="s1">&#39;Turbidity&#39;</span><span class="p">:</span><span class="s1">&#39;turbidity&#39;</span><span class="p">})</span>
+<span class="n">harvey</span> <span class="o">=</span> <span class="n">harvey</span><span class="p">[[</span><span class="s1">&#39;datetime&#39;</span><span class="p">,</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="s1">&#39;lon&#39;</span><span class="p">,</span> <span class="s1">&#39;depth&#39;</span><span class="p">,</span> <span class="s1">&#39;CDOM&#39;</span><span class="p">,</span><span class="s1">&#39;turbidity&#39;</span><span class="p">,</span><span class="s1">&#39;Station_ID&#39;</span><span class="p">,</span><span class="s1">&#39;cruiseid&#39;</span><span class="p">]]</span>
+<span class="n">harvey</span><span class="p">[</span><span class="s1">&#39;experiment&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;HarveyCarbonCycle&#39;</span>
+<span class="n">harvey</span><span class="p">[</span><span class="s1">&#39;source&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;BCO-DMO&#39;</span>
+<span class="n">harvey</span><span class="p">[</span><span class="s1">&#39;investigators&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;Brian Roberts&#39;</span>
+<span class="n">harvey</span><span class="p">[</span><span class="s1">&#39;affiliations&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;Louisiana Universities Marine Consortium&#39;</span>
+<span class="n">harvey</span><span class="p">[</span><span class="s1">&#39;url&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;https://www.bco-dmo.org/dataset/844721&#39;</span>
+
+<span class="n">hrr</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;C:\Users\gianna.milton\Documents\Python\CDOM\BCO-DMO\HRR_ctd_2017.xlsx&#39;</span><span class="p">)</span>
+<span class="n">hrr</span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">]</span><span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">hrr</span><span class="p">[</span><span class="s1">&#39;ISO_DateTime_UTC&#39;</span><span class="p">])</span> <span class="c1">#datetime variable</span>
+<span class="n">hrr</span> <span class="o">=</span> <span class="n">hrr</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;wetCDOM&#39;</span><span class="p">:</span><span class="s1">&#39;CDOM&#39;</span><span class="p">,</span><span class="s1">&#39;depSM&#39;</span><span class="p">:</span><span class="s1">&#39;depth&#39;</span><span class="p">,</span><span class="s1">&#39;lat_decdeg&#39;</span><span class="p">:</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span><span class="s1">&#39;lon_decdeg&#39;</span><span class="p">:</span> <span class="s1">&#39;lon&#39;</span><span class="p">,</span><span class="s1">&#39;station&#39;</span><span class="p">:</span><span class="s1">&#39;Station_ID&#39;</span><span class="p">})</span>
+<span class="n">hrr</span> <span class="o">=</span> <span class="n">hrr</span><span class="p">[[</span><span class="s1">&#39;datetime&#39;</span><span class="p">,</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="s1">&#39;lon&#39;</span><span class="p">,</span> <span class="s1">&#39;depth&#39;</span><span class="p">,</span> <span class="s1">&#39;CDOM&#39;</span><span class="p">,</span><span class="s1">&#39;Station_ID&#39;</span><span class="p">]]</span>
+<span class="n">hrr</span><span class="p">[</span><span class="s1">&#39;experiment&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;RAPID HRR&#39;</span>
+<span class="n">hrr</span><span class="p">[</span><span class="s1">&#39;source&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;BCO-DMO&#39;</span>
+<span class="n">hrr</span><span class="p">[</span><span class="s1">&#39;investigators&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;Lisa Campbell&#39;</span>
+<span class="n">hrr</span><span class="p">[</span><span class="s1">&#39;affiliations&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;Texas A&amp;M University&#39;</span>
+<span class="n">hrr</span><span class="p">[</span><span class="s1">&#39;url&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;https://www.bco-dmo.org/dataset/809428&#39;</span>
+
+<span class="n">rapid</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;C:\Users\gianna.milton\Documents\Python\CDOM\BCO-DMO\CTD.xlsx&#39;</span><span class="p">)</span>
+<span class="n">rapid</span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">]</span><span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">rapid</span><span class="p">[</span><span class="s1">&#39;Start_ISO_DateTime_UTC&#39;</span><span class="p">])</span> <span class="c1">#datetime variable</span>
+<span class="n">rapid</span> <span class="o">=</span> <span class="n">rapid</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Cruise_ID&#39;</span><span class="p">:</span><span class="s1">&#39;cruiseid&#39;</span><span class="p">,</span><span class="s1">&#39;Station&#39;</span><span class="p">:</span><span class="s1">&#39;Station_ID&#39;</span><span class="p">,</span><span class="s1">&#39;Depth&#39;</span><span class="p">:</span> <span class="s1">&#39;depth&#39;</span><span class="p">,</span><span class="s1">&#39;Latitude&#39;</span><span class="p">:</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span><span class="s1">&#39;Longitude&#39;</span><span class="p">:</span> <span class="s1">&#39;lon&#39;</span><span class="p">,</span>
+                              <span class="s1">&#39;Fluorescence_WET_CDOM&#39;</span><span class="p">:</span><span class="s1">&#39;CDOM&#39;</span><span class="p">})</span>
+<span class="n">rapid</span> <span class="o">=</span> <span class="n">rapid</span><span class="p">[[</span><span class="s1">&#39;datetime&#39;</span><span class="p">,</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="s1">&#39;lon&#39;</span><span class="p">,</span> <span class="s1">&#39;depth&#39;</span><span class="p">,</span> <span class="s1">&#39;CDOM&#39;</span><span class="p">,</span><span class="s1">&#39;Station_ID&#39;</span><span class="p">,</span><span class="s1">&#39;cruiseid&#39;</span><span class="p">]]</span>
+<span class="n">rapid</span><span class="p">[</span><span class="s1">&#39;experiment&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;RAPID Plankton&#39;</span>
+<span class="n">rapid</span><span class="p">[</span><span class="s1">&#39;source&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;BCO-DMO&#39;</span>
+<span class="n">rapid</span><span class="p">[</span><span class="s1">&#39;investigators&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;Beth Stauffer&#39;</span>
+<span class="n">rapid</span><span class="p">[</span><span class="s1">&#39;affiliations&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;University of Louisiana at Lafayette&#39;</span>
+<span class="n">rapid</span><span class="p">[</span><span class="s1">&#39;url&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;https://www.bco-dmo.org/dataset/827969&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">line</span> <span class="mi">15</span>
+<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="n">GoMX1</span><span class="p">[</span><span class="s1">&#39;affiliations&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;University of Georgia&#39;</span>
+<span class="g g-Whitespace">     </span><span class="mi">12</span> <span class="n">GoMX1</span><span class="p">[</span><span class="s1">&#39;url&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;https://www.bco-dmo.org/dataset/3727&#39;</span>
+<span class="ne">---&gt; </span><span class="mi">15</span> <span class="n">GoMX2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;C:\Users\gianna.milton\Documents\Python\CDOM\BCO-DMO\AT18-02_CTD.xlsx&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">16</span> <span class="n">GoMX2</span><span class="p">[</span><span class="s1">&#39;time_start_utc&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="si">:</span><span class="s2">04d</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">GoMX2</span><span class="p">[</span><span class="s1">&#39;time_start_utc&#39;</span><span class="p">]]</span> 
+<span class="g g-Whitespace">     </span><span class="mi">17</span> <span class="n">GoMX2</span><span class="p">[</span><span class="s1">&#39;hour&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="p">[:</span><span class="mi">2</span><span class="p">])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">GoMX2</span><span class="p">[</span><span class="s1">&#39;time_start_utc&#39;</span><span class="p">]]</span>
+
+<span class="nn">File ~\AppData\Local\anaconda3\Lib\site-packages\pandas\io\excel\_base.py:508,</span> in <span class="ni">read_excel</span><span class="nt">(io, sheet_name, header, names, index_col, usecols, dtype, engine, converters, true_values, false_values, skiprows, nrows, na_values, keep_default_na, na_filter, verbose, parse_dates, date_parser, date_format, thousands, decimal, comment, skipfooter, storage_options, dtype_backend, engine_kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">502</span>     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">503</span>         <span class="s2">&quot;Engine should not be specified when passing &quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">504</span>         <span class="s2">&quot;an ExcelFile - ExcelFile already has the engine set&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">505</span>     <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">507</span> <span class="k">try</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">508</span>     <span class="n">data</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">509</span>         <span class="n">sheet_name</span><span class="o">=</span><span class="n">sheet_name</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">510</span>         <span class="n">header</span><span class="o">=</span><span class="n">header</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">511</span>         <span class="n">names</span><span class="o">=</span><span class="n">names</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">512</span>         <span class="n">index_col</span><span class="o">=</span><span class="n">index_col</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">513</span>         <span class="n">usecols</span><span class="o">=</span><span class="n">usecols</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">514</span>         <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">515</span>         <span class="n">converters</span><span class="o">=</span><span class="n">converters</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">516</span>         <span class="n">true_values</span><span class="o">=</span><span class="n">true_values</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">517</span>         <span class="n">false_values</span><span class="o">=</span><span class="n">false_values</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">518</span>         <span class="n">skiprows</span><span class="o">=</span><span class="n">skiprows</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">519</span>         <span class="n">nrows</span><span class="o">=</span><span class="n">nrows</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">520</span>         <span class="n">na_values</span><span class="o">=</span><span class="n">na_values</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">521</span>         <span class="n">keep_default_na</span><span class="o">=</span><span class="n">keep_default_na</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">522</span>         <span class="n">na_filter</span><span class="o">=</span><span class="n">na_filter</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">523</span>         <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">524</span>         <span class="n">parse_dates</span><span class="o">=</span><span class="n">parse_dates</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">525</span>         <span class="n">date_parser</span><span class="o">=</span><span class="n">date_parser</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">526</span>         <span class="n">date_format</span><span class="o">=</span><span class="n">date_format</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">527</span>         <span class="n">thousands</span><span class="o">=</span><span class="n">thousands</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">528</span>         <span class="n">decimal</span><span class="o">=</span><span class="n">decimal</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">529</span>         <span class="n">comment</span><span class="o">=</span><span class="n">comment</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">530</span>         <span class="n">skipfooter</span><span class="o">=</span><span class="n">skipfooter</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">531</span>         <span class="n">dtype_backend</span><span class="o">=</span><span class="n">dtype_backend</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">532</span>     <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">533</span> <span class="k">finally</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">534</span>     <span class="c1"># make sure to close opened file handles</span>
+<span class="g g-Whitespace">    </span><span class="mi">535</span>     <span class="k">if</span> <span class="n">should_close</span><span class="p">:</span>
+
+<span class="nn">File ~\AppData\Local\anaconda3\Lib\site-packages\pandas\io\excel\_base.py:1616,</span> in <span class="ni">ExcelFile.parse</span><span class="nt">(self, sheet_name, header, names, index_col, usecols, converters, true_values, false_values, skiprows, nrows, na_values, parse_dates, date_parser, date_format, thousands, comment, skipfooter, dtype_backend, **kwds)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1576</span> <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1577</span>     <span class="bp">self</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1578</span>     <span class="n">sheet_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1596</span>     <span class="o">**</span><span class="n">kwds</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1597</span> <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataFrame</span> <span class="o">|</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">DataFrame</span><span class="p">]</span> <span class="o">|</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">DataFrame</span><span class="p">]:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1598</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">1599</span><span class="sd">     Parse specified sheet(s) into a DataFrame.</span>
+<span class="g g-Whitespace">   </span><span class="mi">1600</span><span class="sd"> </span>
+<span class="sd">   (...)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1614</span><span class="sd">     &gt;&gt;&gt; file.parse()  # doctest: +SKIP</span>
+<span class="g g-Whitespace">   </span><span class="mi">1615</span><span class="sd">     &quot;&quot;&quot;</span>
+<span class="ne">-&gt; </span><span class="mi">1616</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reader</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1617</span>         <span class="n">sheet_name</span><span class="o">=</span><span class="n">sheet_name</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1618</span>         <span class="n">header</span><span class="o">=</span><span class="n">header</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1619</span>         <span class="n">names</span><span class="o">=</span><span class="n">names</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1620</span>         <span class="n">index_col</span><span class="o">=</span><span class="n">index_col</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1621</span>         <span class="n">usecols</span><span class="o">=</span><span class="n">usecols</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1622</span>         <span class="n">converters</span><span class="o">=</span><span class="n">converters</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1623</span>         <span class="n">true_values</span><span class="o">=</span><span class="n">true_values</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1624</span>         <span class="n">false_values</span><span class="o">=</span><span class="n">false_values</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1625</span>         <span class="n">skiprows</span><span class="o">=</span><span class="n">skiprows</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1626</span>         <span class="n">nrows</span><span class="o">=</span><span class="n">nrows</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1627</span>         <span class="n">na_values</span><span class="o">=</span><span class="n">na_values</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1628</span>         <span class="n">parse_dates</span><span class="o">=</span><span class="n">parse_dates</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1629</span>         <span class="n">date_parser</span><span class="o">=</span><span class="n">date_parser</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1630</span>         <span class="n">date_format</span><span class="o">=</span><span class="n">date_format</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1631</span>         <span class="n">thousands</span><span class="o">=</span><span class="n">thousands</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1632</span>         <span class="n">comment</span><span class="o">=</span><span class="n">comment</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1633</span>         <span class="n">skipfooter</span><span class="o">=</span><span class="n">skipfooter</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1634</span>         <span class="n">dtype_backend</span><span class="o">=</span><span class="n">dtype_backend</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1635</span>         <span class="o">**</span><span class="n">kwds</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1636</span>     <span class="p">)</span>
+
+<span class="nn">File ~\AppData\Local\anaconda3\Lib\site-packages\pandas\io\excel\_base.py:778,</span> in <span class="ni">BaseExcelReader.parse</span><span class="nt">(self, sheet_name, header, names, index_col, usecols, dtype, true_values, false_values, skiprows, nrows, na_values, verbose, parse_dates, date_parser, date_format, thousands, decimal, comment, skipfooter, dtype_backend, **kwds)</span>
+<span class="g g-Whitespace">    </span><span class="mi">775</span>     <span class="n">sheet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_sheet_by_index</span><span class="p">(</span><span class="n">asheetname</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">777</span> <span class="n">file_rows_needed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calc_rows</span><span class="p">(</span><span class="n">header</span><span class="p">,</span> <span class="n">index_col</span><span class="p">,</span> <span class="n">skiprows</span><span class="p">,</span> <span class="n">nrows</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">778</span> <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_sheet_data</span><span class="p">(</span><span class="n">sheet</span><span class="p">,</span> <span class="n">file_rows_needed</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">779</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">sheet</span><span class="p">,</span> <span class="s2">&quot;close&quot;</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">780</span>     <span class="c1"># pyxlsb opens two TemporaryFiles</span>
+<span class="g g-Whitespace">    </span><span class="mi">781</span>     <span class="n">sheet</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="nn">File ~\AppData\Local\anaconda3\Lib\site-packages\pandas\io\excel\_openpyxl.py:615,</span> in <span class="ni">OpenpyxlReader.get_sheet_data</span><span class="nt">(self, sheet, file_rows_needed)</span>
+<span class="g g-Whitespace">    </span><span class="mi">613</span> <span class="n">data</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">Scalar</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="g g-Whitespace">    </span><span class="mi">614</span> <span class="n">last_row_with_data</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+<span class="ne">--&gt; </span><span class="mi">615</span> <span class="k">for</span> <span class="n">row_number</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sheet</span><span class="o">.</span><span class="n">rows</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">616</span>     <span class="n">converted_row</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_convert_cell</span><span class="p">(</span><span class="n">cell</span><span class="p">)</span> <span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="n">row</span><span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">617</span>     <span class="k">while</span> <span class="n">converted_row</span> <span class="ow">and</span> <span class="n">converted_row</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">618</span>         <span class="c1"># trim trailing empty elements</span>
+
+<span class="nn">File ~\AppData\Local\anaconda3\Lib\site-packages\openpyxl\worksheet\_read_only.py:85,</span> in <span class="ni">ReadOnlyWorksheet._cells_by_row</span><span class="nt">(self, min_col, min_row, max_col, max_row, values_only)</span>
+<span class="g g-Whitespace">     </span><span class="mi">77</span> <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_source</span><span class="p">()</span> <span class="k">as</span> <span class="n">src</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">78</span>     <span class="n">parser</span> <span class="o">=</span> <span class="n">WorkSheetParser</span><span class="p">(</span><span class="n">src</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">79</span>                              <span class="bp">self</span><span class="o">.</span><span class="n">_shared_strings</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">80</span>                              <span class="n">data_only</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">data_only</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">81</span>                              <span class="n">epoch</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">epoch</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">82</span>                              <span class="n">date_formats</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">_date_formats</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">83</span>                              <span class="n">timedelta_formats</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">_timedelta_formats</span><span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">85</span>     <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse</span><span class="p">():</span>
+<span class="g g-Whitespace">     </span><span class="mi">86</span>         <span class="k">if</span> <span class="n">max_row</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">idx</span> <span class="o">&gt;</span> <span class="n">max_row</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">87</span>             <span class="k">break</span>
+
+<span class="nn">File ~\AppData\Local\anaconda3\Lib\site-packages\openpyxl\worksheet\_reader.py:156,</span> in <span class="ni">parse</span><span class="nt">()</span>
+
+<span class="nn">File ~\AppData\Local\anaconda3\Lib\xml\etree\ElementTree.py:1238,</span> in <span class="ni">iterparse.&lt;locals&gt;.iterator</span><span class="nt">(source)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1236</span> <span class="k">yield from</span> <span class="n">pullparser</span><span class="o">.</span><span class="n">read_events</span><span class="p">()</span>
+<span class="g g-Whitespace">   </span><span class="mi">1237</span> <span class="c1"># load event buffer</span>
+<span class="ne">-&gt; </span><span class="mi">1238</span> <span class="n">data</span> <span class="o">=</span> <span class="n">source</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">16</span> <span class="o">*</span> <span class="mi">1024</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1239</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">data</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1240</span>     <span class="k">break</span>
+
+<span class="nn">File ~\AppData\Local\anaconda3\Lib\zipfile\__init__.py:989,</span> in <span class="ni">ZipExtFile.read</span><span class="nt">(self, n)</span>
+<span class="g g-Whitespace">    </span><span class="mi">987</span> <span class="bp">self</span><span class="o">.</span><span class="n">_offset</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="g g-Whitespace">    </span><span class="mi">988</span> <span class="k">while</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eof</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">989</span>     <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_read1</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">990</span>     <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">991</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_readbuffer</span> <span class="o">=</span> <span class="n">data</span>
+
+<span class="nn">File ~\AppData\Local\anaconda3\Lib\zipfile\__init__.py:1065,</span> in <span class="ni">ZipExtFile._read1</span><span class="nt">(self, n)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1063</span> <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compress_type</span> <span class="o">==</span> <span class="n">ZIP_DEFLATED</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1064</span>     <span class="n">n</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">MIN_READ_SIZE</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">1065</span>     <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_decompressor</span><span class="o">.</span><span class="n">decompress</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1066</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_eof</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_decompressor</span><span class="o">.</span><span class="n">eof</span> <span class="ow">or</span>
+<span class="g g-Whitespace">   </span><span class="mi">1067</span>                  <span class="bp">self</span><span class="o">.</span><span class="n">_compress_left</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="ow">and</span>
+<span class="g g-Whitespace">   </span><span class="mi">1068</span>                  <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_decompressor</span><span class="o">.</span><span class="n">unconsumed_tail</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1069</span>     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eof</span><span class="p">:</span>
+
+<span class="ne">KeyboardInterrupt</span>: 
+</pre></div>
+</div>
+</div>
+</div>
+<p>Once all dataframes were organized, they were all concatinated onto the same dataframe and only the sample taken in North America were kept.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfs</span><span class="o">=</span><span class="p">[</span><span class="n">GoMX1</span><span class="p">,</span><span class="n">GoMX2</span><span class="p">,</span><span class="n">GoMX3</span><span class="p">,</span><span class="n">nerissa</span><span class="p">,</span><span class="n">yfin</span><span class="p">,</span><span class="n">GoMX4</span><span class="p">,</span><span class="n">reu_oto</span><span class="p">,</span><span class="n">scanfish</span><span class="p">,</span><span class="n">harvey</span><span class="p">,</span><span class="n">hrr</span><span class="p">,</span><span class="n">rapid</span><span class="p">]</span>
+<span class="n">bcodmo_cdom</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">dfs</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">bcodmo_cdom</span> <span class="o">=</span> <span class="n">bcodmo_cdom</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;nd&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+<span class="n">bcodmo_cdom</span> <span class="o">=</span> <span class="n">bcodmo_cdom</span><span class="p">[</span><span class="n">bcodmo_cdom</span><span class="p">[</span><span class="s1">&#39;depth&#39;</span><span class="p">]</span> <span class="o">&lt;=</span><span class="mi">150</span><span class="p">]</span> 
+<span class="n">bcodmo_cdom</span> <span class="o">=</span> <span class="n">bcodmo_cdom</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">how</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;CDOM&#39;</span><span class="p">,</span> <span class="s1">&#39;turbidity&#39;</span><span class="p">])</span>
+<span class="n">bcodmo_cdom</span> <span class="o">=</span> <span class="n">bcodmo_cdom</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;CDOM&#39;</span><span class="p">:</span><span class="s1">&#39;cdom&#39;</span><span class="p">,</span><span class="s1">&#39;cruiseid&#39;</span><span class="p">:</span><span class="s1">&#39;cruise&#39;</span><span class="p">,</span><span class="s1">&#39;Station_ID&#39;</span><span class="p">:</span><span class="s1">&#39;station&#39;</span><span class="p">})</span>
+<span class="n">bcodmo_cdom</span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">]</span><span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">bcodmo_cdom</span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">],</span><span class="n">utc</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1">#datetime variable</span>
+<span class="n">bcodmo_cdom</span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">bcodmo_cdom</span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">tz_localize</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+
+<span class="n">shp</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;C:\Users\gianna.milton\Documents\Python\Shapefiles\combined_coastline.shp&#39;</span><span class="p">)</span>
+<span class="n">gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">bcodmo_cdom</span><span class="p">,</span> <span class="n">geometry</span><span class="o">=</span><span class="n">gpd</span><span class="o">.</span><span class="n">points_from_xy</span><span class="p">(</span><span class="n">bcodmo_cdom</span><span class="o">.</span><span class="n">lon</span><span class="p">,</span> <span class="n">bcodmo_cdom</span><span class="o">.</span><span class="n">lat</span><span class="p">),</span> <span class="n">crs</span><span class="o">=</span><span class="s2">&quot;EPSG:4269&quot;</span><span class="p">)</span>
+<span class="n">gdf</span> <span class="o">=</span> <span class="n">gdf</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="n">shp</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span>
+<span class="n">bcodmo_cdom</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">sjoin</span><span class="p">(</span><span class="n">gdf</span><span class="p">,</span> <span class="n">shp</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;inner&quot;</span><span class="p">,</span> <span class="n">predicate</span><span class="o">=</span><span class="s2">&quot;within&quot;</span><span class="p">)</span>
+<span class="n">columns_to_drop</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">,</span> <span class="s1">&#39;index_right&#39;</span><span class="p">,</span> <span class="s1">&#39;merge_id&#39;</span><span class="p">]</span>
+<span class="n">bcodmo_cdom</span> <span class="o">=</span> <span class="n">bcodmo_cdom</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">columns_to_drop</span><span class="p">)</span>
+<span class="n">bcodmo_cdom</span><span class="o">=</span> <span class="n">bcodmo_cdom</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="plots">
+<h2>Plots<a class="headerlink" href="#plots" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bcodmo</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;C:\Users\gianna.milton\Documents\Python\Coastal_chl_final\bco_dmo_cdom_qc.xlsx&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">year_test</span><span class="o">=</span><span class="n">bcodmo</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">year_test</span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">year_test</span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">])</span>
+<span class="n">year_test</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">year_test</span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span>
+<span class="n">grouped</span> <span class="o">=</span> <span class="n">year_test</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;year&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;DataPoints&#39;</span><span class="p">)</span>
+
+<span class="c1"># Create bar chart</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">grouped</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;DataPoints&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Yearly distribution all data&#39;</span><span class="p">,</span>
+             <span class="n">labels</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;year&#39;</span><span class="p">:</span> <span class="s1">&#39;Year&#39;</span><span class="p">,</span> <span class="s1">&#39;DataPoints&#39;</span><span class="p">:</span> <span class="s1">&#39;Number of Data Points&#39;</span><span class="p">,</span> <span class="s1">&#39;metadata&#39;</span><span class="p">:</span> <span class="s1">&#39;Metadata&#39;</span><span class="p">},)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_xaxes</span><span class="p">(</span><span class="nb">range</span><span class="o">=</span><span class="p">[</span><span class="mi">1999</span><span class="p">,</span><span class="mi">2027</span><span class="p">])</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">barmode</span><span class="o">=</span><span class="s1">&#39;stack&#39;</span><span class="p">)</span>  <span class="c1"># ensures stacking</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/32f93dc2d3f5b4846a9c65673662d1b29707f428dfd88cc69077c3da95a8ebc0.png" src="_images/32f93dc2d3f5b4846a9c65673662d1b29707f428dfd88cc69077c3da95a8ebc0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib.colors</span> <span class="kn">import</span> <span class="n">LogNorm</span> <span class="c1"># Important for high-variance data</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">())</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">LAND</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">OCEAN</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">COASTLINE</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">BORDERS</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cfeature</span><span class="o">.</span><span class="n">STATES</span><span class="p">)</span>
+<span class="n">hb</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">hexbin</span><span class="p">(</span><span class="n">year_test</span><span class="o">.</span><span class="n">lon</span><span class="p">,</span> <span class="n">year_test</span><span class="o">.</span><span class="n">lat</span><span class="p">,</span> <span class="n">gridsize</span><span class="o">=</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;inferno_r&#39;</span><span class="p">,</span> <span class="n">mincnt</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">(),</span><span class="n">norm</span><span class="o">=</span><span class="n">LogNorm</span><span class="p">())</span> 
+<span class="n">cb</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">hb</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;horizontal&#39;</span><span class="p">)</span><span class="c1">#, pad=0.02, shrink=0.8)</span>
+<span class="n">cb</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="s1">&#39;Number of Datapoints&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">gl</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">gridlines</span><span class="p">(</span><span class="n">linewidth</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">draw_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">x_inline</span><span class="o">=</span> <span class="kc">False</span><span class="p">,</span><span class="n">y_inline</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">gl</span><span class="o">.</span><span class="n">xformatter</span><span class="o">=</span><span class="n">LONGITUDE_FORMATTER</span>
+<span class="n">gl</span><span class="o">.</span><span class="n">yformatter</span><span class="o">=</span><span class="n">LATITUDE_FORMATTER</span>
+<span class="n">gl</span><span class="o">.</span><span class="n">top_labels</span> <span class="o">=</span> <span class="kc">False</span>    <span class="c1"># Disable top labels</span>
+<span class="n">gl</span><span class="o">.</span><span class="n">right_labels</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># Disable right labels</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">year_test</span><span class="o">.</span><span class="n">lon</span><span class="p">)</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="nb">max</span><span class="p">(</span><span class="n">year_test</span><span class="o">.</span><span class="n">lon</span><span class="p">)</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">year_test</span><span class="o">.</span><span class="n">lat</span><span class="p">)</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="nb">max</span><span class="p">(</span><span class="n">year_test</span><span class="o">.</span><span class="n">lat</span><span class="p">)</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Spatial Data Density&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/ba3d94a07ff37d05e5d640cc9342a5b0dafab56f37eab5d8fdd84a6cfd389503.png" src="_images/ba3d94a07ff37d05e5d640cc9342a5b0dafab56f37eab5d8fdd84a6cfd389503.png" />
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="ioos_cdom.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">IOOS data</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="final_concatination_cdom.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">CDOM Final Concatination</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plots">Plots</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Gianna Milton
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
