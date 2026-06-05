@@ -5,6 +5,7 @@ Chlorophyll is an essential climate variable and remotely sensed chlorophyll est
 In this book, the steps taken to gather and process raw chlorophyll, cdom, and RRS data from 11 repositories will be described. When possible data was fetched through websites remotely, but when data was downloaded locally, the exact steps taken are described in this book. 
 
 Please check out the github for all code used and links to the paper: [Coastal Chlorophyll Github](https://github.com/GMilton2/coastal-chlorophyll)
+Link to Data Paper: 10.5281/zenodo.20140178
 
 ### Table of Contents:
 ```{tableofcontents}
