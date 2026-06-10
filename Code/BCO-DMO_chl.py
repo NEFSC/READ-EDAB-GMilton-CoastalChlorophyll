@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 """
 Created on Tue Feb  3 12:46:31 2026
-BCO_DMO qa/qc.
-load in data from BCO-DMO with chlorophyll and adding hplc and triplicate flags
-NOTE: some of these files are from the the ECOHAB project, some are from their erddap server
-BCO-DMO 1. states that not all their data is on ERDDAP and 2. does not have single cohesive chlorophyll value name on errdap. 
+BCO_DMO: go through BCO-DMO chl datasets and compile/ clean
+
+NOTE: as mentioned in the paper, this dataset is from a mix of ERDDAP and BCO-DMO website searches 
+BCO-DMO states that not all their data is on ERDDAP and  does not have single cohesive chlorophyll value name on errdap. 
 So the ERDDAP links are from searching chlorophyll and manually sifting through the results. 
-The ECOHAB data is from the BCO-DMO website (not ERDDAP) and again is manually downloaded before concatinating 
+The ECOHAB data is from the BCO-DMO website and again is manually downloaded before concatinating 
 @author: gianna.milton
 """
 import pandas
@@ -19,19 +19,21 @@ from datetime import datetime
 import requests
 import xarray as xr 
 
-#load in ERDAPP files and concatinate/organize with HPLC flags.
+#Erddap files:
 url='https://erddap.bco-dmo.org/erddap/tabledap/bcodmo_dataset_816216.nc?Station%2Ctime%2Clatitude%2Clongitude%2Cdepth%2CChl_a&Bottom_Depth%3C=100'
-url = requests.get(url, verify=False).content
-da = xr.open_dataset(url)
-da1= da.to_dataframe()
-da1 = da1.rename(columns={'time': 'datetime','latitude':'lat','longitude':'lon','Chl_a':'chl'}) 
+url = requests.get(url, verify=False).content #load in erddap data via unique ERDDAP url
+da = xr.open_dataset(url) #open dataset
+da1= da.to_dataframe() #transform to dataframe
+da1 = da1.rename(columns={'time': 'datetime','latitude':'lat','longitude':'lon','Chl_a':'chl'}) #standardize column names 
+#add metadata columns
 da1['source']='BCO-DMO'
 da1['project'] = da.projects_0_name
 da1['contact']=da.people_0_person_name
 da1['affiliation']=da.people_0_affiliation 
 da1['chl']=da1['chl']*0.001 #convert nanograms/L to miligram/m^3
-da1['url']= 'https://www.bco-dmo.org/dataset/816216' #'https://erddap.bco-dmo.org/erddap/tabledap/bcodmo_dataset_816216.html'
-da1['HPLC'] = 0 #HPLC based on the url website
+da1['url']= 'https://www.bco-dmo.org/dataset/816216'
+da1['HPLC'] = 0 #chlorophyll measured by HPLC based on the url website
+#triplicate
 counts_series = da1[['depth','datetime','lat','lon']].value_counts() #count how many unique cast,depth, datetime, lat, and lons there are
 da1['triplicate'] = 1 #based on inpsecting counts_series, no triplicates
 
@@ -71,7 +73,7 @@ da3['project'] = 'Collaborative Research: Seasonal Variability in refractory dis
 da3['contact']='David J. Kieber'
 da3['affiliation']='State University of New York College of Environmental Science and Forestry'
 da3['url']='https://www.bco-dmo.org/dataset/929873'#
-da3['HPLC'] = 1 #no HPLC based on their url website
+da3['HPLC'] = 1 #no HPLC based on url website
 counts_series = da3[['depth','datetime','lat','lon']].value_counts()
 da3['triplicate'] = 1 #no triplicates
 da3=da3[['datetime', 'lat', 'lon', 'depth', 'chl', 'source','project', 'contact', 'affiliation', 'url', 'HPLC', 'triplicate']]
@@ -132,13 +134,14 @@ da8['HPLC'] = 1 #HPLC NO
 counts_series = da8[['depth','datetime','lat','lon']].value_counts()
 da8['triplicate'] = 1 #no triplicates
 
-dfs1=[da1,da2,da3,da5,da6,da7,da8] #concatinate all errdap data together
-bco1=pd.concat(dfs1).reset_index(drop=True)
+#concatinate all errdap data together
+dfs1=[da1,da2,da3,da5,da6,da7,da8] 
+bco1=pd.concat(dfs1).reset_index(drop=True) #concatinate dataframes
 
-#ECOHAB data next. note: these are manually downloaded from bco-dmo website 
+#datasets manually downloaded from bco-dmo website by searching ECOHAB and chlorophyll variable name
 rise1 = pd.read_excel(r'BCO-DMO\ProfilePP.xlsx')
-rise1['Time'] = [f"{int(t):06d}" for t in rise1['Time']]  #leading 0s removed from time, so pad with 0s until 6 integers long
-rise1['Date'] = rise1['Date'].astype(str)
+rise1['Time'] = [f"{int(t):06d}" for t in rise1['Time']]  #for every row in mtime pad with 0 unitl it's 6 numbers long (HH:mm:ss)
+rise1['Date'] = rise1['Date'].astype(str) #change datatype to string for easy datetime aspects subsetting
 #for month, day, year, hour, min, second, pull out the specific values from Date and Time and create datetime
 rise1['month'] = [int(t[4:6]) for t in rise1['Date']] 
 rise1['day'] = [int(t[6:8]) for t in rise1['Date']]
@@ -146,15 +149,16 @@ rise1['year'] = [int(t[0:4]) for t in rise1['Date']]
 rise1['hour'] = [int(t[:2]) for t in rise1['Time']]
 rise1['minute'] = [int(t[2:4]) for t in rise1['Time']]
 rise1['second'] = [int(t[4:]) for t in rise1['Time']]
-rise1['datetime']= pd.to_datetime(rise1[['year', 'month', 'day', 'hour', 'minute', 'second']]) #datetime variable
-rise1=rise1.rename(columns={'Lat':'lat','Lon':'lon','depS':'depth','CHL':'chl'})
+rise1['datetime']= pd.to_datetime(rise1[['year', 'month', 'day', 'hour', 'minute', 'second']]) #create datetime column
+rise1=rise1.rename(columns={'Lat':'lat','Lon':'lon','depS':'depth','CHL':'chl'}) #standardize column names
 rise1 = rise1[['datetime','lat', 'lon', 'depth','Cruise', 'Station', 'chl']]
+#add metadata
 rise1['project']='RISE'
 rise1['source']='BCO-DMO'
 rise1['contact']='Raphael M. Kudela'
 rise1['affiliation']='University of California-Santa Cruz'
 rise1['url']='https://www.bco-dmo.org/dataset/3248'
-rise1['HPLC'] = 1 #no HPLC
+rise1['HPLC'] = 1 #no HPLC based on their website
 
 #triplicate flag
 counts_series = rise1[['depth','datetime','lat','lon']].value_counts() #count how many unique cast,depth, datetime, lat, and lons there are
@@ -192,7 +196,6 @@ counts_series = rise2[['depth','datetime','lat','lon']].value_counts() #count ho
 rise2['triplicate'] = 1 #not triplicate 
 
 
-#next cruise
 rise3 = pd.read_excel(r'BCO-DMO\AllBottle.xlsx')
 rise3['Time'] = [f"{int(t):06d}" for t in rise3['Time']]
 rise3['Date'] = rise3['Date'].astype(str)
@@ -223,28 +226,26 @@ rise3.loc[rise3['freq_uniq'] == 3, 'triplicate'] = 0
 rise3.loc[(rise3['freq_uniq'] == 1) &(rise3['freq_hour'] == 3), 'triplicate'] = 0
 rise3=rise3[['datetime', 'lat', 'lon', 'depth', 'Cruise', 'Station', 'chl','project', 'affiliation','source', 'contact', 'url', 'HPLC',  'triplicate']]
 
-#MERHAB
 MERHAB = pd.read_excel(r'BCO-DMO\Bottle_Data.xlsx')
-MERHAB['time'] = [f"{int(t):04d}" for t in MERHAB['time']]
+MERHAB['time'] = [f"{int(t):04d}" for t in MERHAB['time']] #for every row in mtime pad with 0 unitl it's 4 numbers long (HH:mm)
 MERHAB['date'] = MERHAB['date'].astype(str)
 MERHAB['month'] = [int(t[4:6]) for t in MERHAB['date']]
 MERHAB['day'] = [int(t[6:8]) for t in MERHAB['date']]
 MERHAB['year'] = [int(t[0:4]) for t in MERHAB['date']]
 MERHAB['hour'] = [int(t[:2]) for t in MERHAB['time']]
 MERHAB['minute'] = [int(t[2:4]) for t in MERHAB['time']]
-MERHAB['datetime']= pd.to_datetime(MERHAB[['year', 'month', 'day', 'hour', 'minute']]) #datetime variable
-MERHAB=MERHAB.rename(columns={'depth_nominal':'depth','Chla':'chl','cruise_id':'Cruise','station':'Station'})
+MERHAB['datetime']= pd.to_datetime(MERHAB[['year', 'month', 'day', 'hour', 'minute']]) #standardize into pandas datetime format
+MERHAB=MERHAB.rename(columns={'depth_nominal':'depth','Chla':'chl','cruise_id':'Cruise','station':'Station'})#standardize column names
 MERHAB = MERHAB[['datetime','lat', 'lon', 'depth','Cruise', 'Station', 'chl']]
 MERHAB['project']='ALEX-GoME'
 MERHAB['source']='BCO-DMO'
 MERHAB['contact']= 'Dennis J. McGillicuddy'
 MERHAB['affiliation']='Woods Hole Oceanographic Institution'
 MERHAB['url']='https://www.bco-dmo.org/dataset/3358'
-MERHAB['HPLC'] = 1 #HPLC NO 
+MERHAB['HPLC'] = 1 #HPLC no based on website 
 counts_series = MERHAB[['depth','datetime','lat','lon']].value_counts() #count how many unique cast,depth, datetime, lat, and lons there are
 MERHAB['triplicate'] = 1 #triplicate NO 
 
-#nerissa
 nerissa = pd.read_excel(r'BCO-DMO\Nerissa_CTD.xlsx')
 nerissa['Time'] = [f"{int(t):04d}" for t in nerissa['Time']]
 nerissa['Date'] = nerissa['Date'].astype(str)
@@ -253,7 +254,7 @@ nerissa['day'] = [int(t[6:8]) for t in nerissa['Date']]
 nerissa['year'] = [int(t[0:4]) for t in nerissa['Date']]
 nerissa['hour'] = [int(t[:2]) for t in nerissa['Time']]
 nerissa['minute'] = [int(t[2:4]) for t in nerissa['Time']]
-nerissa['datetime']= pd.to_datetime(nerissa[['year', 'month', 'day', 'hour', 'minute']]) #datetime variable
+nerissa['datetime']= pd.to_datetime(nerissa[['year', 'month', 'day', 'hour', 'minute']]) 
 nerissa=nerissa.rename(columns={'Latitude':'lat','Longitude':'lon','Depth':'depth','Chl_a':'chl','Station_ID':'Station'})
 nerissa = nerissa[['datetime','lat', 'lon', 'depth', 'Station', 'chl']]
 nerissa['project']='SoCalPlumeEx2012'
@@ -268,18 +269,18 @@ nerissa['triplicate'] = 1 #triplicate NO
 #ECOHAB-PNW 1
 ECOHAB1 = pd.read_excel(r'BCO-DMO\AllBottle1.xlsx')
 ECOHAB1 = ECOHAB1[['Cruise', 'Station', 'date', 'Event', 'Source', 'depth', 'depthID', 'lon', 'lat', 'Chl_a', 'bottle']]
-ECOHAB1 = ECOHAB1[ECOHAB1['Chl_a'] != 'nd']
+ECOHAB1 = ECOHAB1[ECOHAB1['Chl_a'] != 'nd'] #remove any empty chlorophyll samples
 
-#need to match ECOHAB1 with metadata to append datetime
+#match ECOHAB1 with it's metadata to append datetime
 ecohab1_meta = pd.read_excel(r'BCO-DMO\EventLogs.xlsx') #metadata file
-ecohab1_meta=ecohab1_meta.rename(columns={'Grid_Station_ID':'Station','Date_Start':'date','Event_Description':'Event','Time_Start':'time','Water_depth':'depth'}) #rename for easy identification and concatination
-ecohab1_meta = ecohab1_meta[ecohab1_meta['Event'].str.startswith('CTD')] #only keep rows related to the ctd (no driferor bucket data)
+ecohab1_meta=ecohab1_meta.rename(columns={'Grid_Station_ID':'Station','Date_Start':'date','Event_Description':'Event','Time_Start':'time','Water_depth':'depth'}) #standardize column names
+ecohab1_meta = ecohab1_meta[ecohab1_meta['Event'].str.startswith('CTD')] #only keep rows related to the ctd 
 ecohab1_meta['Event'] = ecohab1_meta['Event'].str.replace(' ', '') #remove the space from the event rows to match the ECOHAB1 cast columns
 ecohab1_meta['time']=ecohab1_meta['time'].astype(str)
-ecohab1_meta['time'] = ecohab1_meta['time'].str.replace(';', '') #remove ;
-ecohab1_meta['time'] = ecohab1_meta['time'].str.replace('nd', 'NaN') #ensure correct NaN 
+ecohab1_meta['time'] = ecohab1_meta['time'].str.replace(';', '') #remove ; from time to easily convert to datetime
+ecohab1_meta['time'] = ecohab1_meta['time'].str.replace('nd', 'NaN') #standardize numpy.nan
 ecohab1_meta['time']= pd.to_numeric(ecohab1_meta['time'], errors='coerce').astype('Int64') #turn time column into numeric
-ecohab1_meta = ecohab1_meta.dropna(subset=['time'])
+ecohab1_meta = ecohab1_meta.dropna(subset=['time']) #remove empty datetime rows
 ecohab1_meta['time']= ecohab1_meta['time'].astype('str')
 ecohab1_meta=ecohab1_meta[['Cruise','date','time','Station','Event']]
 
@@ -293,7 +294,7 @@ ECOHAB1['hour']=np.nan
 ECOHAB1['min']=np.nan
 ECOHAB1['date'] = ECOHAB1['date'].astype(str)
 for index, row in ECOHAB1.iterrows():
-    if pd.isna(row['time']): #if time = nan, just populate the datetime column with date
+    if pd.isna(row['time']): #if time = nan,  populate the datetime column with date
         ECOHAB1['year'][index] = row['date'][0:4]
         ECOHAB1['month'][index] = row['date'][4:6]
         ECOHAB1['day'][index] = row['date'][6:8]
@@ -310,7 +311,7 @@ for index, row in ECOHAB1.iterrows():
                                                int(ECOHAB1['hour'][index]),int(ECOHAB1['min'][index]))
 ECOHAB1['datetime']= pd.to_datetime(ECOHAB1['datetime'])
 
-ECOHAB1=ECOHAB1[['Cruise', 'Station', 'depth', 'lon', 'lat', 'Chl_a','datetime']] #reduce columns again to only needed ones
+ECOHAB1=ECOHAB1[['Cruise', 'Station', 'depth', 'lon', 'lat', 'Chl_a','datetime']] #reduce columns to only needed ones
 ECOHAB1=ECOHAB1.rename(columns={'Chl_a':'chl'})
 ECOHAB1['project']='ECOHAB-PNW'
 ECOHAB1['source']='BCO-DMO'
@@ -332,15 +333,14 @@ ECOHAB1.loc[ECOHAB1['freq_uniq'] == 3, 'triplicate'] = 0 #if there was a unique 
 ECOHAB1.loc[(ECOHAB1['freq_uniq'] == 1) &(ECOHAB1['freq_hour'] == 3), 'triplicate'] = 0
 ECOHAB1=ECOHAB1[['Cruise', 'Station', 'depth', 'lon', 'lat', 'chl', 'datetime','project', 'affiliation','source', 'contact', 'url', 'HPLC', 'triplicate']]
 
-#concat all dataframes together
+#concat all dataframes together including erddap files
 bco_all= pd.concat([rise1, rise2, rise3,MERHAB,nerissa,ECOHAB1,bco1]).reset_index(drop=True)
-bco_all['chl'] = pd.to_numeric(bco_all['chl'], errors='coerce')
+bco_all['chl'] = pd.to_numeric(bco_all['chl'], errors='coerce') #ensure all chlorophyll values are numbers
 bco_all['depth'] = pd.to_numeric(bco_all['depth'], errors='coerce')
-#for algorithm development, only subset top 150 m
 bco_all=bco_all.loc[bco_all['depth']<=150].reset_index(drop=True) 
 bco_all2=bco_all.rename(columns={'Cruise':'cruise','Station':'station','affiliation':'affiliations','contact':'investigators','project':'experiment'})
 
-#bco_all.to_excel('bco_dmo_chl_qc.xlsx', index = False)
+bco_all.to_excel('bco_dmo_chl_qc.xlsx', index = False)
 
 
 
