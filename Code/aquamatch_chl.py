@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """
 Created on Wed Feb  4 13:40:20 2026
-aquamatch_qc
-format and organize Aquamatch data with appropriate metadata and flags
+aquamatch_chl
+Code for formatting and organizing Aquamatch chlorophyll data with appropriate metadata and flags
 @author: gianna.milton
 """
 import pandas
@@ -13,10 +13,10 @@ warnings.filterwarnings('ignore', category=pd.errors.SettingWithCopyWarning)
 warnings.filterwarnings('ignore', category=FutureWarning)
 import geopandas as gpd
 
-# start
-aqua_match1 = pd.read_excel(r'C:\Users\gianna.milton\Documents\Python\one off cruises\AquaMatch_chl.xlsx') #read in datafile
+aqua_match1 = pd.read_excel('AquaMatch_chl.xlsx') #read in datafile
 
-shp1 = gpd.read_file(r'C:\Users\gianna.milton\Documents\Python\Shapefiles\combined_coastline.shp')
+#subset dataset to within the shapefile
+shp1 = gpd.read_file(r'Shapefiles\combined_coastline.shp')
 gdf1 = gpd.GeoDataFrame(aqua_match1, geometry=gpd.points_from_xy(aqua_match1.lon, aqua_match1.lat), crs="EPSG:4269")
 gdf1 = gdf1.to_crs(shp1.crs)
 aqua_match1 = gpd.clip(gdf1,shp1)
@@ -27,10 +27,11 @@ aqua_match1=aqua_match1.rename(columns={'OrganizationIdentifier':'station','harm
                                       'harmonized_value':'chl','field_flag':'flag'})
 aqua_match1['datetime'] = pd.to_datetime(aqua_match1['datetime']) #ensure datetime column is in pandas datetime format and datatype 
 
-#for this project, only want data from 2000 thru 2024 
+#Only retain data from 2000 thru 2025
 aqua_match1 = aqua_match1[(aqua_match1['datetime'] >= pd.to_datetime('2000-01-01 00:00:00').tz_localize('UTC')) & (aqua_match1['datetime'] <= pd.to_datetime('2025-01-01 00:00:00').tz_localize('UTC'))]
 
-#Fill in affiliation using the station code from the water quality website:https://www.waterqualitydata.us/provider/STORET/
+#to ensure metadata standards are maintained, manually add affiliation responsible for each station 
+#Affiliation data found from the water quality website:https://www.waterqualitydata.us/provider/STORET/
 aqua_match1['affiliations']=np.nan
 aqua_match1.affiliations[(aqua_match1['station'] =='21FLKWAT') | (aqua_match1['station'] =='21FLKWAT_WQX')] = 'Florida Lakewatch'
 aqua_match1.affiliations[(aqua_match1['station'] =='21FLKNMS_WQX')] = 'FLORIDA KEYS NATIONAL MARINE SANCTUARY'
@@ -73,9 +74,9 @@ aqua_match1.affiliations[(aqua_match1['station'] =='21FLCMP_WQX')] = 'FL Dept. o
 aqua_match1.affiliations[(aqua_match1['station'] =='21FLFRYD_WQX')] = 'FRYDENBORG ECOLOGIC LLC'
 aqua_match1.affiliations[(aqua_match1['station'] =='21DELAWQ_WQX')] = 'Delaware Dept Natural Resources &amp; Environmental Control'
 
-#from the aquamatch metadata file: chl_a workflow, Flags are used to check if data is reasonable (flag = 0), suspect (flag = 1), or inconclusive (flag = 2)
-#flag defs from this website:https://portal.edirepository.org/nis/metadataviewer?packageid=edi.1756.2
-#Remove bad flags 
+# Remove suspect/bad data depending on the flafs
+#from the aquamatch metadata file chl_a workflow: Flags are used to check if data is reasonable (flag = 0), suspect (flag = 1), or inconclusive (flag = 2)
+#flag definitions: https://portal.edirepository.org/nis/metadataviewer?packageid=edi.1756.2
 aqua_match1 = aqua_match1[aqua_match1['flag'] != 1]
 aqua_match1 = aqua_match1[aqua_match1['flag'] != 2] 
 aqua_match1 = aqua_match1[aqua_match1['tier'] != 2] 
@@ -87,7 +88,7 @@ aqua_match1 = aqua_match1[aqua_match1['depth'] <=150]
 aqua_match1['HPLC']=1
 #triplicate flag 
 counts_series = aqua_match1[['depth','datetime','lat','lon']].value_counts() #count how many unique depth, datetime, lat, and lons there are
-counts_df = counts_series.reset_index(name='freq_uniq') #create new column where each unique entry aso shows howmany times that entry was recorded 
+counts_df = counts_series.reset_index(name='freq_uniq') #create new column where each unique entry shows how many times that entry was recorded 
 aqua_match1 = pd.merge(aqua_match1, counts_df, on=['depth','datetime','lat','lon'], how='left') #add frequency column to original dataframe
 
 #sometimes, triplicate specific times are recorded (ex: 3:00, 3:05, 3:10 ), so also check for unique datehour entries
