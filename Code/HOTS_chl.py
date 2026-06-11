@@ -2,7 +2,7 @@
 """
 Created on Wed Feb  4 09:29:00 2026
 HOTS_chl
-Load in raw HOTS data from each station and turn into dataframe similar to seabass, with HPLC and triplicate flags
+Load in raw HOTS data from each station and turn into standardized dataframe, with HPLC and triplicate flags
 To load data, go to https://hahana.soest.hawaii.edu/hot/hot-dogs/bextraction.html and copy boundries below:
 bottle: Jan 01 2000 -Dec 3 2023
             Depth = 0-200m
@@ -24,25 +24,19 @@ import pandas
 import pandas as pd
 import numpy as np
 import os
-import warnings
-warnings.filterwarnings('ignore', category=pd.errors.SettingWithCopyWarning)
-warnings.filterwarnings('ignore', category=FutureWarning)
-warnings.filterwarnings('ignore', category=DeprecationWarning)
-warnings.filterwarnings('ignore', category=RuntimeWarning)
 from scipy.io import netcdf
 
-#def to convert degree minutes to degrees for lat and lon 
+#def loop to convert coordinates from units degree minutes to degrees 
 def dm_to_decimal_degrees(degrees, decimal_minutes):
     """Converts degrees and decimal minutes to decimal degrees.
-    args:
-        degrees: The whole number of degrees.
+    args:degrees: The whole number of degrees.
         decimal_minutes: The fractional part of the degree, in minutes.
     returns: The equivalent decimal degree value.
     """
     decimal_degrees = degrees + (decimal_minutes / 60)
     return decimal_degrees
 
-#def to input all .nc files from folder 
+#def loop to input all .nc files from folder 
 def get_files(dir):
     file_list = []
     for root, _, files in os.walk(dir): #here, dir would be the path to the files
@@ -51,14 +45,15 @@ def get_files(dir):
                 file_list.append(os.path.join(root, file)) #if file ends in .nc, append to list 
     return file_list
 
-f_list1 =  r'C:\Users\gianna.milton\Documents\Python\Hot dogs\bottle_data' #folder holding ONLY the bottle data downloaded from HOTS 
+
+f_list1 =  r'\Hot dogs\bottle_data' #folder holding ONLY the bottle data downloaded from HOTS 
 f_list = get_files(f_list1) #list of all .nc files from folder
 
-for file in f_list:
+for file in f_list: #for every file in the folder
     print(file)
     dfs=pd.DataFrame() #initiate empty dataframe
     file2read = netcdf.NetCDFFile(file,'r') #read in the netcdf file
-    varrs = file2read.variables #variables in netcdf file
+    varrs = file2read.variables #pull variables in netcdf file
     #remove the dataDesc, which is just a description of the data. if not removed, concatination can't occur
     del varrs["dataDesc"]
     for vars in varrs: #for every variable in the file
@@ -71,6 +66,7 @@ for file in f_list:
     dfs['mtime'] = [f"{int(t):06d}" for t in dfs['mtime']] 
     dfs['mdate'] = [f"{int(t):06d}" for t in dfs['mdate']] 
     
+    #pull datetime elements from mtime and mdate
     dfs['month'] = [int(t[:2]) for t in dfs['mdate']]
     dfs['day'] = [int(t[2:4]) for t in dfs['mdate']]
     dfs['year'] = [int(t[4:])+2000 for t in dfs['mdate']]
@@ -84,22 +80,22 @@ for file in f_list:
     dfs = dfs.reset_index(drop=True)
     
     #seperate data from each station into it's own dataframe, where the name of the dataframe equals the station name
-    #lat and lon are not included in the file, so manually add them
+    #lat and lon are not included in the file, so manually add them based on website's description
     #finally, roughly convert pressure to depth (Depth(m)=Pressure(db) *1.019716)
     if dfs.stn[0]==1: #station 1 = station Kahe
         kahe=dfs.copy()
-        kahe['lat']=dm_to_decimal_degrees(21, 20.6)
+        kahe['lat']=dm_to_decimal_degrees(21, 20.6) #coordinatds found on website
         kahe['lon']=dm_to_decimal_degrees(158, 16.4)*-1
         kahe=kahe[kahe['chl']!=-9] #remove -9 i.e. bad chl values
-        kahe['station']='kahe'
-        kahe['depth'] = kahe['press'] * 1.02
+        kahe['station']='kahe' #name of station 
+        kahe['depth'] = kahe['press'] * 1.02 #convert to depth
         kahe=kahe[['crn', 'depth', 'chl','hplc', 'datetime', 'lat', 'lon', 'station']]
         
     elif dfs.stn[0]==2: #station 2 = station Aloha
         aloha=dfs.copy()
         aloha['lat']=dm_to_decimal_degrees(22, 45.0)
         aloha['lon']=dm_to_decimal_degrees(158, 00.0)*-1
-        #don't remove -9 from chl for aloha station because some bad chl entries still have hplc values. 
+        #don't remove -9 from chl for aloha station because some bad chl entries still have chl_hplc values. 
         aloha['station']='aloha'
         aloha['depth'] = aloha['press'] * 1.02
         aloha=aloha[['crn', 'depth', 'chl','hplc', 'datetime', 'lat', 'lon', 'station']]
@@ -141,13 +137,13 @@ for file in f_list:
         whots=whots[['crn', 'depth', 'chl','hplc', 'datetime', 'lat', 'lon', 'station']]
 
     else:
-        print(file) #if noe of the above, print the file to inspect
+        print(file) #if nome of the above, print the file to inspect
     file2read.close()  #close file
 
 #primary production, only recorded at station aloha.
 #repeat above procedure
 ppro=pd.DataFrame()
-file2read = netcdf.NetCDFFile(r'C:\Users\gianna.milton\Documents\Python\Hot dogs\hd192096.nc','r')
+file2read = netcdf.NetCDFFile(r'Hot dogs\hd192096.nc','r')
 varrs = file2read.variables #variables
 del varrs["dataDesc"]
 for vars in varrs:
@@ -165,14 +161,15 @@ ppro['minute'] = [int(t[2:4]) for t in ppro['etime']]
 ppro['datetime']= pd.to_datetime(ppro[['year', 'month', 'day', 'hour', 'minute']])
 ppro=ppro[['crn', 'type', 'depth', 'chl', 'bsal','datetime']].reset_index(drop=True)  
 ppro['station']='primary_prod'
-ppro['hplc']=-9 #initiate empty hplc column so that when concatinated with stations it matches with other columns
+ppro['hplc']=-9 #initiate empty hplc column so that when concatinated with stations it matches with other column nan entries
 #lat and lon to match station aloha 
 ppro['lat']=dm_to_decimal_degrees(22, 45.0)
 ppro['lon']=dm_to_decimal_degrees(158, 00.0)*-1
 
+#concat all station data together
 hots = pd.concat([kahe, aloha, kaena,hale,ors,whots,ppro]).reset_index(drop=True)
 
-#HPLC flag: if column hplc = -9, flag as 1 (bad), if there is a value, value, then convert to mg/L and flag as hplc=0
+#HPLC flag: if column hplc = -9, flag as 1 (bad), if there is a value, then convert to mg/L and flag as hplc=0
 hots['HPLC'] = 1 #assume no HPLC
 hots=hots.rename(columns={'hplc':'chl_a'})
 hots.loc[hots['chl_a'] != -9, 'HPLC'] = 0 #if hplc column does not equal -9 change to 0
@@ -195,13 +192,14 @@ hots.loc[(hots['freq_uniq'] == 1) &(hots['freq_hour'] == 3), 'triplicate'] = 0 #
 hots=hots.loc[hots['depth']<=150].reset_index(drop=True) #reduce to upper 150 meteres for algorithm development
 
 hots=hots[['datetime', 'lat', 'lon','depth', 'chl', 'chl_a', 'station', 'HPLC', 'triplicate']]
+#add metadata
 hots['experiment']='HOTS'
 hots['source']='HOTS'
 hots['investigators']= 'Angelicque E. White'
 hots['affiliations']="University of Hawai'i at Mānoa"
 hots['url']='https://hahana.soest.hawaii.edu/hot/hot-dogs/interface.html'
-hots.replace(-9, np.nan, inplace=True)
-hots = hots.dropna(subset=['chl', 'chl_a'], how='all')
+hots.replace(-9, np.nan, inplace=True) #standardize empty entries as np.nan
+hots = hots.dropna(subset=['chl', 'chl_a'], how='all') #remove rows where both chl and chl_a are empty 
 
 hots.to_excel('hots_chl_qc.xlsx', index = False)
 
