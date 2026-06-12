@@ -1,20 +1,15 @@
 # -*- coding: utf-8 -*-
 """
 Created on Thu Feb  5 14:45:44 2026
-ioos_chl
-load in IOOS data by region and orgainize it, including HPLC and triplicate flags 
+ioos_chl: load in IOOS chlorophyll data by region and orgainize it, including HPLC, triplicate flags, and data type flag
 @author: gianna.milton
 """
 import numpy as np
 import pandas as pd
 from erddapy import ERDDAP
 import time
-import warnings
-warnings.filterwarnings('ignore', category=pd.errors.SettingWithCopyWarning)
-warnings.filterwarnings('ignore', category=FutureWarning)
 
-
-#Seperate datasets into regions for easier manegment 
+#subset datasets into regions for easier data managmemnt  
 
 kwest  = {"min_lon": -131, #boundries for west coast
     "max_lon": -111,
@@ -61,35 +56,33 @@ url_gulf = e.get_search_url(search_for="mass_concentration_of_chlorophyll_in_sea
 url_alas = e.get_search_url(search_for="mass_concentration_of_chlorophyll_in_sea_water", response="csv",**kalas) 
 url_haw = e.get_search_url(search_for="mass_concentration_of_chlorophyll_in_sea_water", response="csv",**khaw) 
 
-#read each url in
+#read each url in. These dataframes will be dictionaries of all dataset names pulled from the url searches, but no actual data
 dfs_east = pd.read_csv(url_east)
 dfs_west = pd.read_csv(url_west)
 dfs_gulf = pd.read_csv(url_gulf)
 dfs_alas = pd.read_csv(url_alas)
 dfs_haw = pd.read_csv(url_haw)
-#dfs includes the projects/ buoys that are recorded in the regional boundries
-#title = title of project
-#includes institution and dataset ID number 
 
+#initiate empty lists that will hold the actual data from each dataset name
 dataframes_east = {}
 dataframes_west = {}
 dataframes_gulf = {}
 dataframes_ak = {}
 dataframes_haw = {}
 
-reg_names = ['dataframes_east','dataframes_west','dataframes_gulf','dataframes_ak','dataframes_haw'] #create a dataframe for each region 
+reg_names = ['dataframes_east','dataframes_west','dataframes_gulf','dataframes_ak','dataframes_haw'] #lists to cycle through each region
 df_names = ['dfs_east','dfs_west','dfs_gulf','dfs_alas','dfs_haw']
 
 for idx2 in range(len(reg_names)): #for each reg_name
     print('region '+reg_names[idx2]) 
     for idx, row in globals()[df_names[idx2]].iterrows(): #for every project in the df_names
         dataset_id = row['Dataset ID'] #identify the id
-        e.dataset_id = dataset_id #match the id with the e dictionary
+        e.dataset_id = dataset_id #match the id with the e dictionary and pull the data 
         e.variables = ['time', 'latitude', 'longitude', 'mass_concentration_of_chlorophyll_in_sea_water',
                        'z','mass_concentration_of_chlorophyll_in_sea_water_qc_agg']  #only append these variables
         try:
             print(f"Loading {dataset_id}...")
-            df_data = e.to_pandas(index_col="time (UTC)") #create dataframe from e indexing the time
+            df_data = e.to_pandas(index_col="time (UTC)") #create dataframe of data from indexing the time
             globals()[reg_names[idx2]][dataset_id] = df_data #add the dataframe to the reg_name by id
             #add these to dataframe to ensure metadata is recorded
             globals()[reg_names[idx2]][dataset_id]['Dataset ID'] = dataset_id #add a column for dataset id
@@ -116,25 +109,25 @@ for idx2 in range(len(reg_names)):
 
         globals()[reg_names[idx2]][dsid] = df  #update the dict
 
-#create time and depth flags
+#create time and depth flags since IOOS doesn't distinguish between in-vitro and in-vivo
 for idx2 in range(len(reg_names)): #for every region's dataframe
     for dsid, df in globals()[reg_names[idx2]].items(): #for every dataframe in the region   
         df = df.sort_values(by='datetime')
-        df['t_flag']=0 #initialize temporal resolution flag, 0=good, 1= bad (less than 1hour),2=flag (time is 0 i.e repeated)
+        df['t_flag']=0 #initialize temporal resolution flag, 0=good, 1= bad (less than 10 mins),2=flag (time is 0 i.e repeated)
         df['diff_time'] = 0 #column to populate with datatypes as values for organization
         df['d_flag'] = 0 #initialize depth flag, 0=good, 1=bad (less than 5m), 2=flag
         df['decision'] = 2 #ultimate decision flag inidcating whether to keep or toss data point (0=good, 1=bad,2=flag)
         
-        df['diff_time']= df['datetime'].diff()      
-        df.t_flag=np.where(df['diff_time']< pd.to_timedelta('10 minutes'), 1, df.t_flag) #if delta t is less than 1 hour, flag as bad
+        df['diff_time']= df['datetime'].diff() #calculate the change in datetime 
+        df.t_flag=np.where(df['diff_time']< pd.to_timedelta('10 minutes'), 1, df.t_flag) #if delta t is less than 10 mins, flag as bad
         df.t_flag=np.where(df['diff_time']== pd.to_timedelta(0), 2, df.t_flag) #if 0, then just a repeat so not necessarily bad       
-        if 'depth' in df.columns: #find average change in depth
+        if 'depth' in df.columns: #find average change in depth sample rate
             depth_diff =abs(df.depth.diff())#calculate absolute change in depth
-            df.loc[df[depth_diff<1].index,'d_flag']=1 #if the change in depth is not large enough
+            df.loc[df[depth_diff<1].index,'d_flag']=1 #if the change in depth is less than 1 meter, turn flag to bad 
             df.loc[df[depth_diff==0].index,'d_flag']=2 #if the change in depth doesn't move, set as 2, diff_time 
         else:
             avg_z_res = None
-            
+        #decision tree: if either time or depth =1, decision = 1
         df.decision[(df['t_flag'] ==0) & (df['d_flag']==0)] = 0 #if both good, then good
         df.decision[(df['t_flag'] ==0) & (df['d_flag']==1)] = 1 #if everything else is good but the depth is too short, flag as nad
         df.decision[(df['t_flag'] ==0) & (df['d_flag']==2)] = 0 #if everything else is good and depth repeats, good
@@ -153,7 +146,7 @@ for idx2 in range(len(reg_names)): #for every region's dataframe
 for idx2 in range(len(reg_names)):    
     for dsid, df in globals()[reg_names[idx2]].items(): 
         df=df[(df['depth']>=-10) & (df['depth']<=10)] #only within top 10 meters
-        df['date'] = df['datetime'].dt.date
+        df['date'] = df['datetime'].dt.date #remove datetime and instead use date since datetime can't take average 
         df = df.drop(columns='datetime')
         df=df.groupby(['date','Dataset ID','source','Institution','url','experiment']).mean() #groupby date and take average
         globals()[reg_names[idx2]][dsid] = df.reset_index()
@@ -164,14 +157,14 @@ dataframes_west2 = pd.concat(dataframes_west.values(), ignore_index=True)
 dataframes_gulf2 = pd.concat(dataframes_gulf.values(), ignore_index=True)
 dataframes_haw2 = pd.concat(dataframes_haw.values(), ignore_index=True)
 dataframes_ak2 = pd.concat(dataframes_ak.values(), ignore_index=True)
-
+#combine all dataframes
 dfs=[dataframes_east2,dataframes_west2,dataframes_gulf2,dataframes_haw2,dataframes_ak2]
 ioos_chl = pd.concat(dfs).reset_index(drop=True) #concatinate them all together 
 
 ioos_chl=ioos_chl[['date', 'lat', 'lon', 'chl', 'depth','source','Dataset ID','Institution','url', 'experiment','t_flag', 'diff_time','d_flag', 'decision']]
 ioos_chl.loc[ioos_chl['decision'] != 0, 'decision'] = 1 #because we took the average, as long as the decision != 0, make 1 
 
-ioos_chl['date'] = pd.to_datetime(ioos_chl['date'])
+ioos_chl['date'] = pd.to_datetime(ioos_chl['date']) #ensure datetime is correct format
 ioos_chl = ioos_chl.loc[ioos_chl['date'] > '2000-01-01'] #only want dates post 2000 for this algorithm 
 #remove any negative chl values
 ioos_chl=ioos_chl[(ioos_chl['chl']>0)]
@@ -183,7 +176,7 @@ IQR = Q3 - Q1
 upper_bound = Q3 + 1.5 * IQR
 ioos_chl2 = ioos_chl[ioos_chl['chl'] <= upper_bound] #only keep chl data below the upper bound
 ioos_chl2['HPLC'] = 1 #there's no definitive way of distinguishing between hplc, so assume no
-ioos_chl2['triplicate'] = 1 #since i'm reducing to shallow, 1 day average, triplicate flag = 1 (no triplicate)
+ioos_chl2['triplicate'] = 1 #since reducing to shallow, 1 day average, triplicate flag = 1 (no triplicate)
 
 #pivers-island-coastal-observa and mlml_monterey have no lat and lon, so go into errdap and populate manually
 ioos_chl2.loc[ioos_chl2['Dataset ID'] == 'pivers-island-coastal-observa', ['lat', 'lon']] = [34.7181, -76.6707]
@@ -191,35 +184,4 @@ ioos_chl2.loc[ioos_chl2['Dataset ID'] == 'mlml_monterey', ['lat', 'lon']] = [36.
 
 
 ioos_chl2.to_excel('ioos_chl_qc2.xlsx', index = False)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
