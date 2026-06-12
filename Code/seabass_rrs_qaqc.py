@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Created on Wed Jan 14 09:33:40 2026
-QA/QC for all AOP data
+RRS products from SEABASS
 
 NOTE: data gathered with these entries on the seabass website:
-    Description: Import AOP data from seabass
+    Description: Import AOP data products from seabass
     boudries for east coast: 47.11N - 23.87S  -83.67W - -69.26E
     boundries for westcoast 53N 19S, -131W -111E
     boundries for gulf of mexico: 31N - 18S  -100W - -79.5E 
@@ -14,20 +14,11 @@ NOTE: data gathered with these entries on the seabass website:
 """
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
-import cartopy
-import cartopy.feature as cfeature
-from cartopy.mpl.gridliner import LONGITUDE_FORMATTER, LATITUDE_FORMATTER
 import geopandas as gpd
 from datetime import datetime
 import os
 import datetime as dt
 import SB_support as sb 
-import warnings
-warnings.filterwarnings('ignore', category=pd.errors.SettingWithCopyWarning)
-warnings.filterwarnings('ignore', category=FutureWarning)
-warnings.filterwarnings('ignore', category=DeprecationWarning)
-warnings.filterwarnings('ignore', category=RuntimeWarning)
 
 '''
 Since seabass organizes their raw data in a unique way, this data concatination section is also unique.
@@ -35,7 +26,7 @@ Since seabass organizes their raw data in a unique way, this data concatination 
     a. the variable 'path_to_folder' needs to be manually changed for each 'requested files' you have.
     b. once 'dfs_to_concat' is run, you need to save that as a unique id before running the next 'requested files'. in this case I saved them as the number of regional data folders i have (3 folders for east coast for example)
     c. once all 'requested files' are run and saved as unique entries, concat them all together and save as csv to be inported in step 2. 
-2. raw dataframes to qz/qc'd dataframe with triplicate flags
+2. standardize into long format
 '''
 def standardize_rrs_data(df):
     """
@@ -56,7 +47,7 @@ def standardize_rrs_data(df):
     # "Melt" the data: unpivot the wide columns into rows
     df_melted = df_wide_subset.melt(id_vars=id_vars, value_vars=wide_cols, var_name='raw_wavelength', value_name='rrs')
     df_melted = df_melted.dropna(subset=['rrs'])
-    #clean the wavelength column: 'rrs340' -> 340 by emove the 'rrs' string and convert the remainder to an integer (or float)
+    #clean the wavelength column: 'rrs340' -> 340 by remove the 'rrs' string and convert the remainder to an integer (or float)
     df_melted['raw_wavelength'] = df_melted['raw_wavelength'].str.replace('rrs', '')
     df_melted['wavelength'] = pd.to_numeric(df_melted['raw_wavelength'])
     df_melted = df_melted.drop(columns=['raw_wavelength'])
@@ -64,12 +55,12 @@ def standardize_rrs_data(df):
     final_df = pd.concat([df_long_existing, df_melted], ignore_index=True)
     return final_df
 
-#step 1.a, turn raw .sb files in 'requested files' into dataframes per affiliation folder in 'requested files'
+# turn raw .sb files in 'requested files' into dataframes per affiliation folder in 'requested files'
 def get_files(dir): #def to gather name of all .sb files in a folder 
     file_list = []
     for root, _, files in os.walk(dir): #here, dir would be the path to the requested_files
         for file in files:
-            if file.endswith(".sb"):
+            if file.endswith(".sb"): #gather all .sb files from folder
                 file_list.append(os.path.join(root, file))
     return file_list
 
@@ -83,13 +74,14 @@ def get_folder_names(folder_path):
     if os.path.isdir(item_path):
       folder_names.append(item)
   return folder_names
+
 #there can be thousands of columns to append in some of these .sb files. so create a selected_columns variable that will only append the needed columns to include 
 selected_columns =['lat','lon','year','month','day','hour','minute','second','time','date','datetime','depth','station','wavelength']
-contain='rrs'
+contain='rrs' #we'll also need to detect any columns that have rrs in them in any form 
 
-#alaska1, east 1,2,3,4,5,6,7,8, gulf, haw, west1
-path_to_folder = r'C:\Users\gianna.milton\Documents\Python\SeaBass\data\SB_reflectance\west coast\requested_files_2\requested_files' #NOTE: there are usually multiple requested_files, this is where you would manually loop thru them
-all_folders = get_folder_names(path_to_folder)
+#change path_to_folder depending on how many files were downloaded from seabass
+path_to_folder = r'west coast\requested_files_2\requested_files' #NOTE: there are usually multiple requested_files, this is where you would manually loop thru them
+all_folders = get_folder_names(path_to_folder) #gather all files in that folder 
 
 for folders in range(len(all_folders)): #for each affiliation folder in all_folders
     f_list1 =   path_to_folder +'\\'+str(all_folders[folders]) #create path to that specific folder 
@@ -101,7 +93,7 @@ for folders in range(len(all_folders)): #for each affiliation folder in all_fold
         data2 = data1.data #append the data 
         df = pd.DataFrame.from_dict(data2, orient='index').T #turn data into dataframe
         dt = None  # initialize datetime variable
-        #Detect the datetime columns in the dataframe and create single datetime column 
+        #Detect the datetime columns in the dataframe and create single datetime column by pulling datetime aspects together 
         if all(col in df.columns for col in ['year', 'month', 'day', 'hour', 'minute', 'second']):
             dt = pd.to_datetime(df[['year', 'month', 'day', 'hour', 'minute', 'second']]) #if all 6 time values, create datetime
         elif all(col in df.columns for col in ['year', 'month', 'day', 'hour', 'minute']):
@@ -135,8 +127,8 @@ for folders in range(len(all_folders)): #for each affiliation folder in all_fold
         list_columns = [item for item in list_columns if ')' not in item]
         
         if list_columns: #if the dataframe has rrs in them 
-            all_columns = selected_columns+list_columns
-            columns_to_keep = [col for col in df.columns if col in all_columns or col == 'datetime']
+            all_columns = selected_columns+list_columns #add the rrs columns to the selected_columns to have a list of columns we want to keep
+            columns_to_keep = [col for col in df.columns if col in all_columns or col == 'datetime'] #retain columns
             df_filtered = df[columns_to_keep]
             header = pd.DataFrame.from_dict(data1.headers, orient='index').T #create header from dictionary and repeat it to match dataset
             header_repeated = pd.concat([header] * len(df_filtered), ignore_index=True)
@@ -147,17 +139,18 @@ for folders in range(len(all_folders)): #for each affiliation folder in all_fold
             
         #else:#if no rrs, (if there are only the other aop's there, not rrs) then skip 
     if not dfs: #if dfs empty, 
-        globals()[str(all_folders[folders])] = pd.DataFrame()
+        globals()[str(all_folders[folders])] = pd.DataFrame() #then just make that dataset an empty dataframe since it has no columns we need
     else:
-        globals()[str(all_folders[folders])] = pd.concat(dfs, ignore_index=True)
- 
+        globals()[str(all_folders[folders])] = pd.concat(dfs, ignore_index=True) #if there is a dataframe, then concat all the files into single dataframe
+
+#if dataframe has no datetime, then append from metadata 
 for names in all_folders:
     (globals()[names])['time_flag']='no' #create a flag stating if datetime populated from metadata, initiate as no 
     if 'datetime' not in (globals()[names]).columns: #if the dataframe does not have datetime column, create one
         (globals()[names])['datetime']=pd.NaT
     for idx in (globals()[names]).index: #loop through each row 
         try:
-            if pd.isna((globals()[names]).at[idx, 'datetime']) and (globals()[names]).at[idx, 'start_date'] == (globals()[names]).at[idx, 'end_date']: 
+            if pd.isna((globals()[names]).at[idx, 'datetime']) and (globals()[names]).at[idx, 'start_date'] == (globals()[names]).at[idx, 'end_date']: #first, make sure the start_date and end_date equal 
                 #sometimes, start_date and end_date are concerning the start and end of the cruise/project, not that specific data recording. so only enter if loop if start_date = end_date
                 #extract strings
                 date_str = str((globals()[names]).at[idx, 'end_date'])  # e.g. "20240520"
@@ -184,7 +177,7 @@ for names in all_folders:
         (globals()[names])['lat']=pd.NA
         (globals()[names])['lon']=pd.NA
     for idx in (globals()[names]).index: #for each row
-        if pd.isna((globals()[names]).at[idx, 'lat']) and (globals()[names]).at[idx, 'north_latitude'] ==(globals()[names]).at[idx, 'south_latitude']:
+        if pd.isna((globals()[names]).at[idx, 'lat']) and (globals()[names]).at[idx, 'north_latitude'] ==(globals()[names]).at[idx, 'south_latitude']: #first, make sure north and south latitude equal
             #sometimes, north_lat and south_lat show the total boundry of the project rather than specific point. so only append if they equal each other
             (globals()[names]).at[idx, 'lat'] = float((globals()[names]).north_latitude[idx][:-5]) #pull latitude value out of north_lat
             (globals()[names]).at[idx, 'coord_flag'] = 'yes' #turn flag to yes
@@ -192,9 +185,10 @@ for names in all_folders:
             (globals()[names]).at[idx, 'lon'] = float((globals()[names]).west_longitude[idx][:-5])
             (globals()[names]).at[idx, 'coord_flag'] = 'yes'   
 
-dfs_to_concat = [(globals()[names]) for names in all_folders] #concatinate the dataframes in all_folders
+#concatinate all files into single dataframe
+dfs_to_concat = [(globals()[names]) for names in all_folders] #concatinate all the dataframes in all_folders into single dataframe
 
-#east coast
+#next, save dfs_to_concat as unique variable and then move back to line 68, change the folder path, and repeat for all folders. Below are steps to take once all folders are loaded in. 
 east1 = pd.concat(dfs_to_concat, ignore_index=True) #save dfs_to_concat to single dataframe. STOP HERE and repeat if you have multiple requested files
 east2 = pd.concat(dfs_to_concat, ignore_index=True)
 east3 = pd.concat(dfs_to_concat, ignore_index=True)
@@ -203,16 +197,17 @@ east5 = pd.concat(dfs_to_concat, ignore_index=True)
 east6 = pd.concat(dfs_to_concat, ignore_index=True)
 east7 = pd.concat(dfs_to_concat, ignore_index=True)
 east8 = pd.concat(dfs_to_concat, ignore_index=True)
+#concat all files into single dataset
 east_coast = pd.concat([east1,east2,east3,east4,east5,east6,east7,east8])
 list_columns=list(east_coast.columns[east_coast.columns.str.contains('rrs')]) #gather all columns that have rrs in them (rrs and any rrs500, ect)
 east_coast=east_coast[['datetime', 'lon', 'lat', 'identifier_product_doi', 'affiliations', 'investigators', 'contact', 'experiment', 'cruise',
-        'data_type',  'water_depth', 'measurement_depth', 'station', 'time_flag', 'coord_flag', 'wavelength']+list_columns]
-east_coast = standardize_rrs_data(east_coast)
+        'data_type',  'water_depth', 'measurement_depth', 'station', 'time_flag', 'coord_flag', 'wavelength']+list_columns] #only keep relevant columns plus any rrs columns
+east_coast = standardize_rrs_data(east_coast) #standardize rrs data into long format
 east_coast['lat'] = pd.to_numeric(east_coast['lat'], errors='coerce')
 east_coast['lon'] = pd.to_numeric(east_coast['lon'], errors='coerce')
 
 #alaska
-alaska= pd.concat(dfs_to_concat, ignore_index=True) #20443 x 61
+alaska= pd.concat(dfs_to_concat, ignore_index=True)
 list_columns=list(alaska.columns[alaska.columns.str.contains('rrs')]) #gather all columns that have rrs in them (rrs and any rrs500, ect)
 alaska=alaska[['datetime', 'lon', 'lat', 'identifier_product_doi', 'affiliations', 'investigators', 'contact', 'experiment', 'cruise',
         'data_type',  'water_depth', 'measurement_depth', 'station','depth', 'time_flag', 'coord_flag', 'wavelength']+list_columns]
@@ -243,7 +238,7 @@ west_coast=west_coast[['datetime', 'lon', 'lat', 'identifier_product_doi', 'affi
         'data_type',  'water_depth', 'measurement_depth', 'station', 'time_flag', 'coord_flag', 'depth','wavelength']+list_columns]
 west_coast = standardize_rrs_data(west_coast)
 
-
+#subset datasets into study region shapefile
 shp = gpd.read_file(r'C:\Users\gianna.milton\Documents\Python\Shapefiles\combined_coastline.shp')
 gdf = gpd.GeoDataFrame(west_coast, geometry=gpd.points_from_xy(west_coast.lon, west_coast.lat), crs="EPSG:4269")
 gdf = gdf.to_crs(shp.crs)
@@ -252,36 +247,12 @@ columns_to_drop = ['geometry', 'index_right', 'merge_id']
 west_coast = west_coast.drop(columns=columns_to_drop)
 west_coast= west_coast.reset_index(drop=True)
 
-fig=plt.figure(figsize=(12, 12))
-axs1=fig.add_subplot(1,1,1,projection= cartopy.crs.PlateCarree())
-axs1.add_feature(cfeature.LAND)
-axs1.add_feature(cfeature.OCEAN)
-axs1.add_feature(cfeature.BORDERS)
-im=axs1.scatter(west_coast.lon,west_coast.lat,s=10)
-gl=axs1.gridlines(linewidth=0.2,color='grey',alpha=0.5,linestyle='-',
-                draw_labels=True, x_inline= False,y_inline=False)
-gl.xformatter=LONGITUDE_FORMATTER
-gl.yformatter=LATITUDE_FORMATTER
-gl.top_labels = False    # Disable top labels
-gl.right_labels = False  # Disable right labels
-
-#east coast
+#export raw seabass data and save to local files
 east_coast.to_excel('raw_east_SB_rrs.xlsx', index = False)
-  #all files from seabass products with chl, only qa is lat,lon, and datetime creation, shapefile, and column limiting
-
-#alaska
 alaska.to_excel('raw_alaska_SB_rrs.xlsx', index = False)
-
 gom.to_excel('raw_gom_SB_rr.xlsx', index = False)
-
-#below is actually hawaii fyi
 haw.to_excel('raw_haw_SB_rrs.xlsx', index = False)
-
-#westcoast
 west_coast.to_excel('raw_west_SB_rrs.xlsx', index = False)
-
-
-
 
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #step 2. now that all the raw sb files are concatinated and seperated, load them all in and create single dataframe
@@ -293,6 +264,7 @@ gulf = pd.read_excel('raw_gom_SB_rr.xlsx')
 haw = pd.read_excel('raw_haw_SB_rrs.xlsx') 
 alas = pd.read_excel('raw_alaska_SB_rrs.xlsx') 
 
+#concat into single dataframe
 rrs_all = pd.concat([east,west,gulf,haw,alas])
  
 #first, want to take out if the wavelength is a decimal (i.e only want integers )
@@ -302,11 +274,11 @@ rrs_all = rrs_all[dec_mask]
 rrs_all['datetime'] = pd.to_datetime(rrs_all['datetime']) #ensure datetime is in correct format
 rrs_all = rrs_all[rrs_all['datetime'] >= '2000-01-01'] #only want data from 2000 on for this algorithm
 
-#add in measurment depth where depth is nan 
+#if no depth appended, then append from the metadata columns
 rrs_all['depth'] = np.where((rrs_all['depth'].isna()) & (rrs_all['measurement_depth']!=-999), rrs_all['measurement_depth'], rrs_all['depth'])
 rrs_all['depth'] = np.where((rrs_all['depth'].isna()) & (rrs_all['data_type']=='above_water'), 0, rrs_all['depth']) #if the data type is above water, make depth = 0
 
-rrs_all = rrs_all.drop_duplicates()#558401 ->534939
+rrs_all = rrs_all.drop_duplicates()
 
 rrs_all.to_excel('SB_rrs_na.xlsx', index = False) #sb reflectence data, without any repeats
 

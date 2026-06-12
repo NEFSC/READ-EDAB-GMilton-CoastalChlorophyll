@@ -1,25 +1,15 @@
 # -*- coding: utf-8 -*-
 """
 Created on Mon Mar  2 10:56:27 2026
-seabass data from 2025 from ivona
+seabass data from 2025 unpublished as of March, 2026
 @author: gianna.milton
 """
-import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
-import cartopy
-import cartopy.feature as cfeature
-from cartopy.mpl.gridliner import LONGITUDE_FORMATTER, LATITUDE_FORMATTER
 import geopandas as gpd
 from datetime import datetime
 import os
 import datetime as dt
 import SB_support as sb 
-import warnings
-warnings.filterwarnings('ignore', category=pd.errors.SettingWithCopyWarning)
-warnings.filterwarnings('ignore', category=FutureWarning)
-warnings.filterwarnings('ignore', category=DeprecationWarning)
-warnings.filterwarnings('ignore', category=RuntimeWarning)
 from SeaBass_flags2 import sb_flags #looser flags
 
 #step 1.a, turn raw .sb files in 'requested files' into dataframes per affiliation folder in 'requested files'
@@ -27,18 +17,19 @@ def get_files(dir): #def to gather name of all .sb files in a folder
     file_list = []
     for root, _, files in os.walk(dir): #here, dir would be the path to the requested_files
         for file in files:
-            if file.endswith(".env"):
+            if file.endswith(".env"): #pull all files that end with .env
                 file_list.append(os.path.join(root, file))
     return file_list
 
-f_list = get_files(r'C:\Users\gianna.milton\Documents\Python\SeaBass\data\2025_PACE_val_data\ENV_BGC_files') #gather all .sb files in f_list1
+f_list = get_files(r'data\2025_PACE_val_data\ENV_BGC_files') #gather all .env files in f_list1
 dfs = []  # list to collect all processed DataFrames
-for file in f_list: #for each .sb file
-    data1 = sb.readSB(filename=file, no_warn=True) #read it using readSB from the seabass website
-    data2 = data1.data #append the data 
-    df = pd.DataFrame.from_dict(data2, orient='index').T #turn data into dataframe
+for file in f_list: #for each .env file
+    data1 = sb.readSB(filename=file, no_warn=True)  #read it using readSB from the seabass website: https://seabass.gsfc.nasa.gov/wiki/Getting_Started -> Python reader (https://seabass.gsfc.nasa.gov/wiki/readsb_python)
+    data2 = data1.data #append the data values
+    df = pd.DataFrame.from_dict(data2, orient='index').T #turn data into dataframe with columns as variable names
+    
     dt = None  # initialize datetime variable
-    #Detect the datetime columns in the dataframe and create single datetime column 
+    #Detect the datetime columns in the dataframe and create single datetime column from pulling datetime elements 
     if all(col in df.columns for col in ['year', 'month', 'day', 'hour', 'minute', 'second']):
         dt = pd.to_datetime(df[['year', 'month', 'day', 'hour', 'minute', 'second']]) #if all 6 time values, create datetime
     elif all(col in df.columns for col in ['year', 'month', 'day', 'hour', 'minute']):
@@ -123,10 +114,12 @@ for idx in sb_2025.index: #for each row
 sb_2025['HPLC'] = 1 #assume not hplc unless i tell it otherwise
 if 'chl_a' in sb_2025.columns:
     sb_2025.loc[sb_2025['chl_a'].notna(), 'HPLC'] = 0 #if chl_a in columns and is not empty, mark as hplc
+#NOTE: we don't need to do as much QA/QC regarding the HPLC flag as we did in seabass_chl since data gathered from 2025 is more structed and follow column nameing standards 
 
 sb_2025=sb_2025[['datetime', 'lat', 'lon', 'chl', 'station', 'affiliations', 'investigators',  'experiment', 'cruise', 'data_type',
         'depth',  'time_flag', 'coord_flag',   'chl_a', 'data_file_name','HPLC']]
 
+#subset to study region shapefile 
 shp = gpd.read_file(r'C:\Users\gianna.milton\Documents\Python\Shapefiles\combined_coastline.shp')
 gdf = gpd.GeoDataFrame(sb_2025, geometry=gpd.points_from_xy(sb_2025.lon, sb_2025.lat), crs="EPSG:4269")
 gdf = gdf.to_crs(shp.crs)
@@ -135,22 +128,7 @@ columns_to_drop = ['geometry', 'index_right', 'merge_id']
 sb_2025 = sb_2025.drop(columns=columns_to_drop)
 sb_2025= sb_2025.reset_index(drop=True)
 
-fig=plt.figure(figsize=(12, 12))
-axs1=fig.add_subplot(1,1,1,projection= cartopy.crs.PlateCarree())
-axs1.add_feature(cfeature.LAND)
-axs1.add_feature(cfeature.OCEAN)
-axs1.add_feature(cfeature.BORDERS)
-im=axs1.scatter(sb_2025.lon,sb_2025.lat,s=10)
-gl=axs1.gridlines(linewidth=0.2,color='grey',alpha=0.5,linestyle='-',
-                draw_labels=True, x_inline= False,y_inline=False)
-gl.xformatter=LONGITUDE_FORMATTER
-gl.yformatter=LATITUDE_FORMATTER
-gl.top_labels = False    # Disable top labels
-gl.right_labels = False  # Disable right labels
-axs1.set_xlim(-180,-65)
-axs1.set_ylim(17,max(sb_2025.lat)+2)
-cb=fig.colorbar(im,ax=axs1,orientation='horizontal')
-
+#triplicate
 counts_series = sb_2025[['depth','datetime','lat','lon']].value_counts() #count how many unique datetime, lat, and lons there are
 counts_df = counts_series.reset_index(name='freq_uniq')
 sb_2025 = pd.merge(sb_2025, counts_df, on=['depth','datetime','lat','lon'], how='left') #add frequency column to original dataframe
@@ -171,33 +149,9 @@ sb_2025 = sb_2025[sb_2025['depth'] <=150].reset_index(drop=True)
 sb_2025=sb_2025[['datetime', 'lat', 'lon', 'chl', 'chl_a','depth','experiment', 'data_type','station', 'affiliations','investigators', 
            'cruise',  'time_flag','coord_flag', 'data_file_name', 'HPLC', 'triplicate']]
 
+#run data_type_flag code on seabass data to append flags
 sb_2025 = sb_flags(sb_2025)
 
 sb_2025.to_excel('SB_chl_2025.xlsx', index = False) #sb data with HPLC and Triplicate flags, without any repeats
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
