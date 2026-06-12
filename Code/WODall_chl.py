@@ -25,14 +25,10 @@ https://www.ncei.noaa.gov/access/world-ocean-database/wod-codes.html for specifi
 import numpy as np
 import pandas
 import pandas as pd
-import warnings
 import matplotlib.pyplot as plt
 import cartopy
 import cartopy.feature as cfeature
 from cartopy.mpl.gridliner import LONGITUDE_FORMATTER, LATITUDE_FORMATTER
-import geopandas as gpd
-warnings.filterwarnings('ignore', category=pd.errors.SettingWithCopyWarning)
-warnings.filterwarnings('ignore', category=FutureWarning)
 import geopandas as gpd
 from datetime import timedelta
 
@@ -40,16 +36,16 @@ def measure(lat1, lon1, lat2, lon2): #function to convert lat/lon to km
     R = 6378.137 #Radius of earth in KM
     dLat = lat2 * np.pi / 180 - lat1 * np.pi / 180
     dLon = lon2 * np.pi / 180 - lon1 * np.pi / 180
+    #use haversine distance to calculate distance between lats and lons 
     a = np.sin(dLat/2) * np.sin(dLat/2) +np.cos(lat1 * np.pi/ 180) * np.cos(lat2 * np.pi / 180) *np.sin(dLon/2) * np.sin(dLon/2)
     c = 2 * np.arctan2(np.sqrt(a), np.sqrt(1-a))
     d = R * c;
     return d * 1000 #; // meters
 
-#start def loop for reading and organizing raw WOD files
+#start definition for reading and organizing raw WOD files
 def wod_df(excel_file):
-    
     '''
-    arg: path to the raw excelfile 
+    arg: path to the raw excelfile from WOD
     return: dataframe with unique columns for each variable/ metadata 
     '''
     WOD_raw = pd.read_excel(excel_file, header=None) #load in that excel file 
@@ -70,8 +66,7 @@ def wod_df(excel_file):
                 cast_blocks.append((start_idx, idx)) #append this index as the end
                 start_idx = None
                 
-                
-    #now that we have the indeces to distinguish each cast block, process the casts individually 
+    #now that we have the indeces to distinguish each cast block, process the casts individually for the file 
     all_data = []
     for start, end in cast_blocks: #for each pair of index vales in cast_block
         cruise_df = WOD_raw.iloc[start:end+1].reset_index(drop=True) #loacte those indexes of that block and make a dataframe
@@ -87,7 +82,6 @@ def wod_df(excel_file):
                 continue
             if "END OF VARIABLES SECTION" in row_values[0]: #if at the end, break and go back to for loop
                 break
-    
     
             if not variable_data_started: #if we're in the metadata section
                 key = row_values[0].strip() #seperate the row into sections
@@ -116,11 +110,11 @@ def wod_df(excel_file):
     df = pd.DataFrame(all_data)
     #create datetime
     df["datetime"] = pd.to_datetime(df[["Year", "Month", "Day"]]) + df["Time"].apply(lambda t: timedelta(hours=float(t)) if pd.notnull(t) else pd.NaT)
-    return df
+    return df #return the file but instead of dataframe casts instead in formated, standardized dataset 
 
 #run first raw dataset
-wod_1 = wod_df(r'C:\Users\gianna.milton\Documents\Python\WOD\ocldb1748619702.620293.OSD.csv\ocldb1748619702.620293.OSD.xlsx')
-wod_1.columns = wod_1.columns.str.lower()
+wod_1 = wod_df(r'WOD\ocldb1748619702.620293.OSD.csv\ocldb1748619702.620293.OSD.xlsx')
+wod_1.columns = wod_1.columns.str.lower() #standardize column names
 wod_1=wod_1[wod_1['project'] != '33'] #take out CalCOFI values since appended elsewhere
 wod_1=wod_1[wod_1['project'] != '301'] #take out HOTS values since appended elsewhere
 
@@ -162,7 +156,7 @@ wod_1.loc[wod_1['freq_uniq'] == 3, 'triplicate'] = 0 #if there was a unique date
 wod_1.loc[(wod_1['freq_uniq'] == 1) &(wod_1['freq_hour'] == 3), 'triplicate'] =0 #if 1 unique datetime and 3 unique date_hours, assume triplicate
 
 #second raw dataset
-wod_2 = wod_df(r'C:\Users\gianna.milton\Documents\Python\WOD\WOD_round2_raw\ocldb1761586645.2754592.OSD.xlsx')
+wod_2 = wod_df(r'WOD\WOD_round2_raw\ocldb1761586645.2754592.OSD.xlsx')
 wod_2.columns = wod_2.columns.str.lower()
 wod_2=wod_2[wod_2['project'] != '33'] #take out CalCOFI since appended elsewhere
 wod_2=wod_2[wod_2['project'] != '301'] #take out HOTS since appended elsewhere
@@ -195,9 +189,9 @@ wod_2['triplicate'] = 1 #assume bad unless otherwise said
 wod_2.loc[wod_2['freq_uniq'] == 3, 'triplicate'] = 0 #if there was a unique datetime, lat, and lon that happened 3 times, triplicate
 wod_2.loc[(wod_2['freq_uniq'] == 1) &(wod_2['freq_hour'] == 3), 'triplicate'] = 0 #if 1 unique datetime recorded and only 3 for datehour, assume triplicate 
 
-#don't run ocldb1761586645.2754592.PFL.xlsx since it's only invivo 
+#don't run PFL files since it's only invivo 
 
-wod_3 = wod_df(r'C:\Users\gianna.milton\Documents\Python\WOD\WOD_round2_raw\ocldb1761586645.2754592.CTD.xlsx')
+wod_3 = wod_df(r'WOD\WOD_round2_raw\ocldb1761586645.2754592.CTD.xlsx')
 wod_3.columns = wod_3.columns.str.lower()
 wod_3=wod_3[wod_3['project'] != '301'] #take out HOTS 
 wod_3=wod_3[wod_3['project'] != '637'] #take out ECOMON since running it later
@@ -213,6 +207,7 @@ wod_3.lat= wod_3.lat.astype(float)
 wod_3.chl=wod_3.chl.astype(float)
 
 wod_3=wod_3[[ 'datetime','lat', 'lon','chl','depth','cast','originators cruise id', 'project','institute','instrument', 'investigator', 'HPLC','accession number']]
+#triplicate
 counts_series = wod_3[['cast','depth','datetime','lat','lon']].value_counts()
 counts_df = counts_series.reset_index(name='freq_uniq')
 wod_3 = pd.merge(wod_3, counts_df, on=['cast','depth','datetime','lat','lon'], how='left') 
@@ -226,20 +221,19 @@ wod_3.loc[wod_3['freq_uniq'] == 3, 'triplicate'] = 0
 wod_3.loc[(wod_3['freq_uniq'] == 1) &(wod_3['freq_hour'] == 3), 'triplicate'] =0 
 
 #WOD_4
-wod_4 = wod_df(r'C:\Users\gianna.milton\Documents\Python\WOD\WOD_round2_raw\ocldb1761586645.2754592.CTD2.xlsx')
+wod_4 = wod_df(r'WOD\WOD_round2_raw\ocldb1761586645.2754592.CTD2.xlsx')
 wod_4.columns = wod_4.columns.str.lower()
-
 wod_4=wod_4[wod_4['project'] != '637'] #take out ECOMON
 
 #same projects as last file, so no HPLC
-wod_4['HPLC']=1 #no hplc here i think
+wod_4['HPLC']=1 #no hplc here
 
 wod_4=wod_4.rename(columns={'depth (m)':'depth','longitude':'lon','latitude':'lat','chlorophyll (ug/l)':'chl'})
 wod_4=wod_4.loc[wod_4['depth']<=150].reset_index(drop=True) 
 wod_4.lon= wod_4.lon.astype(float)
 wod_4.lat= wod_4.lat.astype(float)
 wod_4.chl=wod_4.chl.astype(float)
-
+#triplicate flags
 wod_4=wod_4[[ 'datetime','lat', 'lon','chl','depth','cast','originators cruise id', 'project','institute','instrument', 'investigator', 'HPLC','accession number']]
 counts_series = wod_4[['cast','depth','datetime','lat','lon']].value_counts()
 counts_df = counts_series.reset_index(name='freq_uniq')
@@ -254,7 +248,7 @@ wod_4.loc[wod_4['freq_uniq'] == 3, 'triplicate'] = 0
 wod_4.loc[(wod_4['freq_uniq'] == 1) &(wod_4['freq_hour'] == 3), 'triplicate'] = 0 
 
 #ECOMON
-wod_ecomon = wod_df(r'C:\Users\gianna.milton\Documents\Python\WOD\ocldb1761249916.1960703.CTD.csv\ocldb1761249916.1960703.CTD.xlsx')
+wod_ecomon = wod_df(r'WOD\ocldb1761249916.1960703.CTD.csv\ocldb1761249916.1960703.CTD.xlsx')
 wod_ecomon.columns = wod_ecomon.columns.str.lower()
 
 wod_ecomon['HPLC']=1 
@@ -263,7 +257,7 @@ wod_ecomon=wod_ecomon.loc[wod_ecomon['depth']<=150].reset_index(drop=True)
 wod_ecomon.lon= wod_ecomon.lon.astype(float)
 wod_ecomon.lat= wod_ecomon.lat.astype(float)
 wod_ecomon.chl=wod_ecomon.chl.astype(float)
-
+#triplicate 
 wod_ecomon=wod_ecomon[[ 'datetime','lat', 'lon','chl','depth','cast','originators cruise id', 'project','institute', 'HPLC','accession number']]
 counts_series = wod_ecomon[['cast','depth','datetime','lat','lon']].value_counts()
 counts_df = counts_series.reset_index(name='freq_uniq')
@@ -280,30 +274,29 @@ wod_ecomon.loc[(wod_ecomon['freq_uniq'] == 1) &(wod_ecomon['freq_hour'] == 3), '
 #concatinate into 1 dataframe
 dfs = [wod_1,wod_2,wod_3,wod_4,wod_ecomon]
 wod_all = pd.concat(dfs)
-
+#standardize dataset column names 
 wod_all = wod_all.rename(columns={'originators cruise id':'cruise','project':'experiment','institute':'affiliations','investigator':'investigators'})
 
-#want to remove super high resolution data points (if the change in depth is too fine scale)
-
-#This dataset doesn't have as much info as seabass does. So we can do a  change in datetime, and a change in depth. 
-
 ############################################################################################################################################
+
+#want to remove super high resolution data points (if the change in depth is too fine scale, remove)
+#This dataset doesn't have as much metadata info as seabass does. So we dictate data_type_flag from change in datetime and a change in depth. 
 wod_all['t_flag']=0 #initialize temporal resolution flag, 0=good, 1= bad (less than 1hour),2=flag (time is 0 i.e repeated)
 wod_all['diff_time'] = 0 #column to populate with datatypes as values for organization
 wod_all['d_flag'] = 0 #initialize depth flag, 0=good, 1=bad (less than 5m), 2=flag
 wod_all['decision'] = 2 #ultimate decision flag inidcating whether to keep or toss data point (0=good, 1=bad,2=flag)
 
 # time 
-wod_all['diff_time']= wod_all['datetime'].diff()
-wod_all.t_flag=np.where(wod_all['diff_time']< pd.to_timedelta('10 minutes'), 1, wod_all.t_flag) #if delta t is less than 1 hour, flag as bad
+wod_all['diff_time']= wod_all['datetime'].diff() #calculate change in datetime 
+wod_all.t_flag=np.where(wod_all['diff_time']< pd.to_timedelta('10 minutes'), 1, wod_all.t_flag) #if delta t is 10 mins, flag as bad
 wod_all.t_flag=np.where(wod_all['diff_time']== pd.to_timedelta(0), 2, wod_all.t_flag) #if 0, then just a repeat so not necessarily bad
 
 #depth
-
 depth_diff =abs(wod_all.depth.diff())#calculate absolute change in depth
-wod_all.loc[wod_all[depth_diff<1].index,'d_flag']=1 #if the change in depth is not large enough
+wod_all.loc[wod_all[depth_diff<1].index,'d_flag']=1 #if the change in depth is less than 1 meter, flag as bad
 wod_all.loc[wod_all[depth_diff==0].index,'d_flag']=2 #if the change in depth doesn't move, set as 2, diff_time and num_s will take care of it
 
+#data_type_flag decision tree 
 wod_all.decision[(wod_all['t_flag'] ==0) & (wod_all['d_flag']==0)] = 0 #if both good, then good
 wod_all.decision[(wod_all['t_flag'] ==0) & (wod_all['d_flag']==1)] = 1 #if everything else is good but the depth is too short, flag as nad
 wod_all.decision[(wod_all['t_flag'] ==0) & (wod_all['d_flag']==2)] = 0 #if everything else is good and depth repeats, good
@@ -315,10 +308,11 @@ wod_all.decision[(wod_all['t_flag'] ==2) & (wod_all['d_flag']==1)] = 1
 wod_all.decision[(wod_all['t_flag'] ==2) & (wod_all['d_flag']==2)] = 1
 #remove depth flagged data sinve it's the most idicative in vivo flag
 wod_all=wod_all[wod_all['d_flag']!=1]
-
+#only keep relevant columns 
 wod_all=wod_all[['datetime', 'lat', 'lon', 'chl', 'depth', 'cast','cruise', 'experiment', 'affiliations', 'instrument',
        'investigators', 'HPLC', 'triplicate','accession number', 'decision']]
 
+#subset to shapefile study region
 shp = gpd.read_file(r'C:\Users\gianna.milton\Documents\Python\Shapefiles\combined_coastline.shp')
 gdf = gpd.GeoDataFrame(wod_all, geometry=gpd.points_from_xy(wod_all.lon, wod_all.lat), crs="EPSG:4269")
 gdf = gdf.to_crs(shp.crs)
@@ -327,21 +321,5 @@ columns_to_drop = ['geometry', 'index_right', 'merge_id']
 wod_all = wod_all.drop(columns=columns_to_drop)
 wod_all= wod_all.reset_index(drop=True)
 
-fig=plt.figure(figsize=(12, 12))
-axs1=fig.add_subplot(1,1,1,projection= cartopy.crs.PlateCarree())
-axs1.add_feature(cfeature.LAND)
-axs1.add_feature(cfeature.OCEAN)
-axs1.add_feature(cfeature.BORDERS)
-im=axs1.scatter(wod_all.lon,wod_all.lat,s=10)
-gl=axs1.gridlines(linewidth=0.2,color='grey',alpha=0.5,linestyle='-',
-                draw_labels=True, x_inline= False,y_inline=False)
-gl.xformatter=LONGITUDE_FORMATTER
-gl.yformatter=LATITUDE_FORMATTER
-gl.top_labels = False    # Disable top labels
-gl.right_labels = False  # Disable right labels
-cb=fig.colorbar(im,ax=axs1,orientation='horizontal')
-
-
 #save as xlsx 
 wod_all.to_excel('wod_chl_na.xlsx', index = False)
-
